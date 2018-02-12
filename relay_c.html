@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EagleMON-T</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="description" content="EagleMON-T">
+    <meta name="author" content="EagleMON">
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="spinner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="w3-content" style="max-width:1024px;min-width:350px">
+    <div class="cssload-thecube" data-bind="visible: !initialised()">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+    <div data-bind="visible: initialised" style="display: none">
+        <div class="w3-bar w3-blue">
+            <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
+            <div class="w3-dropdown-click w3-hide-small">
+                <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
+                <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
+                    <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+                    <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+                    <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
+                    <hr>
+                    <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
+                    <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
+                    <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
+                    <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+                    <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
+                </div>
+            </div>
+            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
+        </div>
+        <div id="small_menu" class="w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
+            <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
+            <br/>
+            <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+            <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+            <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
+            <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
+            <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
+            <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
+            <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+            <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
+            <br/>
+            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
+        </div>
+        <br/>
+        <div class="w3-row">
+            <div class="w3-quarter w3-container">
+                <div class="w3-card">
+                    <h4 class="w3-container w3-blue w3-center">Relay Ch. 0</h4>
+                    <form class="w3-container w3-white">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.R0N, disable: saveR0Fetching" />
+                        <br/>
+                        <input id="R0P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.R0P, checked: config.R0P">
+                        <label for="R0P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.R0P()?'Invers':'Normal')"></snap></label>
+                        <br/>
+                    </form>
+                    <br>
+                    <button data-bind="click: saveR0, text: (saveR0Fetching() ? 'Saving...' : (saveR0Success() ? 'Saved' : 'Save')), disable: saveR0Fetching" class="w3-button w3-block w3-green"></button>
+                </div>
+            </div>
+            <div class="w3-quarter w3-container">
+                <div class="w3-card">
+                    <h4 class="w3-container w3-blue w3-center">Relay Ch. 1</h4>
+                    <form class="w3-container w3-white">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.R1N, disable: saveR1Fetching" />
+                        <br/>
+                        <input id="R1P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.R1P, checked: config.R1P">
+                        <label for="R1P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.R1P()?'Invers':'Normal')"></snap></label>
+                        <br/>
+                    </form>
+                    <br>
+                    <button data-bind="click: saveR1, text: (saveR1Fetching() ? 'Saving...' : (saveR1Success() ? 'Saved' : 'Save')), disable: saveR1Fetching" class="w3-button w3-block w3-green"></button>
+                </div>
+            </div>
+            <div class="w3-quarter w3-container">
+                <div class="w3-card">
+                    <h4 class="w3-container w3-blue w3-center">Relay Ch. 2</h4>
+                    <form class="w3-container w3-white">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.R2N, disable: saveR2Fetching" />
+                        <br/>
+                        <input id="R2P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.R2P, checked: config.R2P">
+                        <label for="R2P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.R2P()?'Invers':'Normal')"></snap></label>
+                        <br/>
+                    </form>
+                    <br>
+                    <button data-bind="click: saveR2, text: (saveR2Fetching() ? 'Saving...' : (saveR2Success() ? 'Saved' : 'Save')), disable: saveR2Fetching" class="w3-button w3-block w3-green"></button>
+                </div>
+            </div>
+            <div class="w3-quarter w3-container">
+                <div class="w3-card">
+                    <h4 class="w3-container w3-blue w3-center">Relay Ch. 3</h4>
+                    <form class="w3-container w3-white">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.R3N, disable: saveR3Fetching" />
+                        <br/>
+                        <input id="R3P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.R3P, checked: config.R3P">
+                        <label for="R3P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.R3P()?'Invers':'Normal')"></snap></label>
+                        <br/>
+                    </form>
+                    <br>
+                    <button data-bind="click: saveR3, text: (saveR3Fetching() ? 'Saving...' : (saveR3Success() ? 'Saved' : 'Save')), disable: saveR3Fetching" class="w3-button w3-block w3-green"></button>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="w3-blue">
+            <div class="w3-center">
+                <snap data-bind="text: status.showTime()" class="w3-mobille">time</snap>
+                <snap data-bind="text: status.showDate()" class="w3-mobille">date</snap>
+            </div>
+        </div>
+        <div class="w3-bar w3-blue">
+            <div class="w3-center">Eagle<span class="w3-text-orange">MON</span></div>
+        </div>
+    </div>
+</body>
+<script src="lib.js" type="text/javascript"></script>
+<script src="config.js" type="text/javascript"></script>
+
+</html>

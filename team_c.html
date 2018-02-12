@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EagleMON-T</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="description" content="EagleMON-T">
+    <meta name="author" content="EagleMON">
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="spinner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="w3-content" style="max-width:1024px;min-width:350px">
+    <div class="cssload-thecube" data-bind="visible: !initialised()">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+    <div data-bind="visible: initialised" style="display: none">
+        <div class="w3-top" style="max-width:1024px;min-width:350px">
+            <div class="w3-blue w3-bar w3-hide-large w3-hide-medium">
+                <snap class="w3-bar-item w3-left w3-wide">Teamviewer</snap>
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
+            </div>
+            <div class="w3-blue w3-bar">
+                <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
+                <div class="w3-dropdown-click w3-hide-small">
+                    <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
+                    <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
+                        <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+                        <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+                        <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
+                        <hr>
+                        <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
+                        <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
+                        <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
+                        <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+                        <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
+                    </div>
+                </div>
+                <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+            </div>
+        </div>
+        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
+            <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
+            <br/>
+            <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+            <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+            <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
+            <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
+            <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
+            <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
+            <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+            <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
+            <br/>
+            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
+        </div>
+        <div class="w3-main w3-light-gray" style="height: 100%; margin-top:35px;margin-bottom:30px;">
+            <div class="w3-container w3-blue">
+                <span>Teamviewer Dashboard Report</span>
+            </div>
+            <br/>
+            <div class="w3-row">
+                <div class="w3-third w3-container">
+                    <div class="w3-card w3-white">
+                        <div class="w3-container w3-blue w3-center">Relay Outputs</div>
+                        <table class="w3-table w3-hoverable">
+                            <tr>
+                                <th>Digital Output</th>
+                                <th>State</th>
+                            </tr>
+                            <tbody data-bind="foreach: tv.DO">
+                                <tr>
+                                    <td>
+                                        <strong><snap data-bind="text: 'Ch. #'+$index()"></snap></strong>
+                                    </td>
+                                    <td>
+                                        <input class="w3-check" type="checkbox" data-bind="checked: $data[1]" />
+                                        <label><snap data-bind="text: $data[0], style: { color: $data[1] ? '#4CAF50' : '#f44336' }"></snap></label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="w3-third w3-container">
+                    <div class="w3-card w3-white">
+                        <div class="w3-container w3-blue w3-center">Digital Inputs</div>
+                        <table class="w3-table">
+                            <tr>
+                                <th>Digital Input</th>
+                                <th>State</th>
+                            </tr>
+                            <tbody data-bind="foreach: tv.DI">
+                                <tr>
+                                    <td>
+                                        <strong><snap data-bind="text: 'Ch. #'+$index()"></snap></strong>
+                                    </td>
+                                    <td>
+                                        <input class="w3-check" type="checkbox" data-bind="checked: $data[1]" />
+                                        <label><snap data-bind="text: $data[0], style: { color: $data[1] ? '#4CAF50' : '#f44336' }"></snap></label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="w3-third w3-container">
+                    <div class="w3-card w3-white">
+                        <div class="w3-container w3-blue w3-center">Analog Inputs</div>
+                        <table class="w3-table">
+                            <tr>
+                                <th>Analog Input</th>
+                                <th>State</th>
+                            </tr>
+                            <tbody data-bind="foreach: tv.AI">
+                                <tr>
+                                    <td>
+                                        <strong><snap data-bind="text: 'Ch. #'+$index()"></snap></strong>
+                                    </td>
+                                    <td>
+                                        <input class="w3-check" type="checkbox" data-bind="checked: $data[1]" />
+                                        <label><snap data-bind="text: $data[0], style: { color: $data[1] ? '#4CAF50' : '#f44336' }"></snap></label>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="w3-row">
+                <div class="w3-third w3-container">
+                    <label class="w3-text-blue">Interval (sec.)</label>
+                    <input input class="w3-input w3-border" type="number" placeholder="e.g. 5" data-bind="value: tv.Interval" />
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="w3-container w3-hide-small">
+                <button data-bind="click: saveTV, text: (saveTVFetching() ? 'Saving...' : (saveTVSuccess() ? 'Saved' : 'Save')), disable: saveTVFetching" class="w3-button w3-block w3-green"></button>
+            </div>
+            <br/>
+
+
+        </div>
+        <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
+            <!----------------------------------------------------------------------------------------->
+            <button data-bind="click: saveTV, text: (saveTVFetching() ? 'Saving...' : (saveTVSuccess() ? 'Saved' : 'Save')), disable: saveTVFetching" class="w3-button w3-block w3-green w3-bar w3-hide-large w3-hide-medium"></button>
+            <!----------------------------------------------------------------------------------------->
+            <div class="w3-bar w3-center">
+                <snap data-bind="text: status.showTime()">time</snap>
+                <snap data-bind="text: status.showDate()">date</snap>
+            </div>
+            <div class="w3-bar w3-center">Eagle<span class="w3-text-orange">MON</span></div>
+        </div>
+    </div>
+    <div id="help" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-card-8">
+                <header class="w3-blue">
+                    <div class="w3-left">Help Topic</div>
+                    <div onclick="document.getElementById('help').style.display='none'" class="w3-button w3-right">&times;</div>
+                </header>
+                <p>Some text. Some text. Some text.</p>
+                <p>Some text. Some text. Some text.</p>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="lib.js" type="text/javascript"></script>
+<script src="config.js" type="text/javascript"></script>
+
+</html>
