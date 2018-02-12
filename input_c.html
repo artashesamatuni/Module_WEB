@@ -24,6 +24,7 @@
         <div class="cssload-cube cssload-c3"></div>
     </div>
     <div data-bind="visible: initialised" style="display: none">
+        <!---------------------------------------------------------------- MENU ------------------------------------------------------------------------------------------------------------>
         <div class="w3-bar w3-blue">
             <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
             <div class="w3-dropdown-click w3-hide-small">
@@ -41,6 +42,7 @@
                 </div>
             </div>
             <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+            <button data-bind="click: saveDI, text: (saveDIFetching() ? 'Saving...' : (saveDISuccess() ? 'Saved' : 'Save')), disable: saveDIFetching" class="w3-button w3-green"></button>
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
         </div>
         <div id="small_menu" class="w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
@@ -61,74 +63,84 @@
         <div class="w3-row">
             <div class="w3-quarter w3-container">
                 <div class="w3-card">
-                    <h4 class="w3-container w3-blue w3-center">Input Ch. 0</h4>
-                    <form class="w3-container w3-white">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. E-Stop" data-bind="textInput: config.P0N, disable: saveP0Fetching" />
+                    <div class="w3-container">
                         <br/>
-                        <input id="P0P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P0P, checked: config.P0P" />
+                        <input id="P0E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P0E, checked: config.P0E" />
+                        <label for="P0E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P0E()?'Enabled':'Disabled')"></snap></label>
+                    </div>
+                    <div class="w3-container" data-bind="visible: config.P0E">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P0N" />
+                        <br/>
+                        <input id="P0P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P0P, checked: config.P0P">
                         <label for="P0P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P0P()?'Invers':'Normal')"></snap></label>
                         <br/>
-                    </form>
+                    </div>
                     <br>
-                    <button data-bind="click: saveP0, text: (saveP0Fetching() ? 'Saving...' : (saveP0Success() ? 'Saved' : 'Save')), disable: saveP0Fetching" class="w3-button w3-block w3-green"></button>
                 </div>
             </div>
             <div class="w3-quarter w3-container">
                 <div class="w3-card">
-                    <h4 class="w3-container w3-blue w3-center">Input Ch. 1</h4>
-                    <form class="w3-container w3-white">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. E-Stop" data-bind="textInput: config.P1N, disable: saveP1Fetching" />
+                    <div class="w3-container">
                         <br/>
-                        <input id="P1P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P1P, checked: config.P1P" />
+                        <input id="P1E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P1E, checked: config.P1E" />
+                        <label for="P1E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P1E()?'Enabled':'Disabled')"></snap></label>
+                    </div>
+                    <div class="w3-container" data-bind="visible: config.P1E">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P1N" />
+                        <br/>
+                        <input id="P1P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P1P, checked: config.P1P">
                         <label for="P1P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P1P()?'Invers':'Normal')"></snap></label>
                         <br/>
-                    </form>
+                    </div>
                     <br>
-                    <button data-bind="click: saveP1, text: (saveP1Fetching() ? 'Saving...' : (saveP1Success() ? 'Saved' : 'Save')), disable: saveP1Fetching" class="w3-button w3-block w3-green"></button>
                 </div>
             </div>
             <div class="w3-quarter w3-container">
                 <div class="w3-card">
-                    <h4 class="w3-container w3-blue w3-center">Input Ch. 2</h4>
-                    <form class="w3-container w3-white">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. E-Stop" data-bind="textInput: config.P2N, disable: saveP2Fetching" />
+                    <div class="w3-container">
                         <br/>
-                        <input id="P2P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P2P, checked: config.P2P" />
+                        <input id="P2E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P2E, checked: config.P2E" />
+                        <label for="P2E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P2E()?'Enabled':'Disabled')"></snap></label>
+                    </div>
+                    <div class="w3-container" data-bind="visible: config.P2E">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P2N" />
+                        <br/>
+                        <input id="P2P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P2P, checked: config.P2P">
                         <label for="P2P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P2P()?'Invers':'Normal')"></snap></label>
                         <br/>
-                    </form>
+                    </div>
                     <br>
-                    <button data-bind="click: saveP2, text: (saveP2Fetching() ? 'Saving...' : (saveP2Success() ? 'Saved' : 'Save')), disable: saveP2Fetching" class="w3-button w3-block w3-green"></button>
                 </div>
             </div>
             <div class="w3-quarter w3-container">
                 <div class="w3-card">
-                    <h4 class="w3-container w3-blue w3-center">Input Ch. 3</h4>
-                    <form class="w3-container w3-white">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. E-Stop" data-bind="textInput: config.P3N, disable: saveP3Fetching" />
+                    <div class="w3-container">
                         <br/>
-                        <input id="P3P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P3P, checked: config.P3P" />
+                        <input id="P3E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P3E, checked: config.P3E" />
+                        <label for="P3E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P3E()?'Enabled':'Disabled')"></snap></label>
+                    </div>
+                    <div class="w3-container" data-bind="visible: config.P3E">
+                        <label class="w3-text-blue">Label</label>
+                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P3N" />
+                        <br/>
+                        <input id="P3P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P3P, checked: config.P3P">
                         <label for="P3P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P3P()?'Invers':'Normal')"></snap></label>
                         <br/>
-                    </form>
+                    </div>
                     <br>
-                    <button data-bind="click: saveP3, text: (saveP3Fetching() ? 'Saving...' : (saveP3Success() ? 'Saved' : 'Save')), disable: saveP3Fetching" class="w3-button w3-block w3-green"></button>
                 </div>
             </div>
         </div>
-        <br/>
-        <div class="w3-blue">
-            <div class="w3-center">
-                <snap data-bind="text: status.showTime()" class="w3-mobille">time</snap>
-                <snap data-bind="text: status.showDate()" class="w3-mobille">date</snap>
+        <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
+        <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
+            <div class="w3-bar w3-center">
+                <snap data-bind="text: status.showTime()">time</snap>
+                <snap data-bind="text: status.showDate()">date</snap>
             </div>
-        </div>
-        <div class="w3-bar w3-blue">
-            <div class="w3-center">Eagle<span class="w3-text-orange">MON</span></div>
+            <div class="w3-bar w3-center">Eagle<span class="w3-text-orange">MON</span></div>
         </div>
     </div>
 </body>

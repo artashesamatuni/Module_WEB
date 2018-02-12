@@ -97,7 +97,7 @@ function ModbusViewModel() {
         "modbus_32bit_enable": true,
         "modbus_calc": ["raw data", "ieee754"],
         "modbus_calc_select": 1,
-        "modbus_data": [["Voltage", 40001, true, 1, "V", 0], ["Current", 40003, false, 0, "A", 0], ["Power", 40005, true, 0, "W", 0]]
+        "modbus_data": [["Voltage", 40001, true, 1, "V", 0], ["Current", 40003, false, 0, "A", 0], ["Power", 40005, true, 0, "W", 0], ["Energy", 40007, true, 0, "Wh", 0]]
     }, baseEndpoint + '/modbus');
 }
 ModbusViewModel.prototype = Object.create(BaseViewModel.prototype);
@@ -105,12 +105,16 @@ ModbusViewModel.prototype.constructor = ModbusViewModel;
 
 function ConfigViewModel() {
     BaseViewModel.call(this, {
+        "R0E": true,
         "R0P": false,
         "R0N": "Pump",
+        "R1E": true,
         "R1P": true,
         "R1N": "empty",
+        "R2E": true,
         "R2P": false,
         "R2N": "empty",
+        "R3E": true,
         "R3P": false,
         "R3N": "empty",
         //------------------------------
@@ -147,12 +151,16 @@ function ConfigViewModel() {
         "A3A": true,
         "A3N": "",
         //------------------------------
-        "P0P": false,
+        "P0E": true,
+        "P0P": true,
         "P0N": "Test",
+        "P1E": false,
         "P1P": false,
         "P1N": "empty",
+        "P2E": true,
         "P2P": false,
         "P2N": "empty",
+        "P3E": false,
         "P3P": false,
         "P3N": "empty",
         //------------------------------
@@ -381,23 +389,46 @@ function OrangeViewModel() {
 
     };
     // -----------------------------------------------------------------------
-    // Event: Relay 3 setup
+    // Event: DO setup
     // -----------------------------------------------------------------------
-    self.saveR3Fetching = ko.observable(false);
-    self.saveR3Success = ko.observable(false);
-    self.saveR3 = function () {
-        var Relay3 = {
-            label: self.config.R3N(),
-            pol: self.config.R3P()
+    self.saveDOFetching = ko.observable(false);
+    self.saveDOSuccess = ko.observable(false);
+    self.saveDO = function () {
+        var DO = {
+            enabled: [self.config.R0E(), self.config.R1E(), self.config.R2E(), self.config.R3E()],
+            label: [self.config.R0N(), self.config.R1N(), self.config.R2N(), self.config.R3N()],
+            pol: [self.config.R0P(), self.config.R1P(), self.config.R2P(), self.config.R3P()]
         };
-        self.saveR3Fetching(true);
-        self.saveR3Success(false);
-        $.post(baseEndpoint + "/saver3", Relay3, function (data) {
-            self.saveR3Success(true);
+        self.saveDOFetching(true);
+        self.saveDOSuccess(false);
+        $.post(baseEndpoint + "/save_do", DO, function (data) {
+            self.saveAISuccess(true);
         }).fail(function () {
-            alert("Failed to save Relay 3 config");
+            alert("Failed to save Relay Channels config");
         }).always(function () {
-            self.saveR3Fetching(false);
+            self.saveDOFetching(false);
+        });
+
+    };
+    // -----------------------------------------------------------------------
+    // Event: DI setup
+    // -----------------------------------------------------------------------
+    self.saveDIFetching = ko.observable(false);
+    self.saveDISuccess = ko.observable(false);
+    self.saveDI = function () {
+        var DI = {
+            enabled: [self.config.P0E(), self.config.P1E(), self.config.P2E(), self.config.P3E()],
+            label: [self.config.P0N(), self.config.P1N(), self.config.P2N(), self.config.P3N()],
+            pol: [self.config.P0P(), self.config.P1P(), self.config.P2P(), self.config.P3P()]
+        };
+        self.saveDIFetching(true);
+        self.saveDISuccess(false);
+        $.post(baseEndpoint + "/save_di", DI, function (data) {
+            self.saveAISuccess(true);
+        }).fail(function () {
+            alert("Failed to save Digital Input Channels config");
+        }).always(function () {
+            self.saveDIFetching(false);
         });
 
     };

@@ -99,6 +99,7 @@
                             <label for="A0A" class="w3-text-blue"><snap data-bind="text: 'Store Alarm : '+(config.A0A()?'Yes':'No')"></snap></label>
                         </div>
                     </form>
+                    <br/>
                 </div>
             </div>
             <div class="w3-quarter w3-container">
@@ -230,17 +231,14 @@
                 </div>
             </div>
         </div>
-        <br>
-        <button data-bind="click: saveAI, text: (saveAIFetching() ? 'Saving...' : (saveAISuccess() ? 'Saved' : 'Save')), disable: saveAIFetching" class="w3-button w3-block w3-green"></button>
-        <br/>
-        <div class="w3-blue">
-            <div class="w3-center">
-                <snap data-bind="text: status.showTime()" class="w3-mobille">time</snap>
-                <snap data-bind="text: status.showDate()" class="w3-mobille">date</snap>
+        <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
+        <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
+            <button data-bind="click: saveAI, text: (saveAIFetching() ? 'Saving...' : (saveAISuccess() ? 'Saved' : 'Save')), disable: saveAIFetching" class="w3-button w3-block w3-green"></button>
+            <div class="w3-bar w3-center">
+                <snap data-bind="text: status.showTime()">time</snap>
+                <snap data-bind="text: status.showDate()">date</snap>
             </div>
-        </div>
-        <div class="w3-bar w3-blue">
-            <div class="w3-center">Eagle<span class="w3-text-orange">MON</span></div>
+            <div class="w3-bar w3-center">Eagle<span class="w3-text-orange">MON</span></div>
         </div>
     </div>
 </body>

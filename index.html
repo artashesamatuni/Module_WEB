@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body class="w3-content w3-light-gray" style="max-width:1024px;min-width:350px">
+<body class="w3-content" style="max-width:1024px;min-width:350px">
     <div class="cssload-thecube" data-bind="visible: !initialised()">
         <div class="cssload-cube cssload-c1"></div>
         <div class="cssload-cube cssload-c2"></div>
@@ -46,7 +46,7 @@
                         <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
                     </div>
                 </div>
-                <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+                <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
             </div>
         </div>
         <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
@@ -62,21 +62,23 @@
             <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
             <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
             <br/>
-            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
+            <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button">Help</a>
         </div>
+        <br/>
+        <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
         <div class="w3-main w3-light-gray w3-hide-large w3-hide-medium" style="height: 100%; margin-top:55px;margin-bottom:30px;">
             <div class="w3-container w3-margin">
                 <div class="w3-card w3-white">
                     <header class="w3-blue w3-center">Relay Outputs</header>
                     <div class="w3-container w3-margin">
-                        <input id="R0" type="checkbox" class="w3-switch" data-bind="click: BTN0, checkedValue: status.R0, checked: status.R0">
-                        <label for="R0" class="w3-label"><snap data-bind="text: config.R0N()+' '+(status.R0() ? 'ON':'OFF'), style: { color: status.R0() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
-                        <input id="R1" type="checkbox" class="w3-switch" data-bind="click: BTN1, checkedValue: status.R1, checked: status.R1">
-                        <label for="R1" class="w3-label"><snap data-bind="text: config.R1N()+' '+(status.R1() ? 'ON':'OFF'), style: { color: status.R1() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
-                        <input id="R2" type="checkbox" class="w3-switch" data-bind="click: BTN2, checkedValue: status.R2, checked: status.R2">
-                        <label for="R2" class="w3-label"><snap data-bind="text: config.R2N()+' '+(status.R2() ? 'ON':'OFF'), style: { color: status.R2() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
-                        <input id="R3" type="checkbox" class="w3-switch" data-bind="click: BTN3, checkedValue: status.R3, checked: status.R3">
-                        <label for="R3" class="w3-label"><snap data-bind="text: config.R3N()+' '+(status.R3() ? 'ON':'OFF'), style: { color: status.R3() ? '#4CAF50' : '#f44336' }"></snap></label>
+                        <input id="R0" type="checkbox" class="w3-switch" data-bind="click: BTN0, checkedValue: status.R0, checked: status.R0" />
+                        <label for="R0" class="w3-label"><snap data-bind="text: config.R0N()+ ' '+(status.R0() ? 'ON': 'OFF'), style: { color: status.R0() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
+                        <input id="R1" type="checkbox" class="w3-switch" data-bind="click: BTN1, checkedValue: status.R1, checked: status.R1" />
+                        <label for="R1" class="w3-label"><snap data-bind="text: config.R1N()+ ' '+(status.R1() ? 'ON': 'OFF'), style: { color: status.R1() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
+                        <input id="R2" type="checkbox" class="w3-switch" data-bind="click: BTN2, checkedValue: status.R2, checked: status.R2" />
+                        <label for="R2" class="w3-label"><snap data-bind="text: config.R2N()+ ' '+(status.R2() ? 'ON': 'OFF'), style: { color: status.R2() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
+                        <input id="R3" type="checkbox" class="w3-switch" data-bind="click: BTN3, checkedValue: status.R3, checked: status.R3" />
+                        <label for="R3" class="w3-label"><snap data-bind="text: config.R3N()+ ' '+(status.R3() ? 'ON': 'OFF'), style: { color: status.R3() ? '#4CAF50' : '#f44336' }"></snap></label>
                     </div>
                 </div>
             </div>
@@ -85,34 +87,34 @@
                     <header class="w3-blue w3-center">Analog Inputs</header>
                     <div class="w3-container w3-margin">
                         <div class="w3-orange">
-                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A0(),config.A0MIN(),config.A0MAX())+'%'}">&nbsp;</div>
+                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A0(),config.A0MIN(),config.A0MAX())+ '%'}">&nbsp;</div>
                         </div>
                         <div class="w3-center">
-                            <span data-bind="text: config.A0N()+' '+status.A0()+' '+config.A0U()"></span>
+                            <span data-bind="text: config.A0N()+ ' '+status.A0()+ ' '+config.A0U()"></span>
                         </div>
                     </div>
                     <div class="w3-container w3-margin">
                         <div class="w3-orange">
-                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A1(),config.A1MIN(),config.A1MAX())+'%'}">&nbsp;</div>
+                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A1(),config.A1MIN(),config.A1MAX())+ '%'}">&nbsp;</div>
                         </div>
                         <div class="w3-center">
-                            <span data-bind="text: config.A1N()+' '+status.A1()+' '+config.A1U()"></span>
+                            <span data-bind="text: config.A1N()+ ' '+status.A1()+ ' '+config.A1U()"></span>
                         </div>
                     </div>
                     <div class="w3-container w3-margin">
                         <div class="w3-orange">
-                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A2(),config.A2MIN(),config.A2MAX())+'%'}">&nbsp;</div>
+                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A2(),config.A2MIN(),config.A2MAX())+ '%'}">&nbsp;</div>
                         </div>
                         <div class="w3-center">
-                            <span data-bind="text: config.A2N()+' '+status.A2()+' '+config.A2U()"></span>
+                            <span data-bind="text: config.A2N()+ ' '+status.A2()+ ' '+config.A2U()"></span>
                         </div>
                     </div>
                     <div class="w3-container w3-margin">
                         <div class="w3-orange">
-                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A3(),config.A3MIN(),config.A3MAX())+'%'}">&nbsp;</div>
+                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A3(),config.A3MIN(),config.A3MAX())+ '%'}">&nbsp;</div>
                         </div>
                         <div class="w3-center">
-                            <span data-bind="text: config.A3N()+' '+status.A3()+' '+config.A3U()"></span>
+                            <span data-bind="text: config.A3N()+ ' '+status.A3()+ ' '+config.A3U()"></span>
                         </div>
                     </div>
                 </div>
@@ -133,186 +135,225 @@
                 </div>
             </div>
         </div>
-        <div class="w3-main w3-light-gray w3-hide-small" style="height: 100%; margin-top:55px;margin-bottom:30px;">
-            <div class="w3-card w3-white">
-                <header class="w3-container w3-blue w3-center">Relay Outputs</header>
-                <div class="w3-row">
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.R0N()+' '+(status.R0() ? 'ON':'OFF'), style: { color: status.R0() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
+        <div class="w3-main w3-hide-small" style="height: 100%; margin-top:55px;margin-bottom:30px;">
+            <div class="w3-container">
+                <div class="w3-panel w3-border">
+                    <h4>Relay Outputs</h4>
+                    <div class="w3-row">
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-card-4 w3-white">
+                                <header class="w3-container w3-center">
+                                    <h4>
+                                        <snap data-bind="text: config.R0N(), style: { color: status.R0() ? '#4CAF50' : '#f44336' }"></snap>
+                                    </h4>
                                 </header>
-                                <button data-bind="click: BTN0, disable: BTN0Fetching" class="w3-button"><img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R0())}"></button>
+                                <div class="w3-container">
+                                    <div class="w3-row">
+                                        <div class="w3-half w3-container">
+                                            <img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R0())}">
+                                        </div>
+                                        <div class="w3-half w3-container">
+                                            <button data-bind="click: BTN0, disable: BTN0Fetching, text:status.R0() ? 'ON' : 'OFF', style:{ 'background-color': status.R0() ? '#4CAF50' : '#f44336'}" class="w3-button w3-text-white"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-card-4 w3-white">
+                                <header class="w3-container w3-center">
+                                    <h4>
+                                        <snap data-bind="text: config.R1N(), style: { color: status.R1() ? '#4CAF50' : '#f44336' }"></snap>
+                                    </h4>
+                                </header>
+                                <div class="w3-container">
+                                    <div class="w3-row">
+                                        <div class="w3-half w3-container">
+                                            <img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R1())}">
+                                        </div>
+                                        <div class="w3-half w3-container">
+                                            <button data-bind="click: BTN1, disable: BTN0Fetching, text:status.R1() ? 'ON' : 'OFF', style:{ 'background-color': status.R1() ? '#4CAF50' : '#f44336'}" class="w3-button w3-text-white"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-card-4 w3-white">
+                                <header class="w3-container w3-center">
+                                    <h4>
+                                        <snap data-bind="text: config.R2N(), style: { color: status.R2() ? '#4CAF50' : '#f44336' }"></snap>
+                                    </h4>
+                                </header>
+                                <div class="w3-container">
+                                    <div class="w3-row">
+                                        <div class="w3-half w3-container">
+                                            <img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R2())}">
+                                        </div>
+                                        <div class="w3-half w3-container">
+                                            <button data-bind="click: BTN2, disable: BTN0Fetching, text:status.R2() ? 'ON' : 'OFF', style:{ 'background-color': status.R2() ? '#4CAF50' : '#f44336'}" class="w3-button w3-text-white"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-card-4 w3-white">
+                                <header class="w3-container w3-center">
+                                    <h4>
+                                        <snap data-bind="text: config.R3N(), style: { color: status.R3() ? '#4CAF50' : '#f44336' }"></snap>
+                                    </h4>
+                                </header>
+                                <div class="w3-container">
+                                    <div class="w3-row">
+                                        <div class="w3-half w3-container">
+                                            <img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R3())}">
+                                        </div>
+                                        <div class="w3-half w3-container">
+                                            <button data-bind="click: BTN3, disable: BTN0Fetching, text:status.R3() ? 'ON' : 'OFF', style:{ 'background-color': status.R3() ? '#4CAF50' : '#f44336'}" class="w3-button w3-text-white"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
                             </div>
                         </div>
                     </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.R1N()+' '+(status.R1() ? 'ON':'OFF'), style: { color: status.R1() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
-                                </header>
-                                <button data-bind="click: BTN1, disable: BTN1Fetching" class="w3-button"><img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R1())}"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.R2N()+' '+(status.R2() ? 'ON':'OFF'), style: { color: status.R2() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
-                                </header>
-                                <button data-bind="click: BTN2, disable: BTN2Fetching" class="w3-button"><img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R2())}"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.R3N()+' '+(status.R3() ? 'ON':'OFF'), style: { color: status.R3() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
-                                </header>
-                                <button data-bind="click: BTN3, disable: BTN3Fetching" class="w3-button"><img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R3())}"></button>
-                            </div>
-                        </div>
-                    </div>
+                    <br/>
                 </div>
-                <br/>
             </div>
-            <br/>
-            <div class="w3-card w3-white">
-                <header class="w3-container w3-blue w3-center">Analog Inputs</header>
-                <br/>
-                <div class="w3-row">
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <span data-bind="text: config.A0N()+' '+status.A0()+' '+config.A0U()"></span>
-                                    </h3>
-                                </header>
-                                <div class="w3-container w3-section">
-                                    <div class="w3-orange">
-                                        <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A0(),config.A0MIN(),config.A0MAX())+'%'}">&nbsp;</div>
+            <div class="w3-container">
+                <div class="w3-panel w3-border">
+                    <h4>Analog Inputs</h4>
+                    <div class="w3-row">
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4 w3-white">
+                                <div class="w3-center">
+                                    <header class="w3-container">
+                                        <h4>
+                                            <span data-bind="text: config.A0N()+ ' '+status.A0()+ ' '+config.A0U()"></span>
+                                        </h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <div class="w3-orange">
+                                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A0(),config.A0MIN(),config.A0MAX())+ '%'}">&nbsp;</div>
+                                        </div>
                                     </div>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4 w3-white">
+                                <div class="w3-center">
+                                    <header class="w3-container">
+                                        <h4>
+                                            <span data-bind="text: config.A1N()+ ' '+status.A1()+ ' '+config.A1U()"></span>
+                                        </h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <div class="w3-orange">
+                                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A1(),config.A1MIN(),config.A1MAX())+ '%'}">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4 w3-white">
+                                <div class="w3-center">
+                                    <header class="w3-container">
+                                        <h4>
+                                            <span data-bind="text: config.A2N()+ ' '+status.A2()+ ' '+config.A2U()"></span>
+                                        </h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <div class="w3-orange">
+                                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A2(),config.A2MIN(),config.A2MAX())+ '%'}">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4 w3-white">
+                                <div class="w3-center">
+                                    <header class="w3-container">
+                                        <h4>
+                                            <span data-bind="text: config.A3N()+ ' '+status.A3()+ ' '+config.A3U()"></span>
+                                        </h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <div class="w3-orange">
+                                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A3(),config.A3MIN(),config.A3MAX())+ '%'}">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <span data-bind="text: config.A1N()+' '+status.A1()+' '+config.A1U()"></span>
-                                    </h3>
-                                </header>
-                                <div class="w3-container w3-section">
-                                    <div class="w3-orange">
-                                        <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A1(),config.A1MIN(),config.A1MAX())+'%'}">&nbsp;</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <span data-bind="text: config.A2N()+' '+status.A2()+' '+config.A2U()"></span>
-                                    </h3>
-                                </header>
-                                <div class="w3-container w3-section">
-                                    <div class="w3-orange">
-                                        <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A2(),config.A2MIN(),config.A2MAX())+'%'}">&nbsp;</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <span data-bind="text: config.A3N()+' '+status.A3()+' '+config.A3U()"></span>
-                                    </h3>
-                                </header>
-                                <div class="w3-container w3-section">
-                                    <div class="w3-orange">
-                                        <div class="w3-deep-orange" data-bind="style:{height: '12px', width:  calcP(status.A3(),config.A3MIN(),config.A3MAX())+'%'}">&nbsp;</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <br/>
                 </div>
-                <br/>
             </div>
-            <br/>
-            <div class="w3-card w3-white">
-                <header class="w3-container w3-blue w3-center">Digital Outputs</header>
-                <br/>
-                <div class="w3-row">
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.P0N()+'&nbsp;'+(status.P0() ? 'ON':'OFF'), style: { color: status.P0() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
-                                </header>
+            <div class="w3-container">
+                <div class="w3-panel w3-border">
+                    <h4>Digital Inputs</h4>
+                    <div class="w3-row">
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4" data-bind="style: { 'background-color': status.P0() ? '#4CAF50' : '#f44336' }">
+                                <div class="w3-center">
+                                    <div class="w3-container w3-text-white">
+                                        <h4>
+                                            <snap data-bind="text: config.P0N()+ '&nbsp;'+(status.P0() ? 'ON': 'OFF')"></snap>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4" data-bind="style: { 'background-color': status.P1() ? '#4CAF50' : '#f44336' }">
+                                <div class="w3-center">
+                                    <div class="w3-container w3-text-white">
+                                        <h4>
+                                            <snap data-bind="text: config.P1N()+ '&nbsp;'+(status.P1() ? 'ON': 'OFF')"></snap>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4" data-bind="style: { 'background-color': status.P2() ? '#4CAF50' : '#f44336' }">
+                                <div class="w3-center">
+                                    <div class="w3-container w3-text-white">
+                                        <h4>
+                                            <snap data-bind="text: config.P2N()+ '&nbsp;'+(status.P2() ? 'ON': 'OFF')"></snap>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-quarter w3-container">
+                            <div class="w3-container w3-card-4" data-bind="style: { 'background-color': status.P3() ? '#4CAF50' : '#f44336' }">
+                                <div class="w3-center">
+                                    <div class="w3-container w3-text-white">
+                                        <h4>
+                                            <snap data-bind="text: config.P3N()+ '&nbsp;'+(status.P3() ? 'ON': 'OFF')"></snap>
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.P1N()+'&nbsp;'+(status.P1() ? 'ON':'OFF'), style: { color: status.P1() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
-                                </header>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.P2N()+'&nbsp;'+(status.P2() ? 'ON':'OFF'), style: { color: status.P2() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
-                                </header>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w3-quarter w3-container">
-                        <div class="w3-container w3-card w3-round-xxlarge">
-                            <div class="w3-center">
-                                <header class="w3-container">
-                                    <h3>
-                                        <snap data-bind="text: config.P3N()+'&nbsp;'+(status.P3() ? 'ON':'OFF'), style: { color: status.P3() ? '#4CAF50' : '#f44336' }"></snap>
-                                    </h3>
-                                </header>
-                            </div>
-                        </div>
-                    </div>
+                    <br/>
                 </div>
-                <br/>
             </div>
         </div>
+        <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
         <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
             <div class="w3-bar w3-center">
                 <snap data-bind="text: status.showTime()">time</snap>
