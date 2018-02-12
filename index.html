@@ -30,7 +30,7 @@
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
             </div>
             <div class="w3-blue w3-bar">
-                <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
+                <a class="w3-bar-item w3-button w3-hide-small" disabled>Dashboard</a>
                 <div class="w3-dropdown-click w3-hide-small">
                     <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
                     <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
@@ -49,9 +49,7 @@
                 <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
             </div>
         </div>
-        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
-            <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
-            <br/>
+        <div id="small_menu" class="w3-top w3-bar-block w3-blue w3-border w3-hide w3-hide-large w3-hide-medium">
             <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
             <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
             <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
@@ -61,15 +59,14 @@
             <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
             <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
             <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
-            <br/>
-            <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button">Help</a>
+            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
         </div>
         <br/>
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-main w3-light-gray w3-hide-large w3-hide-medium" style="height: 100%; margin-top:55px;margin-bottom:30px;">
-            <div class="w3-container w3-margin">
-                <div class="w3-card w3-white">
-                    <header class="w3-blue w3-center">Relay Outputs</header>
+        <div class="w3-main w3-hide-large w3-hide-medium" style="height: 100%; margin-top:55px;margin-bottom:30px;">
+            <div class="w3-container">
+                <div class="w3-panel w3-border">
+                    <h4>Relay Outputs</h4>
                     <div class="w3-container w3-margin">
                         <input id="R0" type="checkbox" class="w3-switch" data-bind="click: BTN0, checkedValue: status.R0, checked: status.R0" />
                         <label for="R0" class="w3-label"><snap data-bind="text: config.R0N()+ ' '+(status.R0() ? 'ON': 'OFF'), style: { color: status.R0() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
@@ -82,9 +79,9 @@
                     </div>
                 </div>
             </div>
-            <div class="w3-container w3-margin">
-                <div class="w3-card w3-white">
-                    <header class="w3-blue w3-center">Analog Inputs</header>
+            <div class="w3-container">
+                <div class="w3-panel w3-border">
+                    <h4>Analog Inputs</h4>
                     <div class="w3-container w3-margin">
                         <div class="w3-orange">
                             <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.A0(),config.A0MIN(),config.A0MAX())+ '%'}">&nbsp;</div>
@@ -119,9 +116,9 @@
                     </div>
                 </div>
             </div>
-            <div class="w3-container w3-margin">
-                <div class="w3-card w3-white">
-                    <header class="w3-blue w3-center">Digital Inputs</header>
+            <div class="w3-container">
+                <div class="w3-panel w3-border">
+                    <h4>Digital Inputs</h4>
                     <div class="w3-container w3-margin">
                         <input id="P0" type="checkbox" disabled class="w3-lamp" data-bind="checked: status.P0">
                         <label for="P0" class="w3-label"><snap data-bind="text: config.P0N(), style: { color: status.P0() ? '#4CAF50' : '#f44336' }"></snap></label><br/>
