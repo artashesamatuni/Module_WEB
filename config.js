@@ -2,6 +2,8 @@ var baseHost = window.location.hostname;
 var baseEndpoint = 'http://' + baseHost;
 
 
+
+
 function BaseViewModel(defaults, remoteUrl, mappings = {}) {
     var self = this;
     self.remoteUrl = remoteUrl;
@@ -21,6 +23,10 @@ BaseViewModel.prototype.update = function (after = function () {}) {
         after();
     });
 };
+
+
+
+
 
 function StatusViewModel() {
     var self = this;
@@ -103,6 +109,14 @@ function ModbusViewModel() {
 ModbusViewModel.prototype = Object.create(BaseViewModel.prototype);
 ModbusViewModel.prototype.constructor = ModbusViewModel;
 
+function TempViewModel() {
+    BaseViewModel.call(this, {
+        "in_vars": ["DI_0", "DI_1", "DI_2", "DI_3", "T0"]
+    }, baseEndpoint + '/temp');
+}
+TempViewModel.prototype = Object.create(BaseViewModel.prototype);
+TempViewModel.prototype.constructor = TempViewModel;
+
 function ConfigViewModel() {
     BaseViewModel.call(this, {
         "R0E": true,
@@ -176,6 +190,7 @@ function ConfigViewModel() {
         "mqtt_server": "",
         "mqtt_topic": "",
         "mqtt_feed_prefix": "",
+        "mqtt_ssl": true,
         "mqtt_user": "",
         "mqtt_pass": "",
         "mqtt_interval": 5,
@@ -211,6 +226,7 @@ function OrangeViewModel() {
     self.tz = new TZViewModel();
     self.tv = new TVViewModel();
     self.modbus = new ModbusViewModel();
+    self.temp = new TempViewModel();
 
     self.initialised = ko.observable(false);
     self.updating = ko.observable(false);
@@ -225,14 +241,16 @@ function OrangeViewModel() {
     // -----------------------------------------------------------------------
     self.start = function () {
         self.updating(true);
-        self.modbus.update(function () {
-            self.tv.update(function () {
-                self.tz.update(function () {
-                    self.config.update(function () {
-                        self.status.update(function () {
-                            self.initialised(true);
-                            updateTimer = setTimeout(self.update, updateTime);
-                            self.updating(false);
+        self.temp.update(function () {
+            self.modbus.update(function () {
+                self.tv.update(function () {
+                    self.tz.update(function () {
+                        self.config.update(function () {
+                            self.status.update(function () {
+                                self.initialised(true);
+                                updateTimer = setTimeout(self.update, updateTime);
+                                self.updating(false);
+                            });
                         });
                     });
                 });
@@ -324,70 +342,7 @@ function OrangeViewModel() {
             self.BTN3Fetching(false);
         });
     };
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // RELAY CHANNELS CONFIG
-    // -----------------------------------------------------------------------
-    // Event: Relay 0 setup
-    // -----------------------------------------------------------------------
-    self.saveR0Fetching = ko.observable(false);
-    self.saveR0Success = ko.observable(false);
-    self.saveR0 = function () {
-        var Relay0 = {
-            label: self.config.R0N(),
-            pol: self.config.R0P()
-        };
-        self.saveR0Fetching(true);
-        self.saveR0Success(false);
-        $.post(baseEndpoint + "/saver0", Relay0, function (data) {
-            self.saveR0Success(true);
-        }).fail(function () {
-            alert("Failed to save Relay 0 config");
-        }).always(function () {
-            self.saveR0Fetching(false);
-        });
-    };
-    // -----------------------------------------------------------------------
-    // Event: Relay 1 setup
-    // -----------------------------------------------------------------------
-    self.saveR1Fetching = ko.observable(false);
-    self.saveR1Success = ko.observable(false);
-    self.saveR1 = function () {
-        var Relay1 = {
-            label: self.config.R1N(),
-            pol: self.config.R1P()
-        };
-        self.saveR1Fetching(true);
-        self.saveR1Success(false);
-        $.post(baseEndpoint + "/saver1", Relay1, function (data) {
-            self.saveR1Success(true);
-        }).fail(function () {
-            alert("Failed to save Relay 1 config");
-        }).always(function () {
-            self.saveR1Fetching(false);
-        });
 
-    };
-    // -----------------------------------------------------------------------
-    // Event: Relay 2 setup
-    // -----------------------------------------------------------------------
-    self.saveR2Fetching = ko.observable(false);
-    self.saveR2Success = ko.observable(false);
-    self.saveR2 = function () {
-        var Relay2 = {
-            label: self.config.R2N(),
-            pol: self.config.R2P()
-        };
-        self.saveR2Fetching(true);
-        self.saveR2Success(false);
-        $.post(baseEndpoint + "/saver2", Relay2, function (data) {
-            self.saveR2Success(true);
-        }).fail(function () {
-            alert("Failed to save Relay 2 config");
-        }).always(function () {
-            self.saveR2Fetching(false);
-        });
-
-    };
     // -----------------------------------------------------------------------
     // Event: DO setup
     // -----------------------------------------------------------------------
@@ -395,9 +350,18 @@ function OrangeViewModel() {
     self.saveDOSuccess = ko.observable(false);
     self.saveDO = function () {
         var DO = {
-            enabled: [self.config.R0E(), self.config.R1E(), self.config.R2E(), self.config.R3E()],
-            label: [self.config.R0N(), self.config.R1N(), self.config.R2N(), self.config.R3N()],
-            pol: [self.config.R0P(), self.config.R1P(), self.config.R2P(), self.config.R3P()]
+            enabled0: self.config.R0E(),
+            enabled1: self.config.R1E(),
+            enabled2: self.config.R2E(),
+            enabled3: self.config.R3E(),
+            label0: self.config.R0N(),
+            label1: self.config.R1N(),
+            label2: self.config.R2N(),
+            label3: self.config.R3N(),
+            pol0: self.config.R0P(),
+            pol1: self.config.R1P(),
+            pol2: self.config.R2P(),
+            pol3: self.config.R3P()
         };
         self.saveDOFetching(true);
         self.saveDOSuccess(false);
@@ -417,9 +381,18 @@ function OrangeViewModel() {
     self.saveDISuccess = ko.observable(false);
     self.saveDI = function () {
         var DI = {
-            enabled: [self.config.P0E(), self.config.P1E(), self.config.P2E(), self.config.P3E()],
-            label: [self.config.P0N(), self.config.P1N(), self.config.P2N(), self.config.P3N()],
-            pol: [self.config.P0P(), self.config.P1P(), self.config.P2P(), self.config.P3P()]
+            enabled0: self.config.P0E(),
+            enabled1: self.config.P1E(),
+            enabled2: self.config.P2E(),
+            enabled3: self.config.P3E(),
+            label0: self.config.P0N(),
+            label1: self.config.P1N(),
+            label2: self.config.P2N(),
+            label3: self.config.P3N(),
+            pol0: self.config.P0P(),
+            pol1: self.config.P1P(),
+            pol2: self.config.P2P(),
+            pol3: self.config.P3P()
         };
         self.saveDIFetching(true);
         self.saveDISuccess(false);
@@ -441,18 +414,42 @@ function OrangeViewModel() {
     self.saveAISuccess = ko.observable(false);
     self.saveAI = function () {
         var AI = {
-            enabled: [self.config.A0E(), self.config.A1E(), self.config.A2E(), self.config.A3E()],
-            label: [self.config.A0N(), self.config.A1N(), self.config.A2N(), self.config.A3N()],
-            unit: [self.config.A0U(), self.config.A1U(), self.config.A2U(), self.config.A3U()],
-            min_n: [self.config.A0MIN(), self.config.A1MIN(), self.config.A2MIN(), self.config.A3MIN()],
-            max_n: [self.config.A0MAX(), self.config.A1MAX(), self.config.A2MAX(), self.config.A3MAX()],
-            alarm: [self.config.A0A(), self.config.A1A(), self.config.A2A(), self.config.A3A()],
-            a_min_n: [self.config.A0AMIN(), self.config.A1AMIN(), self.config.A2AMIN(), self.config.A3AMIN()],
-            a_max_n: [self.config.A0AMAX(), self.config.A1AMAX(), self.config.A2AMAX(), self.config.A3AMAX()]
+            enabled0: self.config.A0E(),
+            enabled1: self.config.A1E(),
+            enabled2: self.config.A2E(),
+            enabled3: self.config.A3E(),
+            label0: self.config.A0N(),
+            label1: self.config.A1N(),
+            label2: self.config.A2N(),
+            label3: self.config.A3N(),
+            unit0: self.config.A0U(),
+            unit1: self.config.A1U(),
+            unit2: self.config.A2U(),
+            unit3: self.config.A3U(),
+            min_n0: self.config.A0MIN(),
+            min_n1: self.config.A1MIN(),
+            min_n2: self.config.A2MIN(),
+            min_n3: self.config.A3MIN(),
+            max_n0: self.config.A0MAX(),
+            max_n1: self.config.A1MAX(),
+            max_n2: self.config.A2MAX(),
+            max_n3: self.config.A3MAX(),
+            alarm0: self.config.A0A(),
+            alarm1: self.config.A1A(),
+            alarm2: self.config.A2A(),
+            alarm3: self.config.A3A(),
+            a_min_n0: self.config.A0AMIN(),
+            a_min_n1: self.config.A1AMIN(),
+            a_min_n2: self.config.A2AMIN(),
+            a_min_n3: self.config.A3AMIN(),
+            a_max_n0: self.config.A0AMAX(),
+            a_max_n1: self.config.A1AMAX(),
+            a_max_n2: self.config.A2AMAX(),
+            a_max_n3: self.config.A3AMAX()
         };
         self.saveAIFetching(true);
         self.saveAISuccess(false);
-        $.post(baseEndpoint + "/saveai", AI, function (data) {
+        $.post(baseEndpoint + "/save_ai", AI, function (data) {
             self.saveAISuccess(true);
         }).fail(function () {
             alert("Failed to save Analog Channels config");
@@ -461,185 +458,6 @@ function OrangeViewModel() {
         });
 
     };
-    // -----------------------------------------------------------------------
-    // Event: AI 0 setup
-    // -----------------------------------------------------------------------
-    self.saveAI0Fetching = ko.observable(false);
-    self.saveAI0Success = ko.observable(false);
-    self.saveAI0 = function () {
-        var AI0 = {
-            label: self.config.A0N(),
-            unit: self.config.A0U(),
-            min_n: self.config.A0MIN(),
-            max_n: self.config.A0MAX()
-        };
-        self.saveAI0Fetching(true);
-        self.saveAI0Success(false);
-        $.post(baseEndpoint + "/saveai0", AI0, function (data) {
-            self.saveAI0Success(true);
-        }).fail(function () {
-            alert("Failed to save Analog Channel 0 config");
-        }).always(function () {
-            self.saveAI0Fetching(false);
-        });
-
-    };
-    // -----------------------------------------------------------------------
-    // Event: AI 1 setup
-    // -----------------------------------------------------------------------
-    self.saveAI1Fetching = ko.observable(false);
-    self.saveAI1Success = ko.observable(false);
-    self.saveAI1 = function () {
-        var AI1 = {
-            label: self.config.A1N(),
-            unit: self.config.A1U(),
-            min_n: self.config.A1MIN(),
-            max_n: self.config.A1MAX()
-        };
-        self.saveAI1Fetching(true);
-        self.saveAI1Success(false);
-        $.post(baseEndpoint + "/saveai1", AI1, function (data) {
-            self.saveAI1Success(true);
-        }).fail(function () {
-            alert("Failed to save Analog Channel 1 config");
-        }).always(function () {
-            self.saveAI1Fetching(false);
-        });
-
-    };
-    // -----------------------------------------------------------------------
-    // Event: AI 2 setup
-    // -----------------------------------------------------------------------
-    self.saveAI2Fetching = ko.observable(false);
-    self.saveAI2Success = ko.observable(false);
-    self.saveAI2 = function () {
-        var AI2 = {
-            label: self.config.A2N(),
-            unit: self.config.A2U(),
-            min_n: self.config.A2MIN(),
-            max_n: self.config.A2MAX()
-        };
-        self.saveAI2Fetching(true);
-        self.saveAI2Success(false);
-        $.post(baseEndpoint + "/saveai2", AI2, function (data) {
-            self.saveAI2Success(true);
-        }).fail(function () {
-            alert("Failed to save Analog Channel 2 config");
-        }).always(function () {
-            self.saveAI2Fetching(false);
-        });
-
-    };
-    // -----------------------------------------------------------------------
-    // Event: AI 3 setup
-    // -----------------------------------------------------------------------
-    self.saveAI3Fetching = ko.observable(false);
-    self.saveAI3Success = ko.observable(false);
-    self.saveAI3 = function () {
-        var AI3 = {
-            label: self.config.A3N(),
-            unit: self.config.A3U(),
-            min_n: self.config.A3MIN(),
-            max_n: self.config.A3MAX()
-        };
-        self.saveAI3Fetching(true);
-        self.saveAI3Success(false);
-        $.post(baseEndpoint + "/saveai3", AI3, function (data) {
-            self.saveAI3Success(true);
-        }).fail(function () {
-            alert("Failed to save Analog Channel 3 config");
-        }).always(function () {
-            self.saveAI3Fetching(false);
-        });
-
-    };
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // INPUT CHANNELS CONFIG
-    // -----------------------------------------------------------------------
-    // Event: Input 0 setup
-    // -----------------------------------------------------------------------
-    self.saveP0Fetching = ko.observable(false);
-    self.saveP0Success = ko.observable(false);
-    self.saveP0 = function () {
-        var Pin0 = {
-            label: self.config.P0N(),
-            pol: self.config.P0P()
-        };
-        self.saveP0Fetching(true);
-        self.saveP0Success(false);
-        $.post(baseEndpoint + "/savep0", Pin0, function (data) {
-            self.saveP0Success(true);
-        }).fail(function () {
-            alert("Failed to save Input 0 config");
-        }).always(function () {
-            self.saveP0Fetching(false);
-        });
-
-    };
-    // -----------------------------------------------------------------------
-    // Event: Input 1 setup
-    // -----------------------------------------------------------------------
-    self.saveP1Fetching = ko.observable(false);
-    self.saveP1Success = ko.observable(false);
-    self.saveP1 = function () {
-        var Pin1 = {
-            label: self.config.P1N(),
-            pol: self.config.P1P()
-        };
-        self.saveP1Fetching(true);
-        self.saveP1Success(false);
-        $.post(baseEndpoint + "/savep1", Pin1, function (data) {
-            self.saveP1Success(true);
-        }).fail(function () {
-            alert("Failed to save Input 1 config");
-        }).always(function () {
-            self.saveP1Fetching(false);
-        });
-
-    };
-    // -----------------------------------------------------------------------
-    // Event: Input 2 setup
-    // -----------------------------------------------------------------------
-    self.saveP2Fetching = ko.observable(false);
-    self.saveP2Success = ko.observable(false);
-    self.saveP2 = function () {
-        var Pin2 = {
-            label: self.config.P2N(),
-            pol: self.config.P2P()
-        };
-        self.saveP2Fetching(true);
-        self.saveP2Success(false);
-        $.post(baseEndpoint + "/savep2", Pin2, function (data) {
-            self.saveP2Success(true);
-        }).fail(function () {
-            alert("Failed to save Input 2 config");
-        }).always(function () {
-            self.saveP2Fetching(false);
-        });
-
-    };
-    // -----------------------------------------------------------------------
-    // Event: Input 3 setup
-    // -----------------------------------------------------------------------
-    self.saveP3Fetching = ko.observable(false);
-    self.saveP3Success = ko.observable(false);
-    self.saveP3 = function () {
-        var Pin3 = {
-            label: self.config.P3N(),
-            pol: self.config.P3P()
-        };
-        self.saveP3Fetching(true);
-        self.saveP3Success(false);
-        $.post(baseEndpoint + "/savep3", Pin3, function (data) {
-            self.saveP3Success(true);
-        }).fail(function () {
-            alert("Failed to save Input 3 config");
-        }).always(function () {
-            self.saveP3Fetching(false);
-        });
-
-    };
-
 
     // -----------------------------------------------------------------------
     // Event: Admin save
