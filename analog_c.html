@@ -24,28 +24,32 @@
         <div class="cssload-cube cssload-c3"></div>
     </div>
     <div data-bind="visible: initialised" style="display: none">
-        <div class="w3-bar w3-blue">
-            <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
-            <div class="w3-dropdown-click w3-hide-small">
-                <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
-                <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
-                    <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
-                    <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
-                    <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
-                    <hr>
-                    <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
-                    <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
-                    <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
-                    <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
-                    <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
-                </div>
+        <div class="w3-top" style="max-width:1024px;min-width:350px">
+            <div class="w3-blue w3-bar w3-hide-large w3-hide-medium">
+                <snap class="w3-bar-item w3-left w3-wide">Analog Channels</snap>
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
             </div>
-            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
+            <div class="w3-blue w3-bar">
+                <a class="w3-bar-item w3-button w3-hide-small" disabled>Dashboard</a>
+                <div class="w3-dropdown-click w3-hide-small">
+                    <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
+                    <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
+                        <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+                        <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+                        <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
+                        <hr>
+                        <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
+                        <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
+                        <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
+                        <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+                        <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
+                        <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
+                    </div>
+                </div>
+                <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+            </div>
         </div>
-        <div id="small_menu" class="w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
-            <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
-            <br/>
+        <div id="small_menu" class="w3-top w3-bar-block w3-blue w3-border w3-hide w3-hide-large w3-hide-medium">
             <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
             <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
             <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
@@ -53,8 +57,8 @@
             <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
             <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
             <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+            <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
             <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
-            <br/>
             <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
         </div>
         <br/>
@@ -84,11 +88,11 @@
                         </div>
                         <label class="w3-text-blue">Alarm Level</label>
                         <div class="w3-row-padding">
-                            <div class="w3-half">
+                            <div class="w3-half s4">
                                 <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A0AMIN" />
                                 <label class="w3-text-blue"><sup>min</sup></label>
                             </div>
-                            <div class="w3-half">
+                            <div class="w3-half s4">
                                 <input class="w3-input w3-border" type="number" placeholder="e.g. 250" data-bind="value: config.A0AMAX" />
                                 <label class="w3-text-blue"><sup>max</sup></label>
                             </div>
@@ -107,7 +111,7 @@
                     <div class="w3-container">
                         <br/>
                         <input id="A1E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A1E, checked: config.A1E" />
-                        <label for="A1E" class="w3-text-blue"><snap data-bind="text: 'Ch. 0: '+(config.A1E()?'Enabled':'Disabled')"></snap></label>
+                        <label for="A1E" class="w3-text-blue"><snap data-bind="text: 'Ch. 1: '+(config.A1E()?'Enabled':'Disabled')"></snap></label>
                     </div>
                     <form class="w3-container w3-white">
                         <label class="w3-text-blue">Label</label>
@@ -142,7 +146,7 @@
                             <label for="A1A" class="w3-text-blue"><snap data-bind="text: 'Store Alarm : '+(config.A1A()?'Yes':'No')"></snap></label>
                         </div>
                     </form>
-
+                    <br/>
                 </div>
             </div>
             <div class="w3-quarter w3-container">
@@ -150,7 +154,7 @@
                     <div class="w3-container">
                         <br/>
                         <input id="A2E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A2E, checked: config.A2E" />
-                        <label for="A2E" class="w3-text-blue"><snap data-bind="text: 'Ch. 0: '+(config.A2E()?'Enabled':'Disabled')"></snap></label>
+                        <label for="A2E" class="w3-text-blue"><snap data-bind="text: 'Ch. 2: '+(config.A2E()?'Enabled':'Disabled')"></snap></label>
                     </div>
                     <form class="w3-container w3-white">
                         <label class="w3-text-blue">Label</label>
@@ -185,7 +189,7 @@
                             <label for="A2A" class="w3-text-blue"><snap data-bind="text: 'Store Alarm : '+(config.A2A()?'Yes':'No')"></snap></label>
                         </div>
                     </form>
-
+                    <br/>
                 </div>
             </div>
             <div class="w3-quarter w3-container w3-hoverable">
@@ -193,7 +197,7 @@
                     <br/>
                     <div class="w3-container">
                         <input id="A3E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A3E, checked: config.A3E" />
-                        <label for="A3E" class="w3-text-blue"><snap data-bind="text: 'Ch. 0: '+(config.A3E()?'Enabled':'Disabled')"></snap></label>
+                        <label for="A3E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.A3E()?'Enabled':'Disabled')"></snap></label>
                     </div>
                     <form class="w3-container w3-white">
                         <label class="w3-text-blue">Label</label>
@@ -228,6 +232,7 @@
                             <label for="A3A" class="w3-text-blue"><snap data-bind="text: 'Store Alarm : '+(config.A3A()?'Yes':'No')"></snap></label>
                         </div>
                     </form>
+                    <br>
                 </div>
             </div>
         </div>
