@@ -11,6 +11,7 @@
     <meta name="author" content="EagleMON">
     <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="my.css">
     <link rel="stylesheet" href="spinner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -25,7 +26,7 @@
     <div data-bind="visible: initialised" style="display: none">
         <div class="w3-top" style="max-width:1024px;min-width:350px">
             <div class="w3-blue w3-bar w3-hide-large w3-hide-medium">
-                <snap class="w3-bar-item w3-left w3-wide">MQTT Configuration</snap>
+                <snap class="w3-bar-item w3-left w3-wide">Digital Channels</snap>
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
             </div>
             <div class="w3-blue w3-bar">
@@ -63,6 +64,7 @@
             <br/>
             <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button">Help</a>
         </div>
+        <br/>
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
         <div class="w3-main" style="height: 100%; margin-top:55px;margin-bottom:80px;">
             <div class="w3-row">
@@ -75,7 +77,13 @@
                             <br/>
                             <h4>MQTT Reports config</h4>
                         </div>
-                        <form class="w3-container w3-white">
+                        <div class="w3-container">
+
+                            <input id="MQTTE" type="checkbox" class="w3-switch" data-bind="checkedValue: config.mqtt_enable, checked: config.mqtt_enable" />
+                            <label for="MQTTE" class="w3-text-blue"><snap data-bind="text: 'MQTT : '+(config.mqtt_enable()?'Enabled':'Disabled')"></snap></label>
+                        </div>
+                        <br/>
+                        <form class="w3-container w3-white" data-bind="visible: config.mqtt_enable">
                             <label class="w3-text-blue">MQTT Server*</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. test.mosquitto.org" data-bind="textInput: config.mqtt_server, disable: saveMqttFetching" />
                             <label class="w3-text-blue">MQTT Base-topic*</label>

@@ -24,28 +24,32 @@
         <div class="cssload-cube cssload-c3"></div>
     </div>
     <div data-bind="visible: initialised" style="display: none">
-        <!---------------------------------------------------------------- MENU ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-bar w3-blue">
-            <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
-            <div class="w3-dropdown-click w3-hide-small">
-                <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
-                <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
-                    <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
-                    <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
-                    <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
-                    <hr>
-                    <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
-                    <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
-                    <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
-                    <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
-                    <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
-                </div>
+        <div class="w3-top" style="max-width:1024px;min-width:350px">
+            <div class="w3-blue w3-bar w3-hide-large w3-hide-medium">
+                <snap class="w3-bar-item w3-left w3-wide">Digital Channels</snap>
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
             </div>
-            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
-            <button data-bind="click: saveDI, text: (saveDIFetching() ? 'Saving...' : (saveDISuccess() ? 'Saved' : 'Save')), disable: saveDIFetching" class="w3-button w3-green"></button>
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
+            <div class="w3-blue w3-bar">
+                <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
+                <div class="w3-dropdown-click w3-hide-small">
+                    <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
+                    <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
+                        <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+                        <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+                        <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
+                        <hr>
+                        <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
+                        <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
+                        <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
+                        <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+                        <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
+                        <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
+                    </div>
+                </div>
+                <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+            </div>
         </div>
-        <div id="small_menu" class="w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
+        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
             <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
             <br/>
             <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
@@ -55,87 +59,96 @@
             <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
             <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
             <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+            <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
             <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
             <br/>
-            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
+            <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button">Help</a>
         </div>
         <br/>
-        <div class="w3-row">
-            <div class="w3-quarter w3-container">
-                <div class="w3-card">
-                    <div class="w3-container">
+        <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
+        <div class="w3-main" style="height: 100%; margin-top:55px;margin-bottom:80px;">
+            <div class="w3-row">
+                <div class="w3-quarter w3-container">
+                    <div class="w3-card-4">
+                        <div class="w3-container">
+                            <br/>
+                            <input id="P0E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P0E, checked: config.P0E" />
+                            <label for="P0E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P0E()?'Enabled':'Disabled')"></snap></label>
+                        </div>
+                        <div class="w3-container" data-bind="visible: config.P0E">
+                            <label class="w3-text-blue">Label</label>
+                            <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P0N" />
+                            <br/>
+                            <input id="P0P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P0P, checked: config.P0P">
+                            <label for="P0P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P0P()?'Invers':'Normal')"></snap></label>
+                            <br/>
+                        </div>
                         <br/>
-                        <input id="P0E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P0E, checked: config.P0E" />
-                        <label for="P0E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P0E()?'Enabled':'Disabled')"></snap></label>
                     </div>
-                    <div class="w3-container" data-bind="visible: config.P0E">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P0N" />
-                        <br/>
-                        <input id="P0P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P0P, checked: config.P0P">
-                        <label for="P0P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P0P()?'Invers':'Normal')"></snap></label>
-                        <br/>
-                    </div>
-                    <br>
+                    <br/>
                 </div>
-            </div>
-            <div class="w3-quarter w3-container">
-                <div class="w3-card">
-                    <div class="w3-container">
+                <div class="w3-quarter w3-container">
+                    <div class="w3-card-4">
+                        <div class="w3-container">
+                            <br/>
+                            <input id="P1E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P1E, checked: config.P1E" />
+                            <label for="P1E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P1E()?'Enabled':'Disabled')"></snap></label>
+                        </div>
+                        <div class="w3-container" data-bind="visible: config.P1E">
+                            <label class="w3-text-blue">Label</label>
+                            <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P1N" />
+                            <br/>
+                            <input id="P1P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P1P, checked: config.P1P">
+                            <label for="P1P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P1P()?'Invers':'Normal')"></snap></label>
+                            <br/>
+                        </div>
                         <br/>
-                        <input id="P1E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P1E, checked: config.P1E" />
-                        <label for="P1E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P1E()?'Enabled':'Disabled')"></snap></label>
                     </div>
-                    <div class="w3-container" data-bind="visible: config.P1E">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P1N" />
-                        <br/>
-                        <input id="P1P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P1P, checked: config.P1P">
-                        <label for="P1P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P1P()?'Invers':'Normal')"></snap></label>
-                        <br/>
-                    </div>
-                    <br>
+                    <br/>
                 </div>
-            </div>
-            <div class="w3-quarter w3-container">
-                <div class="w3-card">
-                    <div class="w3-container">
+                <div class="w3-quarter w3-container">
+                    <div class="w3-card-4">
+                        <div class="w3-container">
+                            <br/>
+                            <input id="P2E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P2E, checked: config.P2E" />
+                            <label for="P2E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P2E()?'Enabled':'Disabled')"></snap></label>
+                        </div>
+                        <div class="w3-container" data-bind="visible: config.P2E">
+                            <label class="w3-text-blue">Label</label>
+                            <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P2N" />
+                            <br/>
+                            <input id="P2P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P2P, checked: config.P2P">
+                            <label for="P2P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P2P()?'Invers':'Normal')"></snap></label>
+                            <br/>
+                        </div>
                         <br/>
-                        <input id="P2E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P2E, checked: config.P2E" />
-                        <label for="P2E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P2E()?'Enabled':'Disabled')"></snap></label>
                     </div>
-                    <div class="w3-container" data-bind="visible: config.P2E">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P2N" />
-                        <br/>
-                        <input id="P2P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P2P, checked: config.P2P">
-                        <label for="P2P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P2P()?'Invers':'Normal')"></snap></label>
-                        <br/>
-                    </div>
-                    <br>
+                    <br/>
                 </div>
-            </div>
-            <div class="w3-quarter w3-container">
-                <div class="w3-card">
-                    <div class="w3-container">
+                <div class="w3-quarter w3-container">
+                    <div class="w3-card-4">
+                        <div class="w3-container">
+                            <br/>
+                            <input id="P3E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P3E, checked: config.P3E" />
+                            <label for="P3E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P3E()?'Enabled':'Disabled')"></snap></label>
+                        </div>
+                        <div class="w3-container" data-bind="visible: config.P3E">
+                            <label class="w3-text-blue">Label</label>
+                            <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P3N" />
+                            <br/>
+                            <input id="P3P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P3P, checked: config.P3P">
+                            <label for="P3P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P3P()?'Invers':'Normal')"></snap></label>
+                            <br/>
+                        </div>
                         <br/>
-                        <input id="P3E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P3E, checked: config.P3E" />
-                        <label for="P3E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.P3E()?'Enabled':'Disabled')"></snap></label>
                     </div>
-                    <div class="w3-container" data-bind="visible: config.P3E">
-                        <label class="w3-text-blue">Label</label>
-                        <input class="w3-input w3-border" type="text" placeholder="e.g. Pump" data-bind="textInput: config.P3N" />
-                        <br/>
-                        <input id="P3P" type="checkbox" class="w3-switch" data-bind="checkedValue: config.P3P, checked: config.P3P">
-                        <label for="P3P" class="w3-text-blue"><snap data-bind="text: 'Polarity: '+(config.P3P()?'Invers':'Normal')"></snap></label>
-                        <br/>
-                    </div>
-                    <br>
+                    <br/>
                 </div>
             </div>
         </div>
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
         <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
+            <button data-bind="click: saveDI, text: (saveDIFetching() ? 'Saving...' : (saveDISuccess() ? 'Saved' : 'Save')), disable: saveDIFetching" class="w3-button w3-block w3-green"></button>
             <div class="w3-bar w3-center">
                 <snap data-bind="text: status.showTime()">time</snap>
                 <snap data-bind="text: status.showDate()">date</snap>

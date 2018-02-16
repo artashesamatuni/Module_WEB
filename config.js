@@ -52,7 +52,9 @@ function StatusViewModel() {
         "P0": 1,
         "P1": 0,
         "P2": 1,
-        "P3": 0
+        "P3": 0,
+        //----------------
+        "tCPU": 41.5
     }, baseEndpoint + '/status');
     // Some devired values
     self.showTime = ko.pureComputed(function () {
@@ -187,6 +189,7 @@ function ConfigViewModel() {
         "emoncms_fingerprint": "",
         "emoncms_interval": 5,
         //------------------------------
+        "mqtt_enable": true,
         "mqtt_server": "",
         "mqtt_topic": "",
         "mqtt_feed_prefix": "",

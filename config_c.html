@@ -59,7 +59,7 @@
         <br/>
         <div class="w3-row">
             <div class="w3-quarter w3-container">
-                <div class="w3-card">
+                <div class="w3-card-4">
                     <h4 class="w3-container w3-center">Your Timezone</h4>
                     <form class="w3-container w3-white">
                         <label class="w3-text-blue">Timezone</label>
@@ -67,6 +67,17 @@
                     </form>
                     <br>
                     <button data-bind="click: saveTZ, text: (saveTZFetching() ? 'Saving...' : (saveTZSuccess() ? 'Saved' : 'Save')), disable: saveTZFetching" class="w3-button w3-block w3-green"></button>
+                </div>
+            </div>
+            <div class="w3-quarter w3-container">
+                <div class="w3-card-4">
+                    <h4 class="w3-container w3-center"><span data-bind="text: 'CPU Temperature is '+status.tCPU()+'&deg;C'"></span></h4>
+                    <div class="w3-container">
+                        <div class="w3-orange">
+                            <div class="w3-deep-orange" data-bind="style:{height: '12px', width: calcP(status.tCPU(),0,100)+ '%'}">&nbsp;</div>
+                        </div>
+                    </div>
+                    <br/>
                 </div>
             </div>
         </div>
