@@ -191,13 +191,14 @@ function ConfigViewModel() {
         //------------------------------
         "mqtt_enable": true,
         "mqtt_server": "",
-        "mqtt_topic": "",
-        "mqtt_feed_prefix": "",
+        "mqtt_topic": "Eagle",
+        "mqtt_feed_prefix": "test",
         "mqtt_ssl": true,
         "mqtt_user": "",
         "mqtt_pass": "",
         "mqtt_interval": 5,
         "mqtt_port": 1883,
+        "mqtt_nods": [["A0", "0x7984719247", "Voltage"], ["R1", "0x7984711147", "New"]],
         //------------------------------
         "tzone": "GMT+4",
     }, baseEndpoint + '/config');

@@ -112,6 +112,35 @@
                     &nbsp;
                 </div>
             </div>
+            <br/>
+            <div class="w3-row" data-bind="visible: config.mqtt_enable">
+                <div class="w3-quarter w3-container">
+                    &nbsp;
+                </div>
+                <div class="w3-half w3-container">
+                    <div class="w3-card-4">
+                        <table class="w3-table">
+                            <tr class="w3-blue">
+                                <th>Pin</th>
+                                <th>Topic</th>
+                            </tr>
+                            <tbody data-bind="foreach: config.mqtt_nods">
+                                <tr>
+                                    <td>
+                                        <strong><snap data-bind="text: $data[0]"></snap></strong>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $root.config.mqtt_topic()+'/'+$root.config.mqtt_feed_prefix()+'/'+$data[1]+'/'+$data[2]"></snap>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="w3-quarter w3-container">
+                    &nbsp;
+                </div>
+            </div>
         </div>
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
         <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">

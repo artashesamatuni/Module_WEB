@@ -26,10 +26,15 @@
     <div data-bind="visible: initialised" style="display: none">
         <div class="w3-top" style="max-width:1024px;min-width:350px">
             <div class="w3-blue w3-bar w3-hide-large w3-hide-medium">
-                <snap class="w3-bar-item w3-left w3-wide">Analog Channels</snap>
+                <a href="http://www.eaglemon.com" class="w3-bar-item w3-left">
+                    <image src="images/logo_s.svg"></image>
+                </a>
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
             </div>
             <div class="w3-blue w3-bar">
+                <a href="http://www.eaglemon.com" class="w3-bar-item w3-hide-small">
+                    <image src="images/logo_s.svg"></image>
+                </a>
                 <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
                 <div class="w3-dropdown-click w3-hide-small">
                     <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
@@ -75,7 +80,7 @@
                             <input id="A0E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A0E, checked: config.A0E" />
                             <label for="A0E" class="w3-text-blue"><snap data-bind="text: 'Ch. 0: '+(config.A0E()?'Enabled':'Disabled')"></snap></label>
                         </div>
-                        <form class="w3-container w3-white">
+                        <form class="w3-container w3-white" data-bind="visible: config.A0E">
                             <label class="w3-text-blue">Label</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A0N" />
                             <label class="w3-text-blue">Unit</label>
