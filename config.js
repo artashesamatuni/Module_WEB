@@ -198,6 +198,9 @@ function ConfigViewModel() {
         "mqtt_pass": "",
         "mqtt_interval": 5,
         "mqtt_port": 1883,
+        "mqtt_cert": "test.cert",
+        "mqtt_key": "test.key",
+        "mqtt_ssl": true,
         "mqtt_nods": [["A0", "0x7984719247", "Voltage"], ["R1", "0x7984711147", "New"]],
         //------------------------------
         "tzone": "GMT+4",

@@ -78,30 +78,55 @@
                             <h4>MQTT Reports config</h4>
                         </div>
                         <div class="w3-container">
-
                             <input id="MQTTE" type="checkbox" class="w3-switch" data-bind="checkedValue: config.mqtt_enable, checked: config.mqtt_enable" />
                             <label for="MQTTE" class="w3-text-blue"><snap data-bind="text: 'MQTT : '+(config.mqtt_enable()?'Enabled':'Disabled')"></snap></label>
                         </div>
                         <br/>
                         <form class="w3-container w3-white" data-bind="visible: config.mqtt_enable">
                             <label class="w3-text-blue">MQTT Server*</label>
-                            <input class="w3-input w3-border" type="text" placeholder="e.g. test.mosquitto.org" data-bind="textInput: config.mqtt_server, disable: saveMqttFetching" />
+                            <input class="w3-input w3-border" type="text" placeholder="e.g. test.mosquitto.org" data-bind="textInput: config.mqtt_server" />
                             <label class="w3-text-blue">MQTT Base-topic*</label>
                             <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_topic, disable: saveMqttFetching" />
                             <label class="w3-text-blue">MQTT Feed-name prefix</label>
                             <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_feed_prefix, disable: saveMqttFetching" />
-                            <label class="w3-text-blue">Username</label>
-                            <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_user, disable: saveMqttFetching" />
-                            <label class="w3-text-blue">Password</label>
-                            <input class="w3-input w3-border" data-bind="textInput: config.mqtt_pass, disable: saveMqttFetching" type="password" />
-                            <div class="w3-row">
-                                <div class="w3-half">
-                                    <label class="w3-text-blue">Interval[sec.]</label>
-                                    <input class="w3-input w3-border" type="number" min="5" max="60" data-bind="value: config.mqtt_interval, disable: saveMqttFetching" />
+                            <br/>
+                            <input id="SSL" type="checkbox" class="w3-switch" data-bind="checkedValue: config.mqtt_ssl, checked: config.mqtt_ssl" />
+                            <label for="SSL" class="w3-text-blue"><snap data-bind="text: 'SSL '+(config.mqtt_ssl()?'Enabled':'Disabled')"></snap></label>
+                            <br/>
+                            <div data-bind="visible: !config.mqtt_ssl()">
+                                <label class="w3-text-blue">Username</label>
+                                <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_user" />
+                                <label class="w3-text-blue">Password</label>
+                                <input class="w3-input w3-border" data-bind="textInput: config.mqtt_pass" type="password" />
+                            </div>
+                            <div data-bind="visible: config.mqtt_ssl()">
+                                <label class="w3-text-blue">Certificate</label>
+                                <div class="w3-row-padding">
+                                    <div class="w3-col m9 s9">
+                                        <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_cert" />
+                                    </div>
+                                    <div class="w3-col m3 s3">
+                                        <button class="w3-button w3-block w3-green">Upload</button>
+                                    </div>
                                 </div>
-                                <div class="w3-half">
+                                <label class="w3-text-blue">Key</label>
+                                <div class="w3-row-padding">
+                                    <div class="w3-col m9 s9">
+                                        <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_key" />
+                                    </div>
+                                    <div class="w3-col m3 s3">
+                                        <button class="w3-button w3-block w3-green">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m6 s6">
+                                    <label class="w3-text-blue">Interval[sec.]</label>
+                                    <input class="w3-input w3-border" type="number" min="5" max="60" data-bind="value: config.mqtt_interval" />
+                                </div>
+                                <div class="w3-col m6 s6">
                                     <label class="w3-text-blue">Port</label>
-                                    <input class="w3-input w3-border" type="number" data-bind="value: config.mqtt_port, disable: saveMqttFetching" />
+                                    <input class="w3-input w3-border" type="number" data-bind="value: config.mqtt_port" />
                                 </div>
                             </div>
                         </form>
