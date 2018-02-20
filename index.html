@@ -38,7 +38,7 @@
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
                 <a class="w3-bar-item w3-button w3-left" data-bind="click: saveAdmin"><i class="fa fa-check" style="color:green;"></i></a>
                 <div class="w3-right">
-                    <a href="index.html" class="w3-bar-item w3-button" disabled>DASHBOARD</a>
+                    <a href="index.html" class="w3-bar-item w3-button">DASHBOARD</a>
                     <div class="w3-dropdown-click w3-hide-small">
                         <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
                         <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
@@ -53,7 +53,7 @@
                     </div>
                     <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
                     <a href="http://www.eaglemon.com" class="w3-bar-item w3-right">
-                        <image src="images/logo_s.png" style="height: 24px"></image>
+                        <image alt="logo" src="images/logo_s.png" style="height: 24px" />
                     </a>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                 <h4 class="w3-center">Relay Outputs</h4>
                 <div class="w3-row">
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-card-4 w3-white" data-bind="visible: config.R0E()">
+                        <div class="w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.R0E()">
                             <header class="w3-container w3-center">
                                 <h5>
                                     <snap data-bind="text: config.R0N()"></snap>
@@ -85,7 +85,7 @@
                             </div>
                             <br/>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.R0E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R0E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -116,7 +116,7 @@
                             </div>
                             <br/>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.R1E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R1E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -126,7 +126,7 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-card-4 w3-white" data-bind="visible: config.R2E()">
+                        <div class="w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.R2E()">
                             <header class="w3-container w3-center">
                                 <h5>
                                     <snap data-bind="text: config.R2N()"></snap>
@@ -147,7 +147,7 @@
                             </div>
                             <br/>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.R2E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R2E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -157,7 +157,7 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-card-4 w3-white" data-bind="visible: config.R3E()">
+                        <div class="w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.R3E()">
                             <header class="w3-container w3-center">
                                 <h5>
                                     <snap data-bind="text: config.R3N()"></snap>
@@ -178,7 +178,7 @@
                             </div>
                             <br/>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.R3E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R3E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -194,7 +194,7 @@
                 <h4 class="w3-center">Analog Inputs</h4>
                 <div class="w3-row">
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: config.A0E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.A0E()">
                             <div class="w3-center">
                                 <header class="w3-container">
                                     <h4>
@@ -212,7 +212,7 @@
                             </div>
 
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.A0E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A0E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -222,7 +222,7 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: config.A1E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.A1E()">
                             <div class="w3-center">
                                 <header class="w3-container">
                                     <h4>
@@ -239,7 +239,7 @@
                                 <br/>
                             </div>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.A1E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A1E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -249,7 +249,7 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: config.A2E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.A2E()">
                             <div class="w3-center">
                                 <header class="w3-container">
                                     <h4>
@@ -266,7 +266,7 @@
                                 <br/>
                             </div>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.A2E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A2E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -276,7 +276,7 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: config.A3E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.A3E()">
                             <div class="w3-center">
                                 <header class="w3-container">
                                     <h4>
@@ -293,7 +293,7 @@
                                 <br/>
                             </div>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.A3E()">
+                        <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A3E()">
                             <div class="w3-center">
                                 <header class="w3-red">
                                     <h4>DISSABLED</h4>
@@ -309,18 +309,18 @@
                 <h4 class="w3-center">Digital Inputs</h4>
                 <div class="w3-row">
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4" data-bind="visible: config.P0E(), style: { 'background-color': status.P0() ? '#4CAF50' : '#f44336' }">
+                        <div class="w3-container w3-card-4" data-bind="visible: config.P0E()">
                             <div class="w3-center">
-                                <div class="w3-container w3-text-white">
-                                    <h6>
+                                <header data-bind="style: { 'background-color': status.P0() ? '#4CAF50' : '#f44336' }">
+                                    <h4>
                                         <snap data-bind="text: config.P0N()+ '&nbsp;'+(status.P0() ? 'ON': 'OFF')"></snap>
-                                    </h6>
-                                </div>
+                                    </h4>
+                                </header>
                             </div>
                         </div>
-                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.R0E()">
+                        <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.P0E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -328,18 +328,18 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4" data-bind="visible: config.P1E(), style: { 'background-color': status.P1() ? '#4CAF50' : '#f44336' }">
+                        <div class="w3-container w3-card-4" data-bind="visible: config.P1E()">
                             <div class="w3-center">
-                                <div class="w3-container w3-text-white">
-                                    <h6>
+                                <header data-bind="style: { 'background-color': status.P1() ? '#4CAF50' : '#f44336' }">
+                                    <h4>
                                         <snap data-bind="text: config.P1N()+ '&nbsp;'+(status.P1() ? 'ON': 'OFF')"></snap>
-                                    </h6>
-                                </div>
+                                    </h4>
+                                </header>
                             </div>
                         </div>
                         <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.P1E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -347,18 +347,18 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4" data-bind="visible: config.P2E(), style: { 'background-color': status.P2() ? '#4CAF50' : '#f44336' }">
+                        <div class="w3-container w3-card-4" data-bind="visible: config.P2E()">
                             <div class="w3-center">
-                                <div class="w3-container w3-text-white">
-                                    <h6>
+                                <header data-bind="style: { 'background-color': status.P2() ? '#4CAF50' : '#f44336' }">
+                                    <h4>
                                         <snap data-bind="text: config.P2N()+ '&nbsp;'+(status.P2() ? 'ON': 'OFF')"></snap>
-                                    </h6>
-                                </div>
+                                    </h4>
+                                </header>
                             </div>
                         </div>
                         <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.P2E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -366,18 +366,18 @@
                         <br/>
                     </div>
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4" data-bind="visible: config.P3E(), style: { 'background-color': status.P3() ? '#4CAF50' : '#f44336' }">
+                        <div class="w3-container w3-card-4" data-bind="visible: config.P3E()">
                             <div class="w3-center">
-                                <div class="w3-container w3-text-white">
-                                    <h6>
+                                <header data-bind="style: { 'background-color': status.P3() ? '#4CAF50' : '#f44336' }">
+                                    <h4>
                                         <snap data-bind="text: config.P3N()+ '&nbsp;'+(status.P3() ? 'ON': 'OFF')"></snap>
-                                    </h6>
-                                </div>
+                                    </h4>
+                                </header>
                             </div>
                         </div>
                         <div class="w3-container w3-card-4 w3-white" data-bind="visible: !config.P3E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
