@@ -54,7 +54,9 @@ function StatusViewModel() {
         "P2": 1,
         "P3": 0,
         //----------------
-        "tCPU": 41.5
+        "tCPU": 41.5,
+        "ip": "10.116.1.13",
+        "mqtt_status": true
     }, baseEndpoint + '/status');
     // Some devired values
     self.showTime = ko.pureComputed(function () {
@@ -124,7 +126,7 @@ function ConfigViewModel() {
         "R0E": true,
         "R0P": false,
         "R0N": "Pump",
-        "R1E": true,
+        "R1E": false,
         "R1P": true,
         "R1N": "empty",
         "R2E": true,
@@ -142,7 +144,7 @@ function ConfigViewModel() {
         "A0AMAX": 8,
         "A0A": true,
         "A0N": "Pressure",
-        "A1E": false,
+        "A1E": true,
         "A1U": "",
         "A1MIN": 0,
         "A1MAX": 0,
@@ -173,21 +175,16 @@ function ConfigViewModel() {
         "P1E": false,
         "P1P": false,
         "P1N": "empty",
-        "P2E": true,
+        "P2E": false,
         "P2P": false,
         "P2N": "empty",
-        "P3E": false,
+        "P3E": true,
         "P3P": false,
         "P3N": "empty",
         //------------------------------
         "wuser": "",
         "wpass": "",
-        //------------------------------
-        "emoncms_server": "",
-        "emoncms_apikey": "",
-        "emoncms_node": "",
-        "emoncms_fingerprint": "",
-        "emoncms_interval": 5,
+        "wpass2": "",
         //------------------------------
         "mqtt_enable": true,
         "mqtt_server": "",
@@ -412,8 +409,6 @@ function OrangeViewModel() {
         });
 
     };
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // ANALOG CHANNELS CONFIG
     // -----------------------------------------------------------------------
     // Event: AI setup
     // -----------------------------------------------------------------------
@@ -472,50 +467,25 @@ function OrangeViewModel() {
     self.saveAdminFetching = ko.observable(false);
     self.saveAdminSuccess = ko.observable(false);
     self.saveAdmin = function () {
-        self.saveAdminFetching(true);
-        self.saveAdminSuccess(false);
-        $.post(baseEndpoint + "/saveadmin", {
+        var admin = {
             user: self.config.wuser(),
             pass: self.config.wpass()
-        }, function (data) {
-            self.saveAdminSuccess(true);
-        }).fail(function () {
-            alert("Failed to save Access control config");
-        }).always(function () {
-            self.saveAdminFetching(false);
-        });
-    };
-    // -----------------------------------------------------------------------
-    // Event: Emoncms save
-    // -----------------------------------------------------------------------
-    self.saveEmonCmsFetching = ko.observable(false);
-    self.saveEmonCmsSuccess = ko.observable(false);
-    self.saveEmonCms = function () {
-        var emoncms = {
-            server: self.config.emoncms_server(),
-            apikey: self.config.emoncms_apikey(),
-            node: self.config.emoncms_node(),
-            fingerprint: self.config.emoncms_fingerprint()
         };
-
-        if (emoncms.server === "" || emoncms.node === "") {
-            alert("Please enter Emoncms server and node");
-        } else if (emoncms.apikey.length != 32) {
-            alert("Please enter valid Emoncms apikey");
-        } else if (emoncms.fingerprint !== "" && emoncms.fingerprint.length != 59) {
-            alert("Please enter valid SSL SHA-1 fingerprint");
+        if (admin.pass != self.config.wpass2()) {
+            alert("Please enter simular password.");
         } else {
-            self.saveEmonCmsFetching(true);
-            self.saveEmonCmsSuccess(false);
-            $.post(baseEndpoint + "/saveemoncms", emoncms, function (data) {
-                self.saveEmonCmsSuccess(true);
+            self.saveAdminFetching(true);
+            self.saveAdminSuccess(false);
+            $.post(baseEndpoint + "/saveadmin", admin, function (data) {
+                self.saveAdminSuccess(true);
             }).fail(function () {
-                alert("Failed to save Admin config");
+                alert("Failed to save Access control config");
             }).always(function () {
-                self.saveEmonCmsFetching(false);
+                self.saveAdminFetching(false);
             });
         }
     };
+
     // -----------------------------------------------------------------------
     // Event: MQTT save
     // -----------------------------------------------------------------------
@@ -523,9 +493,11 @@ function OrangeViewModel() {
     self.saveMqttSuccess = ko.observable(false);
     self.saveMqtt = function () {
         var mqtt = {
+            enabled: self.config.mqtt_enable(),
             server: self.config.mqtt_server(),
             topic: self.config.mqtt_topic(),
             prefix: self.config.mqtt_feed_prefix(),
+            ssl: self.config.mqtt_ssl(),
             user: self.config.mqtt_user(),
             pass: self.config.mqtt_pass(),
             interval: self.config.mqtt_interval(),

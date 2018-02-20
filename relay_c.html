@@ -24,49 +24,43 @@
         <div class="cssload-cube cssload-c3"></div>
     </div>
     <div data-bind="visible: initialised" style="display: none">
+        <!---------------------------------------------------------------- MENU ------------------------------------------------------------------------------------------------------------>
         <div class="w3-top" style="max-width:1024px;min-width:350px">
-            <div class="w3-blue w3-bar w3-hide-large w3-hide-medium">
-                <snap class="w3-bar-item w3-left w3-wide">Relays Configuration</snap>
-                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
-            </div>
-            <div class="w3-blue w3-bar">
-                <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
-                <div class="w3-dropdown-click w3-hide-small">
-                    <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
-                    <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
-                        <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
-                        <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
-                        <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
-                        <hr>
-                        <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
-                        <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
-                        <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
-                        <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
-                        <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
-                        <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
-                    </div>
+            <div class="w3-light-gray w3-bar">
+                <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
+                    <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a>
+                    <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+                    <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+                    <hr/>
+                    <a href="mqtt_c.html" class="w3-bar-item w3-button">MQTT Broker</a>
+                    <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+                    <a href="config_c.html" class="w3-bar-item w3-button">Settings</a>
+                    <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
                 </div>
-                <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
+                <a class="w3-bar-item w3-button w3-left" data-bind="click: saveDO"><i class="fa fa-check" style="color:green;"></i></a>
+                <div class="w3-right">
+                    <a href="index.html" class="w3-bar-item w3-button" disabled>DASHBOARD</a>
+                    <div class="w3-dropdown-click w3-hide-small">
+                        <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
+                        <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
+                            <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
+                            <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
+                            <hr/>
+                            <a href="mqtt_c.html" class="w3-bar-item w3-button">MQTT Broker</a>
+                            <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
+                            <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
+                        </div>
+                    </div>
+                    <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
+                    <a href="http://www.eaglemon.com" class="w3-bar-item w3-right">
+                        <image src="images/logo_s.png" style="height: 24px"></image>
+                    </a>
+                </div>
             </div>
         </div>
-        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
-            <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
-            <br/>
-            <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
-            <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
-            <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
-            <a href="team_c.html" class="w3-bar-item w3-button">Teamviewer</a>
-            <a href="mon_c.html" class="w3-bar-item w3-button">EmonCMS</a>
-            <a href="mqtt_c.html" class="w3-bar-item w3-button">Mqtt</a>
-            <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
-            <a href="modbus_c.html" class="w3-bar-item w3-button">Modbus</a>
-            <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
-            <br/>
-            <a onclick="document.getElementById( 'help').style.display='block'" class="w3-bar-item w3-button">Help</a>
-        </div>
-        <br/>
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-main" style="height: 100%; margin-top:55px;margin-bottom:80px;">
+        <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
             <div class="w3-row">
                 <div class="w3-quarter w3-container">
                     <div class="w3-card-4">
@@ -148,7 +142,6 @@
         </div>
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
         <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
-            <button data-bind="click: saveDO, text: (saveDOFetching() ? 'Saving...' : (saveDOSuccess() ? 'Saved' : 'Save')), disable: saveDOFetching" class="w3-button w3-block w3-green"></button>
             <div class="w3-bar w3-center">
                 <snap data-bind="text: status.showTime()">time</snap>
                 <snap data-bind="text: status.showDate()">date</snap>

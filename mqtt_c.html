@@ -25,11 +25,11 @@
     </div>
     <div data-bind="visible: initialised" style="display: none">
         <div class="w3-top" style="max-width:1024px;min-width:350px">
-            <div class="w3-blue w3-bar w3-hide-large w3-hide-medium">
+            <div class="w3-light-gray w3-bar w3-hide-large w3-hide-medium">
                 <snap class="w3-bar-item w3-left w3-wide">Digital Channels</snap>
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
             </div>
-            <div class="w3-blue w3-bar">
+            <div class="w3-light-gray w3-bar">
                 <a href="index.html" class="w3-bar-item w3-button w3-hide-small">Dashboard</a>
                 <div class="w3-dropdown-click w3-hide-small">
                     <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
@@ -66,7 +66,7 @@
         </div>
         <br/>
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-main" style="height: 100%; margin-top:55px;margin-bottom:80px;">
+        <div class="w3-main" style="height: 100%; margin-top:35px;margin-bottom:80px;">
             <div class="w3-row">
                 <div class="w3-quarter w3-container">
                     &nbsp;
@@ -122,7 +122,7 @@
                             <div class="w3-row-padding">
                                 <div class="w3-col m6 s6">
                                     <label class="w3-text-blue">Interval[sec.]</label>
-                                    <input class="w3-input w3-border" type="number" min="5" max="60" data-bind="value: config.mqtt_interval" />
+                                    <input class="w3-input w3-border" type="number" min="1" max="60" data-bind="value: config.mqtt_interval" />
                                 </div>
                                 <div class="w3-col m6 s6">
                                     <label class="w3-text-blue">Port</label>
@@ -145,7 +145,7 @@
                 <div class="w3-half w3-container">
                     <div class="w3-card-4">
                         <table class="w3-table">
-                            <tr class="w3-blue">
+                            <tr class="w3-text-white" data-bind="style: { 'background-color': status.mqtt_status() ? '#4CAF50' : '#f44336' }">
                                 <th>Pin</th>
                                 <th>Topic</th>
                             </tr>
@@ -160,6 +160,9 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <footer class="w3-center w3-text-white" data-bind="style: { 'background-color': status.mqtt_status() ? '#4CAF50' : '#f44336' }">
+                            <snap data-bind="text: 'MQTT Conection status: '+(status.mqtt_status()?'Connected':'-----')"></snap>
+                        </footer>
                     </div>
                 </div>
                 <div class="w3-quarter w3-container">
@@ -168,7 +171,7 @@
             </div>
         </div>
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
+        <div class="w3-bottom w3-light-gray" style="max-width:1024px;min-width:350px">
             <button data-bind="click: saveMqtt, text: (saveMqttFetching() ? 'Saving...' : (saveMqttSuccess() ? 'Saved' : 'Save')), disable: saveMqttFetching" class="w3-button w3-block w3-green"></button>
             <div class="w3-bar w3-center">
                 <snap data-bind="text: status.showTime()">time</snap>
