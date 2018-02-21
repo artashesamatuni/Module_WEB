@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EagleMON-444</title>
+    <title>EM-444</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <meta name="description" content="EagleMON-444">
+    <meta name="description" content="EM-444">
     <meta name="author" content="EagleMON">
+    <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="w3.css">
     <link rel="stylesheet" href="spinner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -87,7 +88,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R0E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -118,7 +119,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R1E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -149,7 +150,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R2E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -180,7 +181,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.R3E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -214,7 +215,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A0E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -241,7 +242,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A1E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -268,7 +269,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A2E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -295,7 +296,7 @@
                         </div>
                         <div class="w3-container w3-card-4 w3-white" style="height: 120px" data-bind="visible: !config.A3E()">
                             <div class="w3-center">
-                                <header class="w3-red">
+                                <header class="w3-gray">
                                     <h4>DISSABLED</h4>
                                 </header>
                             </div>
@@ -410,10 +411,16 @@
                         <div class="w3-container w3-card-4">
                             <div class="w3-center">
                                 <div class="w3-container">
-                                    <h6>
-                                        <snap data-bind="text: 'CPU Temperature: '+status.tCPU()+'&deg;C'"></snap>
+                                    <h6>CPU Temperature:<br/>
+                                        <snap data-bind="text: status.tCPU()+' &deg;C'"></snap>
                                     </h6>
                                 </div>
+                                <div class="w3-container">
+                                    <div class="w3-light-gray">
+                                        <div class="w3-blue" data-bind="style:{height: '12px', width: calcP(status.tCPU(),0,100)+ '%'}">&nbsp;</div>
+                                    </div>
+                                </div>
+                                <br/>
                             </div>
                         </div>
                         <br/>

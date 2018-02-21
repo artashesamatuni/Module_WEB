@@ -3,15 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EagleMON-T</title>
+    <title>EM-444</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <meta name="description" content="EagleMON-T">
+    <meta name="description" content="EM-444">
     <meta name="author" content="EagleMON">
     <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="w3.css">
-    <link rel="stylesheet" href="my.css">
     <link rel="stylesheet" href="spinner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -37,7 +35,7 @@
                     <a href="config_c.html" class="w3-bar-item w3-button">Settings</a>
                     <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
                 </div>
-                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
                 <a class="w3-bar-item w3-button w3-left" data-bind="click: saveDO"><i class="fa fa-check" style="color:green;"></i></a>
                 <div class="w3-right">
                     <a href="index.html" class="w3-bar-item w3-button" disabled>DASHBOARD</a>
@@ -62,7 +60,7 @@
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
         <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
             <div class="w3-row">
-                <div class="w3-quarter w3-container">
+                <div class="w3-col w3-container m3 s12">
                     <div class="w3-card-4">
                         <div class="w3-container">
                             <br/>
@@ -81,7 +79,7 @@
                     </div>
                     <br/>
                 </div>
-                <div class="w3-quarter w3-container">
+                <div class="w3-col w3-container m3 s12">
                     <div class="w3-card-4">
                         <div class="w3-container">
                             <br/>
@@ -100,7 +98,7 @@
                     </div>
                     <br/>
                 </div>
-                <div class="w3-quarter w3-container">
+                <div class="w3-col w3-container m3 s12">
                     <div class="w3-card-4">
                         <div class="w3-container">
                             <br/>
@@ -119,7 +117,7 @@
                     </div>
                     <br/>
                 </div>
-                <div class="w3-quarter w3-container">
+                <div class="w3-col w3-container m3 s12">
                     <div class="w3-card-4">
                         <div class="w3-container">
                             <br/>
@@ -141,12 +139,14 @@
             </div>
         </div>
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-bottom w3-blue" style="max-width:1024px;min-width:350px">
+        <div class="w3-bottom w3-light-gray" style="max-width:1024px;min-width:350px">
             <div class="w3-bar w3-center">
                 <snap data-bind="text: status.showTime()">time</snap>
                 <snap data-bind="text: status.showDate()">date</snap>
             </div>
-            <div class="w3-bar w3-center">Eagle<span class="w3-text-orange">MON</span></div>
+            <div class="w3-bar w3-center">
+                <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
+            </div>
         </div>
     </div>
 </body>
