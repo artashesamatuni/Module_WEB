@@ -244,7 +244,7 @@ input[type="checkbox"].w3-switch:checked + label:after {
 }
 
 input[type="checkbox"].w3-switch:checked + label:before {
-    background: #4CAF50;
+    background: #ffffff;
 }
 
 input[type="checkbox"].w3-lamp {

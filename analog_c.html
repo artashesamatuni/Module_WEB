@@ -59,21 +59,35 @@
         </div>
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
         <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
-            <div class="w3-row">
-                <div class="w3-col w3-container m3 s12">
-                    <div class="w3-card-4">
+            <div class="w3-panel">
+                <div class="w3-row w3-light-gray">
+                    <div class="w3-col  m3 s3">
+                        <button onclick="R0Menu()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top" id="b0">Channel 0</button>
+                    </div>
+                    <div class="w3-col m3 s3">
+                        <button onclick="R1Menu()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom" id="b1">Channel 1</button>
+                    </div>
+                    <div class="w3-col m3 s3">
+                        <button onclick="R2Menu()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom" id="b2">Channel 2</button>
+                    </div>
+                    <div class="w3-col m3 s3">
+                        <button onclick="R3Menu()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom" id="b3">Channel 3</button>
+                    </div>
+                </div>
+                <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray" style="height: 400px">
+                    <div id="t0" class="w3-show">
+                        <br/>
                         <div class="w3-container">
-                            <br/>
                             <input id="A0E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A0E, checked: config.A0E" />
                             <label for="A0E" class="w3-text-blue"><snap data-bind="text: 'Ch. 0: '+(config.A0E()?'Enabled':'Disabled')"></snap></label>
                         </div>
-                        <form class="w3-container w3-white" data-bind="visible: config.A0E()">
+                        <form class="w3-container" data-bind="visible: config.A0E()">
                             <label class="w3-text-blue">Label</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A0N" />
                             <label class="w3-text-blue">Unit</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A0U" />
                             <label class="w3-text-blue">Scaling</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A0MIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -84,7 +98,7 @@
                                 </div>
                             </div>
                             <label class="w3-text-blue">Alarm Level</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A0AMIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -102,22 +116,19 @@
                         </form>
                         <br/>
                     </div>
-                    <br/>
-                </div>
-                <div class="w3-col w3-container m3 s12">
-                    <div class="w3-card-4">
+                    <div id="t1" class="w3-hide">
+                        <br/>
                         <div class="w3-container">
-                            <br/>
                             <input id="A1E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A1E, checked: config.A1E" />
                             <label for="A1E" class="w3-text-blue"><snap data-bind="text: 'Ch. 1: '+(config.A1E()?'Enabled':'Disabled')"></snap></label>
                         </div>
-                        <form class="w3-container w3-white" data-bind="visible: config.A1E()">
+                        <form class="w3-container" data-bind="visible: config.A1E()">
                             <label class="w3-text-blue">Label</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A1N" />
                             <label class="w3-text-blue">Unit</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A1U" />
                             <label class="w3-text-blue">Scaling</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A1MIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -128,7 +139,7 @@
                                 </div>
                             </div>
                             <label class="w3-text-blue">Alarm Level</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A1AMIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -146,22 +157,19 @@
                         </form>
                         <br/>
                     </div>
-                    <br/>
-                </div>
-                <div class="w3-col w3-container m3 s12">
-                    <div class="w3-card-4">
+                    <div id="t2" class="w3-hide">
+                        <br/>
                         <div class="w3-container">
-                            <br/>
                             <input id="A2E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A2E, checked: config.A2E" />
                             <label for="A2E" class="w3-text-blue"><snap data-bind="text: 'Ch. 2: '+(config.A2E()?'Enabled':'Disabled')"></snap></label>
                         </div>
-                        <form class="w3-container w3-white" data-bind="visible: config.A2E()">
+                        <form class="w3-container" data-bind="visible: config.A2E()">
                             <label class="w3-text-blue">Label</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A2N" />
                             <label class="w3-text-blue">Unit</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A2U" />
                             <label class="w3-text-blue">Scaling</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A2MIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -172,7 +180,7 @@
                                 </div>
                             </div>
                             <label class="w3-text-blue">Alarm Level</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A2AMIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -190,22 +198,19 @@
                         </form>
                         <br/>
                     </div>
-                    <br/>
-                </div>
-                <div class="w3-col w3-container m3 s12">
-                    <div class="w3-card-4">
+                    <div id="t3" class="w3-hide">
                         <br/>
                         <div class="w3-container">
                             <input id="A3E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A3E, checked: config.A3E" />
                             <label for="A3E" class="w3-text-blue"><snap data-bind="text: 'Ch. 3: '+(config.A3E()?'Enabled':'Disabled')"></snap></label>
                         </div>
-                        <form class="w3-container w3-white" data-bind="visible: config.A3E()">
+                        <form class="w3-container" data-bind="visible: config.A3E()">
                             <label class="w3-text-blue">Label</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A3N" />
                             <label class="w3-text-blue">Unit</label>
                             <input class="w3-input w3-border" type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A3U" />
                             <label class="w3-text-blue">Scaling</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A3MIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -216,7 +221,7 @@
                                 </div>
                             </div>
                             <label class="w3-text-blue">Alarm Level</label>
-                            <div class="w3-row-padding">
+                            <div class="w3-row">
                                 <div class="w3-col m6 s6">
                                     <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A3AMIN" />
                                     <label class="w3-text-blue"><sup>min</sup></label>
@@ -232,9 +237,8 @@
                                 <label for="A3A" class="w3-text-blue"><snap data-bind="text: 'Store Alarm : '+(config.A3A()?'Yes':'No')"></snap></label>
                             </div>
                         </form>
-                        <br>
+                        <br/>
                     </div>
-                    <br/>
                 </div>
             </div>
         </div>
@@ -262,6 +266,7 @@
     function cSidebar() {
         document.getElementById("mySidebar").style.display = "none";
     }
+
 </script>
 
 </html>

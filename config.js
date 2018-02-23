@@ -126,6 +126,7 @@ function ConfigViewModel() {
         "R0E": true,
         "R0P": false,
         "R0N": "Pump",
+        "R0M": 0,
         "R1E": false,
         "R1P": true,
         "R1N": "empty",
@@ -172,6 +173,12 @@ function ConfigViewModel() {
         "P0E": true,
         "P0P": true,
         "P0N": "Test",
+        "P0M": 1,
+        "P0IC": 200,
+        "P0PV": 0.25,
+        "P0CD": 1,
+        "P0U": "10x",
+        "P0R": true,
         "P1E": false,
         "P1P": false,
         "P1N": "empty",
@@ -198,7 +205,7 @@ function ConfigViewModel() {
         "mqtt_cert": "test.cert",
         "mqtt_key": "test.key",
         "mqtt_ssl": true,
-        "mqtt_nods": [["A0", "0x7984719247", "Voltage"], ["R1", "0x7984711147", "New"]],
+        "mqtt_nods": [["A00000000000000000", "aaa"], ["R1", "0x7984711147"]],
         //------------------------------
         "tzone": "GMT+4",
     }, baseEndpoint + '/config');
@@ -619,4 +626,60 @@ function ledDRAW(rVal) {
 
 function calcP(val, v_min, v_max) {
     return val / (v_max - v_min) * 100;
+}
+//-----------------------------------------------------------------------
+function R0Menu() {
+    var x = document.getElementById("t0");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className = " w3-show";
+        document.getElementById("b0").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
+        document.getElementById("b1").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("b2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("b3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("t1").className = "w3-hide";
+        document.getElementById("t2").className = "w3-hide";
+        document.getElementById("t3").className = "w3-hide";
+    }
+}
+
+function R1Menu() {
+    var x = document.getElementById("t1");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className = " w3-show";
+        document.getElementById("b0").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top w3-border-bottom";
+        document.getElementById("b1").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top";
+        document.getElementById("b2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("b3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("t0").className = "w3-hide";
+        document.getElementById("t2").className = "w3-hide";
+        document.getElementById("t3").className = "w3-hide";
+    }
+}
+
+function R2Menu() {
+    var x = document.getElementById("t2");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className = " w3-show";
+        document.getElementById("b0").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top w3-border-bottom";
+        document.getElementById("b1").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("b2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top";
+        document.getElementById("b3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("t0").className = "w3-hide";
+        document.getElementById("t1").className = "w3-hide";
+        document.getElementById("t3").className = "w3-hide";
+    }
+}
+
+function R3Menu() {
+    var x = document.getElementById("t3");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className = " w3-show";
+        document.getElementById("b0").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top w3-border-bottom";
+        document.getElementById("b1").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("b2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top w3-border-bottom";
+        document.getElementById("b3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-top";
+        document.getElementById("t0").className = "w3-hide";
+        document.getElementById("t1").className = "w3-hide";
+        document.getElementById("t2").className = "w3-hide";
+    }
 }

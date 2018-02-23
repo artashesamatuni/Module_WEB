@@ -65,7 +65,7 @@
                 <h4 class="w3-center">Relay Outputs</h4>
                 <div class="w3-row">
                     <div class="w3-col w3-container m3 s6">
-                        <div class="w3-card-4 w3-white" style="height: 120px" data-bind="visible: config.R0E()">
+                        <div class="w3-card-4 w3-white" style="height: 180px" data-bind="visible: config.R0E()">
                             <header class="w3-container w3-center">
                                 <h5>
                                     <snap data-bind="text: config.R0N()"></snap>
@@ -76,13 +76,17 @@
                                     <div class="w3-col m4 s4">
                                         <img alt="RELAY" style="width:100%" data-bind="attr: {src: relayDRAW(status.R0())}">
                                     </div>
-                                    <div class="w3-col m1 s1">
+                                    <div class="w3-col m4 s4">
                                         &nbsp;
                                     </div>
-                                    <div class="w3-col m7 s7">
-                                        <button data-bind="click: BTN0, disable: BTN0Fetching, text:status.R0() ? 'ON' : 'OFF', style:{ 'background-color': status.R0() ? '#4CAF50' : '#f44336'}" class="w3-button w3-block w3-text-white"></button>
+                                    <div class="w3-col m4 s4">
+                                        <img alt="RELAY" style="width:100%" data-bind="attr: {src: ledDRAW(status.R0())}">
                                     </div>
                                 </div>
+                            </div>
+                            <br/>
+                            <div class="w3-container">
+                                <button data-bind="click: BTN0, disable: BTN0Fetching, text:status.R0() ? 'ON' : 'OFF', style:{ 'background-color': status.R0() ? '#4CAF50' : '#f44336'}" class="w3-button w3-block w3-text-white"></button>
                             </div>
                             <br/>
                         </div>

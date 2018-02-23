@@ -67,7 +67,6 @@
                 <div class="w3-col w3-container m8 s12">
                     <div class="w3-card-4">
                         <div class="w3-container w3-center">
-                            <br/>
                             <h4>MQTT Reports config</h4>
                         </div>
                         <div class="w3-container">
@@ -99,7 +98,7 @@
                                         <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_cert" />
                                     </div>
                                     <div class="w3-col m3 s3">
-                                        <button class="w3-button w3-block w3-green">Upload</button>
+                                        <button class="w3-button w3-block w3-light-gray">Upload</button>
                                     </div>
                                 </div>
                                 <label class="w3-text-blue">Key</label>
@@ -108,7 +107,7 @@
                                         <input class="w3-input w3-border" type="text" data-bind="textInput: config.mqtt_key" />
                                     </div>
                                     <div class="w3-col m3 s3">
-                                        <button class="w3-button w3-block w3-green">Upload</button>
+                                        <button class="w3-button w3-block w3-light-gray">Upload</button>
                                     </div>
                                 </div>
                             </div>
@@ -130,33 +129,38 @@
                     &nbsp;
                 </div>
             </div>
-            <br/>
             <div class="w3-row" data-bind="visible: config.mqtt_enable">
                 <div class="w3-col w3-container m2 s0">
                     &nbsp;
                 </div>
                 <div class="w3-col w3-container m8 s12">
                     <div class="w3-card-4">
-                        <table class="w3-table">
-                            <tr class="w3-text-white" data-bind="style: { 'background-color': status.mqtt_status() ? '#4CAF50' : '#f44336' }">
-                                <th>Pin</th>
-                                <th>Topic</th>
-                            </tr>
-                            <tbody data-bind="foreach: config.mqtt_nods">
+                        <header class="w3-center">
+                            <h4>Channel Topics</h4>
+                        </header>
+                        <div class="w3-container">
+                            <table>
                                 <tr>
-                                    <td>
-                                        <strong><snap data-bind="text: $data[0]"></snap></strong>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $root.config.mqtt_topic()+'/'+$root.config.mqtt_feed_prefix()+'/'+$data[1]+'/'+$data[2]"></snap>
-                                    </td>
+                                    <td><b>Name</b></td>
+                                    <td><b>Topic</b></td>
                                 </tr>
-                            </tbody>
-                        </table>
+                                <tbody data-bind="foreach: config.mqtt_nods">
+                                    <tr>
+                                        <td>
+                                            <snap data-bind="text: $data[0]"></snap>
+                                        </td>
+                                        <td>
+                                            <snap data-bind="text: $data[1]"></snap>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <footer class="w3-center w3-text-white" data-bind="style: { 'background-color': status.mqtt_status() ? '#4CAF50' : '#f44336' }">
                             <snap data-bind="text: 'MQTT Conection status: '+(status.mqtt_status()?'Connected':'-----')"></snap>
                         </footer>
                     </div>
+
                 </div>
                 <div class="w3-col w3-container m2 s0">
                     &nbsp;
