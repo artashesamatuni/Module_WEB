@@ -37,7 +37,6 @@
                     <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
                 </div>
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
-                <a class="w3-bar-item w3-button w3-left" data-bind="click: saveAdmin"><i class="fa fa-check" style="color:green;"></i></a>
                 <div class="w3-right">
                     <a href="index.html" class="w3-bar-item w3-button">DASHBOARD</a>
                     <div class="w3-dropdown-click w3-hide-small">
@@ -60,28 +59,24 @@
         </div>
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
         <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
-            <div class="w3-row">
-                <div class="w3-col w3-container m2 s0">&nbsp;</div>
-                <div class="w3-col w3-container m8 s12">
-                    <div class="w3-card-4">
+            <div class="w3-panel">
+                <div class="w3-container w3-border-right w3-border-left w3-border-top w3-border-bottom w3-light-gray">
+                    <div id="t0" class="w3-show">
                         <h4 class="w3-container w3-center">Access control</h4>
-                        <form class="w3-container w3-white">
-                            <label class="w3-text-blue">Username:</label>
-                            <input class="w3-input w3-border" type="text" placeholder="e.g. Admin" data-bind="textInput: config.wuser" />
-                            <label class="w3-text-blue">Password</label>
-                            <input class="w3-input w3-border" type="password" placeholder="***********" data-bind="textInput: config.wpass" />
-                            <label class="w3-text-blue">Confirm password:</label>
-                            <input class="w3-input w3-border" type="password" placeholder="***********" data-bind="textInput: config.wpass2" />
-                        </form>
-                        <br>
+                        <br/>Username<br/>
+                        <input type="text" size="39" placeholder="e.g. Admin" data-bind="textInput: config.wuser" />
+                        <br/>Password<br/>
+                        <input type="password" size="39" data-bind="textInput: config.wpass" />
+                        <br/>Confirm password<br/>
+                        <input type="password" size="39" data-bind="textInput: config.wpass2" />
+                        <br/>
+                        <br/>
+                        <button data-bind="click: saveAdmin, text: (saveAdminFetching() ? 'Saving...' : (saveAdminSuccess() ? 'Saved' : 'Save')), disable: saveAdminFetching"></button>
                     </div>
+                    <br/>
                 </div>
-                <div class="w3-col w3-container m2 s0">&nbsp;</div>
             </div>
         </div>
-        <br/>
-
-
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
         <div class="w3-bottom w3-light-gray" style="max-width:1024px;min-width:350px">
             <div class="w3-bar w3-center">

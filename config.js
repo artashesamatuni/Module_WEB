@@ -121,6 +121,22 @@ function TempViewModel() {
 TempViewModel.prototype = Object.create(BaseViewModel.prototype);
 TempViewModel.prototype.constructor = TempViewModel;
 
+function NConfigViewModel() {
+    BaseViewModel.call(this, {
+        "dhcp": false,
+        "ip": "10.116.1.13",
+        "nm": "255.255.255.0",
+        "gw": "10.116.1.1",
+        "br": "10.116.1.1",
+        "dns": "8.8.8.8",
+        "dom": "eaglemon.com",
+        "sr": "eaglemon.com"
+    }, baseEndpoint + '/nconfig');
+}
+NConfigViewModel.prototype = Object.create(BaseViewModel.prototype);
+NConfigViewModel.prototype.constructor = NConfigViewModel;
+
+
 function ConfigViewModel() {
     BaseViewModel.call(this, {
         "R0E": true,
@@ -139,9 +155,9 @@ function ConfigViewModel() {
         //------------------------------
         "A0E": true,
         "A0U": "Bar",
-        "A0MIN": 0,
-        "A0MAX": 10,
-        "A0AMIN": 5,
+        "A0MIN": -30,
+        "A0MAX": 8,
+        "A0AMIN": -20,
         "A0AMAX": 8,
         "A0A": true,
         "A0N": "Pressure",
@@ -204,7 +220,7 @@ function ConfigViewModel() {
         "mqtt_port": 1883,
         "mqtt_cert": "test.cert",
         "mqtt_key": "test.key",
-        "mqtt_ssl": true,
+        "mqtt_ca": "test.crt",
         "mqtt_nods": [["A00000000000000000", "aaa"], ["R1", "0x7984711147"]],
         //------------------------------
         "tzone": "GMT+4",
@@ -236,7 +252,7 @@ function OrangeViewModel() {
     self.status = new StatusViewModel();
     self.tz = new TZViewModel();
     self.tv = new TVViewModel();
-    self.modbus = new ModbusViewModel();
+    self.nconfig = new NConfigViewModel();
     self.temp = new TempViewModel();
 
     self.initialised = ko.observable(false);
@@ -253,7 +269,7 @@ function OrangeViewModel() {
     self.start = function () {
         self.updating(true);
         self.temp.update(function () {
-            self.modbus.update(function () {
+            self.nconfig.update(function () {
                 self.tv.update(function () {
                     self.tz.update(function () {
                         self.config.update(function () {
@@ -496,10 +512,10 @@ function OrangeViewModel() {
     // -----------------------------------------------------------------------
     // Event: MQTT save
     // -----------------------------------------------------------------------
-    self.saveMqttFetching = ko.observable(false);
-    self.saveMqttSuccess = ko.observable(false);
-    self.saveMqtt = function () {
-        var mqtt = {
+    self.saveMQTTFetching = ko.observable(false);
+    self.saveMQTTSuccess = ko.observable(false);
+    self.saveMQTT = function () {
+        var Mqtt = {
             enabled: self.config.mqtt_enable(),
             server: self.config.mqtt_server(),
             topic: self.config.mqtt_topic(),
@@ -511,50 +527,21 @@ function OrangeViewModel() {
             port: self.config.mqtt_port()
         };
 
-        if (mqtt.server === "") {
-            alert("Please enter MQTT server");
+
+        if ((self.config.mqtt_topic() === "" || self.config.mqtt_server() === "") && self.config.mqtt_enable()) {
+            alert("MQTT Server or Topic can not be empty.");
+
         } else {
-            self.saveMqttFetching(true);
-            self.saveMqttSuccess(false);
-            $.post(baseEndpoint + "/savemqtt", mqtt, function (data) {
-                self.saveMqttSuccess(true);
+            self.saveMQTTFetching(true);
+            self.saveMQTTSuccess(false);
+            $.post(baseEndpoint + "/savemqtt", Mqtt, function (data) {
+                self.saveMQTTSuccess(true);
             }).fail(function () {
-                alert("Failed to save MQTT Report config");
+                alert("Failed to save MQTT Report Config.");
             }).always(function () {
-                self.saveMqttFetching(false);
+                self.saveMQTTFetching(false);
             });
         }
-    };
-    // -----------------------------------------------------------------------
-    // Event: TV Reports save
-    // -----------------------------------------------------------------------
-    self.saveTVFetching = ko.observable(false);
-    self.saveTVSuccess = ko.observable(false);
-    self.saveTV = function () {
-        var TV = {
-            interval: self.tv.Interval(),
-            do0: self.tv.DO()[0][1],
-            do1: self.tv.DO()[1][1],
-            do2: self.tv.DO()[2][1],
-            do3: self.tv.DO()[3][1],
-            di0: self.tv.DI()[0][1],
-            di1: self.tv.DI()[1][1],
-            di2: self.tv.DI()[2][1],
-            di3: self.tv.DI()[3][1],
-            ai0: self.tv.AI()[0][1],
-            ai1: self.tv.AI()[1][1],
-            ai2: self.tv.AI()[2][1],
-            ai3: self.tv.AI()[3][1]
-        };
-        self.saveTVFetching(true);
-        self.saveTVSuccess(false);
-        $.post(baseEndpoint + "/savetvr", TV, function (data) {
-            self.saveTVSuccess(true);
-        }).fail(function () {
-            alert("Failed to save TV config");
-        }).always(function () {
-            self.saveTVFetching(false);
-        });
 
     };
 
@@ -574,11 +561,50 @@ function OrangeViewModel() {
             }, function (data) {
                 self.saveTZSuccess(true);
             }).fail(function () {
-                alert("Failed to save Timezone config");
+                alert("Failed to save Timezone config.");
             }).always(function () {
                 self.saveTZFetching(false);
             });
         }
+    };
+    // -----------------------------------------------------------------------
+    // Event: NET setup
+    // -----------------------------------------------------------------------
+    self.saveNETFetching = ko.observable(false);
+    self.saveNETSuccess = ko.observable(false);
+    self.saveNET = function () {
+        var NET = {
+            dhcp: self.nconfig.dhcp(),
+            ip: self.nconfig.ip(),
+            nm: self.nconfig.nm(),
+            gw: self.nconfig.gw(),
+            br: self.nconfig.br(),
+            dns: self.nconfig.dns(),
+            dom: self.nconfig.dom(),
+            sr: self.nconfig.sr()
+        };
+        if (!self.nconfig.dhcp()) {
+            if (self.nconfig.ip() === "") {
+                alert("IP Address can not be empty.");
+            } else
+            if (self.nconfig.nm() === "") {
+                alert("Netmask can not be empty.");
+            } else
+            if (self.nconfig.gw() === "") {
+                alert("Gateway can not be empty.");
+            }
+        } else {
+            self.saveNETFetching(true);
+            self.saveNETSuccess(false);
+            $.post(baseEndpoint + "/save_net", NET, function (data) {
+                self.saveNETSuccess(true);
+            }).fail(function () {
+                alert("Failed to save Network Settings");
+            }).always(function () {
+                self.saveNETFetching(false);
+            });
+        }
+
     };
     // -----------------------------------------------------------------------
 }
@@ -682,4 +708,18 @@ function R3Menu() {
         document.getElementById("t1").className = "w3-hide";
         document.getElementById("t2").className = "w3-hide";
     }
+}
+
+
+
+
+function ff() {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "file");
+    document.getElementById("cert_f").appendChild(x);
+    var y = document.createElement("INPUT");
+    y.setAttribute("type", "submit");
+    y.setAttribute("name", "update");
+    y.setAttribute("value", "Update");
+    document.getElementById("cert_b").appendChild(y);
 }

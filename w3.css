@@ -483,8 +483,8 @@ a {
     color: #000
 }
 
-.w3-dropdown-hover:hover>.w3-button:first-child,
-.w3-dropdown-click:hover>.w3-button:first-child {
+.w3-dropdown-hover:hover > .w3-button:first-child,
+.w3-dropdown-click:hover > .w3-button:first-child {
     background-color: #ccc;
     color: #000
 }
@@ -1024,12 +1024,12 @@ a {
 }
 
 .w3-row-padding,
-.w3-row-padding>.w3-half,
-.w3-row-padding>.w3-third,
-.w3-row-padding>.w3-twothird,
-.w3-row-padding>.w3-threequarter,
-.w3-row-padding>.w3-quarter,
-.w3-row-padding>.w3-col {
+.w3-row-padding > .w3-half,
+.w3-row-padding > .w3-third,
+.w3-row-padding > .w3-twothird,
+.w3-row-padding > .w3-threequarter,
+.w3-row-padding > .w3-quarter,
+.w3-row-padding > .w3-col {
     padding: 0 8px
 }
 
@@ -1911,6 +1911,4 @@ a {
 }
 
 //-------------------------------------------------------
-
-
 //--------------------------------------
