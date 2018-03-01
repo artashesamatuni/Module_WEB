@@ -583,7 +583,17 @@ function OrangeViewModel() {
             dom: self.nconfig.dom(),
             sr: self.nconfig.sr()
         };
-        if (!self.nconfig.dhcp()) {
+        if (self.nconfig.dhcp()) {
+            self.saveNETFetching(true);
+            self.saveNETSuccess(false);
+            $.post(baseEndpoint + "/save_net", NET, function (data) {
+                self.saveNETSuccess(true);
+            }).fail(function () {
+                alert("Failed to save Dynamic Network Settings");
+            }).always(function () {
+                self.saveNETFetching(false);
+            });
+        } else {
             if (self.nconfig.ip() === "") {
                 alert("IP Address can not be empty.");
             } else
@@ -592,17 +602,17 @@ function OrangeViewModel() {
             } else
             if (self.nconfig.gw() === "") {
                 alert("Gateway can not be empty.");
+            } else {
+                self.saveNETFetching(true);
+                self.saveNETSuccess(false);
+                $.post(baseEndpoint + "/save_net", NET, function (data) {
+                    self.saveNETSuccess(true);
+                }).fail(function () {
+                    alert("Failed to save Static Network Settings");
+                }).always(function () {
+                    self.saveNETFetching(false);
+                });
             }
-        } else {
-            self.saveNETFetching(true);
-            self.saveNETSuccess(false);
-            $.post(baseEndpoint + "/save_net", NET, function (data) {
-                self.saveNETSuccess(true);
-            }).fail(function () {
-                alert("Failed to save Network Settings");
-            }).always(function () {
-                self.saveNETFetching(false);
-            });
         }
 
     };
