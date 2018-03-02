@@ -37,7 +37,6 @@
                     <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
                 </div>
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
-                <a class="w3-bar-item w3-button w3-left" data-bind="click: saveAdmin"><i class="fa fa-check" style="color:green;"></i></a>
                 <div class="w3-right">
                     <a href="index.html" class="w3-bar-item w3-button">DASHBOARD</a>
                     <div class="w3-dropdown-click w3-hide-small">
@@ -53,7 +52,7 @@
                         </div>
                     </div>
                     <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
-                    <a href="http://www.eaglemon.com" class="w3-bar-item w3-right">
+                    <a href="http://www.eaglemon.com" target="_blank" class="w3-bar-item w3-right">
                         <image alt="logo" src="images/logo_s.png" style="height: 24px" />
                     </a>
                 </div>
@@ -61,129 +60,87 @@
         </div>
         <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
         <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
-            <div class="w3-panel w3-border">
-                <h4>Relay Outputs</h4>
-                <table style="width: 100%">
-                    <tr>
-                        <th style="width: 5%">#</th>
-                        <th style="width: 25%">Status</th>
-                        <th style="width: 30%">Label</th>
-                        <th style="width: 40%">Button</th>
-                    </tr>
-                    <tr>
-                        <td>0</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R0())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.R0N()"></snap>
-                        </td>
-                        <td><button style="width:100%" data-bind="click: BTN0, disable: BTN0Fetching, text: config.R0N()+' is '+(status.R0() ? 'ON' : 'OFF'), visible: config.R0E()"></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R1())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.R1N()"></snap>
-                        </td>
-                        <td><button style="width:100%" data-bind="click: BTN1, disable: BTN1Fetching, text: config.R1N()+' is '+(status.R1() ? 'ON' : 'OFF'), visible: config.R1E()"></button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R2())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.R2N()"></snap>
-                        </td>
-                        <td><button style="width:100%" data-bind="click: BTN2, disable: BTN2Fetching, text: config.R2N()+' is '+(status.R2() ? 'ON' : 'OFF'), visible: config.R2E()"></button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R3())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.R3N()"></snap>
-                        </td>
-                        <td><button style="width:100%" data-bind="click: BTN3, disable: BTN3Fetching, text: config.R3N()+' is '+(status.R3() ? 'ON' : 'OFF'), visible: config.R3E()"></button></td>
-                    </tr>
-                </table>
-                <br/>
-            </div>
-            <div class="w3-panel w3-border">
-                <h4>Analog Inputs</h4>
-                <table style="width: 100%">
-                    <tr>
-                        <th style="width: 5%">#</th>
-                        <th style="width: 25%">Value</th>
-                        <th style="width: 30%">Label</th>
-                        <th style="width: 40%">Ind</th>
-                    </tr>
-                    <tr>
-                        <td>0</td>
-                        <td><span data-bind="text: status.A0()+ ' '+config.A0U()"></span></td>
-                        <td><span data-bind="text: config.A0N()"></span></td>
-                        <td><progress style="width: 100%" data-bind="attr: {max: (config.A0MAX()-config.A0MIN()), value: (status.A0()-config.A0MIN())}"></progress></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><span data-bind="text: status.A1()+ ' '+config.A1U()"></span></td>
-                        <td><span data-bind="text: config.A1N()"></span></td>
-                        <td><progress style="width: 100%" data-bind="attr: {max: (config.A1MAX()-config.A1MIN()), value: (status.A1()-config.A1MIN())}"></progress></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><span data-bind="text: status.A2()+ ' '+config.A2U()"></span></td>
-                        <td><span data-bind="text: config.A2N()"></span></td>
-                        <td><progress style="width: 100%" data-bind="attr: {max: (config.A2MAX()-config.A2MIN()), value: (status.A2()-config.A2MIN())}"></progress></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><span data-bind="text: status.A3()+ ' '+config.A3U()"></span></td>
-                        <td><span data-bind="text: config.A3N()"></span></td>
-                        <td><progress style="width: 100%" data-bind="attr: {max: (config.A3MAX()-config.A3MIN()), value: (status.A3()-config.A3MIN())}"></progress></td>
-                    </tr>
-                </table>
-                <br/>
-            </div>
-            <div class="w3-panel w3-border">
-                <h4>Digital Inputs</h4>
-                <table style="width: 100%">
-                    <tr>
-                        <th style="width: 5%">#</th>
-                        <th style="width: 25%">Status</th>
-                        <th style="width: 30%">Label</th>
-                        <th style="width: 40%"></th>
-                    </tr>
-                    <tr>
-                        <td>0</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P0())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.P0N()"></snap>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P1())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.P1N()"></snap>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P2())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.P2N()"></snap>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P3())}" /></td>
-                        <td>
-                            <snap data-bind="text: config.P3N()"></snap>
-                        </td>
-                        <td></td>
-                    </tr>
-                </table>
-                <br/>
+            <div class="w3-row">
+                <div class="w3-col w3-container m4 s12">
+                    <div class="w3-panel w3-border">
+                        <h4>Relay Outputs</h4>
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 20%"><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R0())}" /></td>
+                                <td style="width: 80%"><button style="width:100%" data-bind="click: BTN0, disable: BTN0Fetching, text: config.R0N()+' is '+(status.R0() ? 'ON' : 'OFF'), visible: config.R0E()"></button></td>
+                            </tr>
+                            <tr>
+                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R1())}" /></td>
+                                <td><button style="width:100%" data-bind="click: BTN1, disable: BTN1Fetching, text: config.R1N()+' is '+(status.R1() ? 'ON' : 'OFF'), visible: config.R1E()"></button></td>
+                            </tr>
+                            <tr>
+                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R2())}" /></td>
+                                <td><button style="width:100%" data-bind="click: BTN2, disable: BTN2Fetching, text: config.R2N()+' is '+(status.R2() ? 'ON' : 'OFF'), visible: config.R2E()"></button></td>
+                            </tr>
+                            <tr>
+                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R3())}" /></td>
+                                <td><button style="width:100%" data-bind="click: BTN3, disable: BTN3Fetching, text: config.R3N()+' is '+(status.R3() ? 'ON' : 'OFF'), visible: config.R3E()"></button></td>
+                            </tr>
+                        </table>
+                        <br/>
+                    </div>
+                </div>
+                <div class="w3-col w3-container m4 s12">
+                    <div class="w3-panel w3-border">
+                        <h4>Analog Inputs</h4>
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 50%"><span data-bind="text: config.A0N()+' '+status.A0()+ ' '+config.A0U()"></span></td>
+                                <td style="width: 50%"><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A0MAX()-config.A0MIN()), value: (status.A0()-config.A0MIN())}"></progress></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%"><span data-bind="text: config.A1N()+' '+status.A1()+ ' '+config.A1U()"></span></td>
+                                <td><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A1MAX()-config.A1MIN()), value: (status.A1()-config.A1MIN())}"></progress></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%"><span data-bind="text: config.A2N()+' '+status.A2()+ ' '+config.A2U()"></span></td>
+                                <td><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A2MAX()-config.A2MIN()), value: (status.A2()-config.A2MIN())}"></progress></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%"><span data-bind="text: config.A3N()+' '+status.A3()+ ' '+config.A3U()"></span></td>
+                                <td><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A3MAX()-config.A3MIN()), value: (status.A3()-config.A3MIN())}"></progress></td>
+                            </tr>
+                        </table>
+                        <br/>
+                    </div>
+                </div>
+                <div class="w3-col w3-container m4 s12">
+                    <div class="w3-panel w3-border">
+                        <h4>Digital Inputs</h4>
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 20%"><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P0())}" /></td>
+                                <td style="width: 80%">
+                                    <snap data-bind="text: config.P0N()"></snap>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P1())}" /></td>
+                                <td>
+                                    <snap data-bind="text: config.P1N()"></snap>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P2())}" /></td>
+                                <td>
+                                    <snap data-bind="text: config.P2N()"></snap>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P3())}" /></td>
+                                <td>
+                                    <snap data-bind="text: config.P3N()"></snap>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                    </div>
+                </div>
             </div>
             <div class="w3-panel w3-border">
                 <h4 class="w3-center">Info</h4>

@@ -57,93 +57,93 @@
                 </div>
             </div>
         </div>
-<!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
-<div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
-    <div class="w3-panel">
-        <div class="w3-row w3-light-gray">
-            <div class="w3-col  m6 s6">
-                <button onclick="MQTT_REPORT_CONFIG()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top" id="b0">MQTT Reports Config</button>
-            </div>
-            <div class="w3-col m6 s6">
-                <button onclick="MQTT_CHANNELS_TOPICS()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b1">MQTT Channels Topics</button>
+        <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
+        <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
+            <div class="w3-panel">
+                <div class="w3-row w3-light-gray">
+                    <div class="w3-col  m6 s6">
+                        <button onclick="MQTT_REPORT_CONFIG()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top" id="b0">MQTT Reports Config</button>
+                    </div>
+                    <div class="w3-col m6 s6">
+                        <button onclick="MQTT_CHANNELS_TOPICS()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b1">MQTT Channels Topics</button>
+                    </div>
+                </div>
+                <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+                    <div id="t0" class="w3-show">
+                        <br/>
+                        <input type="checkbox" data-bind="checkedValue: config.mqtt_enable, checked: config.mqtt_enable" />
+                        <snap data-bind="text: 'MQTT '+(config.mqtt_enable()?'Enabled':'Disabled')"></snap>
+                        <br/>
+                        <br/>MQTT Server*<br/>
+                        <input type="text" size="36" placeholder="e.g. test.mosquitto.org" data-bind="textInput: config.mqtt_server, disable: !config.mqtt_enable()" />
+                        <br/>MQTT Base-topic*<br/>
+                        <input type="text" size="36" data-bind="textInput: config.mqtt_topic, disable: !config.mqtt_enable()" />
+                        <br/>MQTT Feed-name prefix<br/>
+                        <input type="text" data-bind="textInput: config.mqtt_feed_prefix, disable: !config.mqtt_enable()" />
+                        <br/>Interval[sec.]<br/>
+                        <input type="number" min="1" max="60" data-bind="value: config.mqtt_interval, disable: !config.mqtt_enable()" />
+                        <br/>Port<br/>
+                        <input type="number" min="1" max="99999" data-bind="value: config.mqtt_port, disable: !config.mqtt_enable()" />
+                        <br/>
+                        <br/>
+                        <input type="checkbox" data-bind="checkedValue: config.mqtt_ssl, checked: config.mqtt_ssl, disable: !config.mqtt_enable()" />
+                        <snap data-bind="text: 'SSL '+(config.mqtt_ssl()?'Enabled':'Disabled')"></snap>
+                        <br/>
+                        <br/>
+                        <div data-bind="visible: !config.mqtt_ssl(), disable: !config.mqtt_enable()">
+                            Username<br/>
+                            <input type="text" data-bind="textInput: config.mqtt_user" />
+                            <br/>Password<br/>
+                            <input data-bind="textInput: config.mqtt_pass" type="password" />
+                        </div>
+                        <div data-bind="visible: config.mqtt_ssl()">
+                            <form method='POST' action='/mqttcert' enctype='multipart/form-data'>
+                                Certificate<br/>
+                                <input type='file' name='mqttcert' data-bind="disable: !config.mqtt_enable()" />
+                                <input type='submit' value='Upload' data-bind="disable: !config.mqtt_enable()" />
+                            </form>
+                            <form method='POST' action='/mqttkey' enctype='multipart/form-data'>
+                                Key<br/>
+                                <input type='file' name='mqttkey' data-bind="disable: !config.mqtt_enable()" />
+                                <input type='submit' value='Upload' data-bind="disable: !config.mqtt_enable()" />
+                            </form>
+                            <form method='POST' action='/mqttca' enctype='multipart/form-data'>
+                                Certificate CA<br/>
+                                <input id="ca" type='file' name='mqttca' data-bind="disable: !config.mqtt_enable()" />
+                                <input type='submit' value='Upload' accept=".crt" data-bind="disable: !config.mqtt_enable()" />
+                            </form>
+                        </div>
+                        <br/>
+                        <button data-bind="click: saveMQTT, text: (saveMQTTFetching() ? 'Saving...' : (saveMQTTSuccess() ? 'Saved' : 'Save')), disable: saveMQTTFetching"></button>
+                    </div>
+                    <div id="t1" class="w3-hide">
+                        <br/>
+                        <div class="w3-container">
+                            <table>
+                                <tr>
+                                    <td><b>Name</b></td>
+                                    <td><b>Topic</b></td>
+                                </tr>
+                                <tbody data-bind="foreach: config.mqtt_nods">
+                                    <tr>
+                                        <td>
+                                            <snap data-bind="text: $data[0]"></snap>
+                                        </td>
+                                        <td>
+                                            <snap data-bind="text: $data[1]"></snap>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <footer class="w3-center w3-text-white" data-bind="style: { 'background-color': status.mqtt_status() ? '#4CAF50' : '#f44336' }">
+                                <snap data-bind="text: 'MQTT Conection status: '+(status.mqtt_status()?'Connected':'-----')"></snap>
+                            </footer>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
             </div>
         </div>
-        <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
-            <div id="t0" class="w3-show">
-                <br/>
-                <input type="checkbox" data-bind="checkedValue: config.mqtt_enable, checked: config.mqtt_enable" />
-                <snap data-bind="text: 'MQTT '+(config.mqtt_enable()?'Enabled':'Disabled')"></snap>
-                <br/>
-                <br/>MQTT Server*<br/>
-                <input type="text" size="39" placeholder="e.g. test.mosquitto.org" data-bind="textInput: config.mqtt_server, disable: !config.mqtt_enable()" />
-                <br/>MQTT Base-topic*<br/>
-                <input type="text" size="39" data-bind="textInput: config.mqtt_topic, disable: !config.mqtt_enable()" />
-                <br/>MQTT Feed-name prefix<br/>
-                <input type="text" data-bind="textInput: config.mqtt_feed_prefix, disable: !config.mqtt_enable()" />
-                <br/>Interval[sec.]<br/>
-                <input type="number" min="1" max="60" data-bind="value: config.mqtt_interval, disable: !config.mqtt_enable()" />
-                <br/>Port<br/>
-                <input type="number" min="1" max="99999" data-bind="value: config.mqtt_port, disable: !config.mqtt_enable()" />
-                <br/>
-                <br/>
-                <input type="checkbox" data-bind="checkedValue: config.mqtt_ssl, checked: config.mqtt_ssl, disable: !config.mqtt_enable()" />
-                <snap data-bind="text: 'SSL '+(config.mqtt_ssl()?'Enabled':'Disabled')"></snap>
-                <br/>
-                <br/>
-                <div data-bind="visible: !config.mqtt_ssl(), disable: !config.mqtt_enable()">
-                    Username<br/>
-                    <input type="text" data-bind="textInput: config.mqtt_user" />
-                    <br/>Password<br/>
-                    <input data-bind="textInput: config.mqtt_pass" type="password" />
-                </div>
-                <div data-bind="visible: config.mqtt_ssl()">
-                    <form method='POST' action='/mqttcert' enctype='multipart/form-data'>
-                        Certificate<br/>
-                        <input type='file' name='mqttcert' data-bind="disable: !config.mqtt_enable()" />
-                        <input type='submit' value='Upload' data-bind="disable: !config.mqtt_enable()" />
-                    </form>
-                    <form method='POST' action='/mqttkey' enctype='multipart/form-data'>
-                        Key<br/>
-                        <input type='file' name='mqttkey' data-bind="disable: !config.mqtt_enable()" />
-                        <input type='submit' value='Upload' data-bind="disable: !config.mqtt_enable()" />
-                    </form>
-                    <form method='POST' action='/mqttca' enctype='multipart/form-data'>
-                        Certificate CA<br/>
-                        <input id="ca" type='file' name='mqttca' data-bind="disable: !config.mqtt_enable()" />
-                        <input type='submit' value='Upload' accept=".crt" data-bind="disable: !config.mqtt_enable()" />
-                    </form>
-                </div>
-                <br/>
-                <button data-bind="click: saveMQTT, text: (saveMQTTFetching() ? 'Saving...' : (saveMQTTSuccess() ? 'Saved' : 'Save')), disable: saveMQTTFetching"></button>
-            </div>
-            <div id="t1" class="w3-hide">
-                <br/>
-                <div class="w3-container">
-                    <table>
-                        <tr>
-                            <td><b>Name</b></td>
-                            <td><b>Topic</b></td>
-                        </tr>
-                        <tbody data-bind="foreach: config.mqtt_nods">
-                            <tr>
-                                <td>
-                                    <snap data-bind="text: $data[0]"></snap>
-                                </td>
-                                <td>
-                                    <snap data-bind="text: $data[1]"></snap>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <footer class="w3-center w3-text-white" data-bind="style: { 'background-color': status.mqtt_status() ? '#4CAF50' : '#f44336' }">
-                        <snap data-bind="text: 'MQTT Conection status: '+(status.mqtt_status()?'Connected':'-----')"></snap>
-                    </footer>
-                </div>
-            </div>
-            <br/>
-        </div>
-    </div>
-</div>
     </div>
     <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
     <div class="w3-bottom w3-light-gray" style="max-width:1024px;min-width:350px">
