@@ -106,7 +106,7 @@ function ModbusViewModel() {
         "data_bits": 8,
         "read_interval": 15,
         "read_timeout": 1,
-        "dev_list": [[11, 22, "Holding register", "a", 0.05, 4, true, true, true], [111, 222, "Input register", "a", .11, .25, true, false, false]]
+        "dev_list": [["test1", 11, 22, "Holding register", "a", 0.05, 4, true, true, true], ["test5", 111, 222, "Input register", "a", .11, .25, true, false, false]]
     }, baseEndpoint + '/modbus');
 }
 ModbusViewModel.prototype = Object.create(BaseViewModel.prototype);

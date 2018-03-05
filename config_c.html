@@ -169,6 +169,7 @@
                         <table>
                             <tr>
                                 <th>#</th>
+                                <th>Name</th>
                                 <th>Device addr.</th>
                                 <th>Register addr.</th>
                                 <th>Register type</th>
@@ -183,7 +184,7 @@
                             <tbody data-bind="foreach: modbus.dev_list">
                                 <tr>
                                     <td>
-                                        <snap data-bind="text: $index+'.'"></snap>
+                                        <snap data-bind="text: $index()+'.'"></snap>
                                     </td>
                                     <td>
                                         <snap data-bind="text: $data[0]"></snap>
@@ -204,13 +205,16 @@
                                         <snap data-bind="text: $data[5]"></snap>
                                     </td>
                                     <td>
-                                        <snap data-bind="text: $data[6]?'ON':'OFF'"></snap>
+                                        <snap data-bind="text: $data[6]"></snap>
                                     </td>
                                     <td>
                                         <snap data-bind="text: $data[7]?'ON':'OFF'"></snap>
                                     </td>
                                     <td>
                                         <snap data-bind="text: $data[8]?'ON':'OFF'"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[9]?'ON':'OFF'"></snap>
                                     </td>
                                     <td><button>del</button></td>
                                 </tr>
@@ -224,7 +228,9 @@
 
                                     <h4>Add new Modbus unit</h4>
                                     <form target="_blank" method="post" action='/add_mbus'>
-                                        Device addr.<br/>
+                                        Name<br/>
+                                        <input type="text" max="10" name="dev_name" />
+                                        <br/>Device addr.<br/>
                                         <input type="number" name="dev_addr" />
                                         <br/>Register addr.<br/>
                                         <input type="number" name="reg_addr" />
