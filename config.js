@@ -99,27 +99,19 @@ TZViewModel.prototype.constructor = TZViewModel;
 
 function ModbusViewModel() {
     BaseViewModel.call(this, {
-        "modbus_enable": true,
-        "modbus_address_mode": ["Standart", "nonstandart"],
-        "modbus_address_mode_select": 0,
-        "modbus_address": 1,
-        "modbus_16bit_reg_address": 40001,
-        "modbus_32bit_enable": true,
-        "modbus_calc": ["raw data", "ieee754"],
-        "modbus_calc_select": 1,
-        "modbus_data": [["Voltage", 40001, true, 1, "V", 0], ["Current", 40003, false, 0, "A", 0], ["Power", 40005, true, 0, "W", 0], ["Energy", 40007, true, 0, "Wh", 0]]
+        "enable": true,
+        "baud_rate": 9600,
+        "parity": "none",
+        "stop_bits": 1,
+        "data_bits": 8,
+        "read_interval": 15,
+        "read_timeout": 1,
+        "dev_list": [[11, 22, "Holding register", "a", 0.05, 4, true, true, true], [111, 222, "Input register", "a", .11, .25, true, false, false]]
     }, baseEndpoint + '/modbus');
 }
 ModbusViewModel.prototype = Object.create(BaseViewModel.prototype);
 ModbusViewModel.prototype.constructor = ModbusViewModel;
 
-function TempViewModel() {
-    BaseViewModel.call(this, {
-        "in_vars": ["DI_0", "DI_1", "DI_2", "DI_3", "T0"]
-    }, baseEndpoint + '/temp');
-}
-TempViewModel.prototype = Object.create(BaseViewModel.prototype);
-TempViewModel.prototype.constructor = TempViewModel;
 
 function NConfigViewModel() {
     BaseViewModel.call(this, {
@@ -257,7 +249,7 @@ function OrangeViewModel() {
     self.tz = new TZViewModel();
     self.tv = new TVViewModel();
     self.nconfig = new NConfigViewModel();
-    self.temp = new TempViewModel();
+    self.modbus = new ModbusViewModel();
 
     self.initialised = ko.observable(false);
     self.updating = ko.observable(false);
@@ -272,8 +264,8 @@ function OrangeViewModel() {
     // -----------------------------------------------------------------------
     self.start = function () {
         self.updating(true);
-        self.temp.update(function () {
-            self.nconfig.update(function () {
+        self.nconfig.update(function () {
+            self.modbus.update(function () {
                 self.tv.update(function () {
                     self.tz.update(function () {
                         self.config.update(function () {

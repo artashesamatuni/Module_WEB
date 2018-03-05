@@ -69,7 +69,7 @@
                         <button onclick="R1Menu()" class="w3-button w3-block w3-grey w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b1">Network</button>
                     </div>
                     <div class="w3-col m3 s3">
-                        <button onclick="R2Menu()" class="w3-button w3-block w3-grey w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b2">Channel 2</button>
+                        <button onclick="R2Menu()" class="w3-button w3-block w3-grey w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b2">Modbus RTU</button>
                     </div>
                     <div class="w3-col m3 s3">
                         <button onclick="R3Menu()" class="w3-button w3-block w3-grey w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b3">Status</button>
@@ -123,44 +123,136 @@
                     </div>
                     <div id="t2" class="w3-hide">
                         <br/>
-                        <div class="w3-container">
-                            <input id="A2E" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A2E, checked: config.A2E" />
-                            <label for="A2E" class="w3-text-blue"><snap data-bind="text: 'Ch. 2: '+(config.A2E()?'Enabled':'Disabled')"></snap></label>
-                        </div>
-                        <form class="w3-container">
-                            <label class="w3-text-blue">Label</label>
-                            <input class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A2N, disable: !config.A2E()" />
-                            <label class="w3-text-blue">Unit</label>
-                            <input class="w3-input w3-border" type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A2U, disable: !config.A2E()" />
-                            <label class="w3-text-blue">Scaling</label>
-                            <div class="w3-row">
-                                <div class="w3-col m6 s6">
-                                    <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A2MIN, disable: !config.A2E()" />
-                                    <label class="w3-text-blue"><sup>min</sup></label>
-                                </div>
-                                <div class="w3-col m6 s6">
-                                    <input class="w3-input w3-border" type="number" placeholder="e.g. 250" data-bind="value: config.A2MAX, disable: !config.A2E()" />
-                                    <label class="w3-text-blue"><sup>max</sup></label>
-                                </div>
-                            </div>
-                            <label class="w3-text-blue">Alarm Level</label>
-                            <div class="w3-row">
-                                <div class="w3-col m6 s6">
-                                    <input class="w3-input w3-border" type="number" placeholder="e.g. 0" data-bind="value: config.A2AMIN, disable: !config.A2E()" />
-                                    <label class="w3-text-blue"><sup>min</sup></label>
-                                </div>
-                                <div class="w3-col m6 s6">
-                                    <input class="w3-input w3-border" type="number" placeholder="e.g. 250" data-bind="value: config.A2AMAX, disable: !config.A2E()" />
-                                    <label class="w3-text-blue"><sup>max</sup></label>
-                                </div>
-                            </div>
+                        <form>
                             <br/>
-                            <div class="w3-content">
-                                <input id="A2A" type="checkbox" class="w3-switch" data-bind="checkedValue: config.A2A, checked: config.A2A" />
-                                <label for="A2A" class="w3-text-blue"><snap data-bind="text: 'Store Alarm : '+(config.A2A()?'Yes':'No'), disable: !config.A2E()"></snap></label>
-                            </div>
+                            <input type="checkbox" data-bind="checkedValue: modbus.enable, checked: modbus.enable" />
+                            <snap data-bind="text: 'Modbus '+(modbus.enable()?'enabled':'disabled')"></snap>
+                            <br/>
+                            <br/>Baud Rate<br/>
+                            <select data-bind="value: $root.modbus.baud_rate()">
+                                <option>4800</option>
+                                <option>9600</option>
+                                <option>19200</option>
+                                <option>38400</option>
+                                <option>57600</option>
+                                <option>115200</option>
+                                <option>128000</option>
+                            </select>
+                            <br/>Parity<br/>
+                            <select data-bind="value: $root.modbus.parity">
+                                <option>even</option>
+                                <option>odd</option>
+                                <option>none</option>
+                            </select>
+                            <br/>Stop Bits<br/>
+                            <select data-bind="value: $root.modbus.stop_bits">
+                                <option>1</option>
+                                <option>1.5</option>
+                                <option>2</option>
+                            </select>
+                            <br/>Data Bits<br/>
+                            <select data-bind="value: $root.modbus.data_bits">
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                            </select>
+                            <br/>Read Interval[sec.]<br/>
+                            <input type="number" data-bind="value: modbus.read_interval" />
+                            <br/>Read Timeout[sec.]<br/>
+                            <input type="number" data-bind="value: modbus.read_timeout" />
+                            <br/>
                         </form>
                         <br/>
+                        <button onclick="document.getElementById('add').style.display='block'">Add</button>
+                        <table>
+                            <tr>
+                                <th>#</th>
+                                <th>Device addr.</th>
+                                <th>Register addr.</th>
+                                <th>Register type</th>
+                                <th>Unit</th>
+                                <th>Slope</th>
+                                <th>Offset</th>
+                                <th>32 bit</th>
+                                <th>IEEE754</th>
+                                <th>Low Word First</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tbody data-bind="foreach: modbus.dev_list">
+                                <tr>
+                                    <td>
+                                        <snap data-bind="text: $index+'.'"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[0]"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[1]"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[2]"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[3]"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[4]"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[5]"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[6]?'ON':'OFF'"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[7]?'ON':'OFF'"></snap>
+                                    </td>
+                                    <td>
+                                        <snap data-bind="text: $data[8]?'ON':'OFF'"></snap>
+                                    </td>
+                                    <td><button>del</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <div id="add" class="w3-modal">
+                            <div class="w3-modal-content">
+                                <button class="w3-right" onclick="document.getElementById('add').style.display='none'" class="w3-display-topright">&times;</button>
+                                <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+
+                                    <h4>Add new Modbus unit</h4>
+                                    <form target="_blank" method="post" action='/add_mbus'>
+                                        Device addr.<br/>
+                                        <input type="number" name="dev_addr" />
+                                        <br/>Register addr.<br/>
+                                        <input type="number" name="reg_addr" />
+                                        <br/>Register type<br/>
+                                        <select name="reg_type">
+                                            <option value="Coil">Coil</option>
+                                            <option value="Discret input">Discret input</option>
+                                            <option value="Holding register">Holding register</option>
+                                            <option value="Input register">Input register</option>
+                                        </select>
+                                        <br/>Unit<br/>
+                                        <input type="text" name="unit" />
+                                        <br/>Slope<br/>
+                                        <input type="text" name="slope" />
+                                        <br/>Offset<br/>
+                                        <input type="text" name="offset" />
+                                        <br/>
+                                        <input type="checkbox" name="32bit" />&nbsp;32 bit Enable<br/>
+                                        <input type="checkbox" name="IEEE754" />&nbsp;IEEE754<br/>
+                                        <input type="checkbox" name="lwf" />&nbsp;Low Word First<br/>
+                                        <br/>
+                                        <input type="submit" />
+                                        <br/>
+                                        <br/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="t3" class="w3-hide">
                         <br/>

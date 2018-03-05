@@ -97,17 +97,17 @@
                             <input data-bind="textInput: config.mqtt_pass" type="password" />
                         </div>
                         <div data-bind="visible: config.mqtt_ssl()">
-                            <form method='POST' action='/mqttcert' enctype='multipart/form-data'>
+                            <form method='POST' target="_blank" action='/mqttcert' enctype='multipart/form-data'>
                                 Certificate<br/>
                                 <input type='file' name='mqttcert' data-bind="disable: !config.mqtt_enable()" />
                                 <input type='submit' value='Upload' data-bind="disable: !config.mqtt_enable()" />
                             </form>
-                            <form method='POST' action='/mqttkey' enctype='multipart/form-data'>
+                            <form method='POST' target="_blank" action='/mqttkey' enctype='multipart/form-data'>
                                 Key<br/>
                                 <input type='file' name='mqttkey' data-bind="disable: !config.mqtt_enable()" />
                                 <input type='submit' value='Upload' data-bind="disable: !config.mqtt_enable()" />
                             </form>
-                            <form method='POST' action='/mqttca' enctype='multipart/form-data'>
+                            <form method='POST' target="_blank" action='/mqttca' enctype='multipart/form-data'>
                                 Certificate CA<br/>
                                 <input id="ca" type='file' name='mqttca' data-bind="disable: !config.mqtt_enable()" />
                                 <input type='submit' value='Upload' accept=".crt" data-bind="disable: !config.mqtt_enable()" />
