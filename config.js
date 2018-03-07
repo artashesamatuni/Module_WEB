@@ -1,5 +1,8 @@
 var baseHost = window.location.hostname;
+//var baseHost = '10.116.1.13';
 var baseEndpoint = 'http://' + baseHost;
+
+var r_node = -1;
 
 
 
@@ -612,6 +615,58 @@ function OrangeViewModel() {
         }
 
     };
+
+
+    // -----------------------------------------------------------------------
+    // Event: Modbus save
+    // -----------------------------------------------------------------------
+    self.saveMBUSFetching = ko.observable(false);
+    self.saveMBUSSuccess = ko.observable(false);
+    self.saveMBUS = function () {
+        var MBUS = {
+            mbus_enabled: self.modbus.enable(),
+            baud_rate: self.modbus.baud_rate(),
+            parity: self.modbus.parity(),
+            stop_bits: self.modbus.stop_bits(),
+            data_bits: self.modbus.data_bits(),
+            read_interval: self.modbus.read_interval(),
+            read_timeout: self.modbus.read_timeout()
+        };
+        self.saveTZFetching(true);
+        self.saveTZSuccess(false);
+        $.post(baseEndpoint + "/save_mbus", MBUS, function (data) {
+            self.saveMBUSSuccess(true);
+        }).fail(function () {
+            alert("Failed to save Modbus config.");
+        }).always(function () {
+            self.saveMBUSFetching(false);
+        });
+    };
+
+    // -----------------------------------------------------------------------
+    // Event: Modbus node remove
+    // -----------------------------------------------------------------------
+    self.delMBUSFetching = ko.observable(false);
+    self.delMBUSSuccess = ko.observable(false);
+    self.delMBUS = function () {
+
+        if (r_node === -1) {
+            alert("Please select node");
+        } else {
+            self.delMBUSFetching(true);
+            self.delMBUSSuccess(false);
+            $.post(baseEndpoint + "/del_mbus", {
+                addr: r_node
+            }, function (data) {
+                self.delMBUSSuccess(true);
+            }).fail(function () {
+                alert("Failed to delete device node.");
+            }).always(function () {
+                self.delMBUSFetching(false);
+            });
+        }
+    };
+
     // -----------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------

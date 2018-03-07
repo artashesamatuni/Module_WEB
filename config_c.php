@@ -27,33 +27,33 @@
             <div class="w3-light-gray w3-bar">
                 <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
                     <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a>
+                    <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
                     <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
                     <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
                     <hr/>
-                    <a href="mqtt_c.html" class="w3-bar-item w3-button">MQTT Settings</a>
-                    <a href="mbus_c.html" class="w3-bar-item w3-button">Modbus Settings</a>
+                    <a href="mqtt_c.html" class="w3-bar-item w3-button">MQTT Broker</a>
                     <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
                     <a href="config_c.html" class="w3-bar-item w3-button">Settings</a>
                     <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
                 </div>
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
                 <div class="w3-right">
-                    <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
+                    <a href="index.html" class="w3-bar-item w3-button">DASHBOARD</a>
                     <div class="w3-dropdown-click w3-hide-small">
                         <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
                         <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
+                            <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
                             <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
                             <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
                             <hr/>
                             <a href="mqtt_c.html" class="w3-bar-item w3-button">MQTT Settings</a>
-                            <a href="mbus_c.html" class="w3-bar-item w3-button">Modbus Settings</a>
                             <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
                             <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
                         </div>
                     </div>
                     <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
                     <a href="http://www.eaglemon.com" class="w3-bar-item w3-right">
-                        <image src="images/logo_s.png" style="height: 24px"></image>
+                        <image alt="logo" src="images/logo_s.png" style="height: 24px" />
                     </a>
                 </div>
             </div>
@@ -62,117 +62,135 @@
         <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
             <div class="w3-panel">
                 <div class="w3-row w3-light-gray">
-                    <div class="w3-col  m3 s12">
-                        <button onclick="R0Menu()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top" id="b0">Channel 0</button>
+                    <div class="w3-col  m3 s3">
+                        <button onclick="R0Menu()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top" id="b0">System</button>
                     </div>
-                    <div class="w3-col m3 s12">
-                        <button onclick="R1Menu()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b1">Channel 1</button>
+                    <div class="w3-col m3 s3">
+                        <button onclick="R1Menu()" class="w3-button w3-block w3-grey w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b1">Network</button>
                     </div>
-                    <div class="w3-col m3 s12">
-                        <button onclick="R2Menu()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b2">Channel 2</button>
+                    <div class="w3-col m3 s3">
+                        <button onclick="R2Menu()" class="w3-button w3-block w3-grey w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b2">Modbus RTU</button>
                     </div>
-                    <div class="w3-col m3 s12">
-                        <button onclick="R3Menu()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b3">Channel 3</button>
+                    <div class="w3-col m3 s3">
+                        <button onclick="R3Menu()" class="w3-button w3-block w3-grey w3-text-white w3-border-right w3-border-top w3-border-bottom" id="b3">Status</button>
                     </div>
                 </div>
                 <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
                     <div id="t0" class="w3-show">
                         <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A0E, checked: config.A0E" />
-                        <snap data-bind="text: 'Channel 0 '+(config.A0E()?'Enabled':'Disabled')"></snap>
-                        Label<br/>
-                        <input type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A0N, disable: !config.A0E()" />
-                        <br/>Unit<br/>
-                        <input type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A0U, disable: !config.A0E()" />
-                        <br/>Scaling<br/>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A0MIN, disable: !config.A0E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A0MAX, disable: !config.A0E()" />
-                        <br/>Alarm Level<br>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A0AMIN, disable: !config.A0E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A0AMAX, disable: !config.A0E()" />
+                        <div class="w3-row">
+                            <div class="w3-col w3-container m12 s12">
+                                <h4 class="w3-container w3-center">Your Timezone</h4>
+                                <form>
+                                    <select data-bind="options: tz.zones, value: $root.config.tzone"></select>Timezone<br/>
+                                    <br/>
+                                    <br/>
+                                    <button data-bind="click: saveTZ, text: (saveTZFetching() ? 'Saving...' : (saveTZSuccess() ? 'Saved' : 'Save')), disable: saveTZFetching"></button>
+                                </form>
+                                <br/>
+                            </div>
+                        </div>
                         <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A0A, checked: config.A0A, disable: !config.A0E()" />
-                        <snap data-bind="text: 'Store Alarm : '+(config.A0A()?'Yes':'No')"></snap>
                     </div>
                     <div id="t1" class="w3-hide">
-                        <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A1E, checked: config.A1E" />
-                        <snap data-bind="text: 'Channel 0 '+(config.A1E()?'Enabled':'Disabled')"></snap>
-                        Label<br/>
-                        <input type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A1N, disable: !config.A1E()" />
-                        <br/>Unit<br/>
-                        <input type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A1U, disable: !config.A1E()" />
-                        <br/>Scaling<br/>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A1MIN, disable: !config.A1E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A1MAX, disable: !config.A1E()" />
-                        <br/>Alarm Level<br>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A1AMIN, disable: !config.A1E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A1AMAX, disable: !config.A1E()" />
-                        <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A1A, checked: config.A1A, disable: !config.A1E()" />
-                        <snap data-bind="text: 'Store Alarm : '+(config.A1A()?'Yes':'No')"></snap>
+                        <?php
+                        require 'connection.php';
+                        $conn    = Connect();
+
+                        $sql = "SELECT dhcp, ip, mask,gateway,broadcast,nameserver,domain,search FROM network";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        
+         //   $sql = "SELECT dhcp, ip, mask,gateway,broadcast,nameserver,domain,search FROM network";
+        //    $result = mysql_query($sql) or die(mysql_error());
+         //   while ($row    = mysql_fetch_array($result))
+          //  {
+//
+           //     $ip         = $row['ip'];
+           //     $mask       = $row['mask'];
+         //       $gateway    = $row['gateway'];
+        //    }
+                        $conn->close();
+                        echo "<b>".$row["dhcp"]."</b><br/>"; echo "<b>".$row["ip"]."</b><br/>";
+                        ?>
+
+
+
+
+
+
+
+
+
+
+                            <div class='w3-row'>
+                                <div class='w3-col w3-container m12 s12'>
+                                    <h4 class='w3-container w3-center'>Ethernet Configuration</h4>
+                                    <form action="add_eth.php" method="post">
+                                        <input type="checkbox" name="dhcp" value="<?php echo $row ['dhcp']; ?>" />DHCP
+                                        <br/>IP*<br/><input type="text" name="ip" value="<?php echo $row ['ip']; ?>" />
+                                        <br/>Netmask*<br/><input type="text" name="mask" value="<?php echo $row ['mask']; ?>" />
+                                        <br/>Gateway*<br/><input type="text" name="gateway" value="<?php echo $row ['gateway']; ?>" />
+                                        <br/>Broadcast<br/><input type="text" name="broadcast" value="<?php echo $row ['broadcast']; ?>" />
+                                        <br/>DNS Nameserver<br/><input type="text" name="nameserver" value="<?php echo $row ['nameserver']; ?>" />
+                                        <br/>DNS Domain<br/><input type="text" name="domain" value="<?php echo $row ['domain']; ?>" />
+                                        <br/>DNS Search<br/><input type="text" name="search" value="<?php echo $row ['search']; ?>" />
+                                        <br/><br/>
+                                        <input type="submit" value="Submit">
+                                    </form>
+                                </div>
+                            </div><br/>
                     </div>
                     <div id="t2" class="w3-hide">
                         <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A2E, checked: config.A2E" />
-                        <snap data-bind="text: 'Channel 0 '+(config.A2E()?'Enabled':'Disabled')"></snap>
-                        Label<br/>
-                        <input type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A2N, disable: !config.A2E()" />
-                        <br/>Unit<br/>
-                        <input type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A2U, disable: !config.A2E()" />
-                        <br/>Scaling<br/>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A2MIN, disable: !config.A2E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A2MAX, disable: !config.A2E()" />
-                        <br/>Alarm Level<br>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A2AMIN, disable: !config.A2E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A2AMAX, disable: !config.A2E()" />
+
+                        <hr/>
+
                         <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A2A, checked: config.A2A, disable: !config.A2E()" />
-                        <snap data-bind="text: 'Store Alarm : '+(config.A2A()?'Yes':'No')"></snap>
+
                     </div>
                     <div id="t3" class="w3-hide">
                         <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A3E, checked: config.A3E" />
-                        <snap data-bind="text: 'Channel 0 '+(config.A3E()?'Enabled':'Disabled')"></snap>
-                        Label<br/>
-                        <input type="text" placeholder="e.g. Room temperature" data-bind="textInput: config.A3N, disable: !config.A3E()" />
-                        <br/>Unit<br/>
-                        <input type="text" placeholder="e.g. &deg;C" data-bind="textInput: config.A3U, disable: !config.A3E()" />
-                        <br/>Scaling<br/>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A3MIN, disable: !config.A3E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A3MAX, disable: !config.A3E()" />
-                        <br/>Alarm Level<br>
-                        <sub>min</sub><br/>
-                        <input type="number" placeholder="e.g. 0" data-bind="value: config.A3AMIN, disable: !config.A3E()" />
-                        <br/><sub>max</sub><br/>
-                        <input type="number" placeholder="e.g. 250" data-bind="value: config.A3AMAX, disable: !config.A3E()" />
+                        <div class="w3-row">
+                            <div class="w3-col w3-container m3 s6">
+                                <div class="w3-card w3-white">
+                                    <h4 class="w3-container w3-center"><span data-bind="text: 'CPU Temperature is '+status.tCPU()+'&deg;C'"></span></h4>
+                                    <div class="w3-container">
+                                        <div class="w3-light-gray">
+                                            <div class="w3-blue" data-bind=" style:{height: '12px', width: calcP(status.tCPU(),0,100)+ '%'}">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="w3-col w3-container m3 s6">
+                                <div class="w3-card w3-white">
+                                    <h4 class="w3-container w3-center"><span data-bind="text: 'CPU Load is '+status.tCPU()+'&deg;C'"></span></h4>
+                                    <div class="w3-container">
+                                        <div class="w3-light-gray">
+                                            <div class="w3-blue" data-bind=" style:{height: '12px', width: calcP(status.tCPU(),0,100)+ '%'}">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="w3-col w3-container m3 s6">
+                                <div class="w3-card w3-white">
+                                    <h4 class="w3-container w3-center"><span data-bind="text: 'IP Address is: '+status.tCPU()"></span></h4>
+                                    <br/>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
                         <br/>
-                        <input type="checkbox" data-bind="checkedValue: config.A3A, checked: config.A3A, disable: !config.A3E()" />
-                        <snap data-bind="text: 'Store Alarm : '+(config.A3A()?'Yes':'No')"></snap>
                     </div>
-                    <br/>
-                    <button data-bind="click: saveAI, text: (saveAIFetching() ? 'Saving...' : (saveAISuccess() ? 'Saved' : 'Save All Channels')), disable: saveAIFetching"></button>
-                    <br/>
-                    <br/>
                 </div>
             </div>
         </div>
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-bottom w3-light-gray" style="max-width:1024px;min-width:350px">
+        <div class="w3-bottom w3-light-gray " style="max-width:1024px;min-width:350px">
             <div class="w3-bar w3-center">
                 <snap data-bind="text: status.showTime()">time</snap>
                 <snap data-bind="text: status.showDate()">date</snap>
@@ -183,8 +201,8 @@
         </div>
     </div>
 </body>
-<script src="lib.js" type="text/javascript"></script>
-<script src="config.js" type="text/javascript"></script>
+<script src="lib.js " type="text/javascript"></script>
+<script src="config.js " type="text/javascript"></script>
 <script type="text/javascript">
     function R0Menu() {
         var x = document.getElementById("t0");

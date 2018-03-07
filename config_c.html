@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EM-444</title>
+    <title>EM-1044</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <meta name="description" content="EM-444">
+    <meta name="description" content="EM-1044">
     <meta name="author" content="EagleMON">
     <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="w3.css">
@@ -97,168 +97,40 @@
                         <div class="w3-row">
                             <div class="w3-col w3-container m12 s12">
                                 <h4 class="w3-container w3-center">Ethernet Configuration</h4>
-                                <form>
-                                    <input type="checkbox" data-bind="checkedValue: nconfig.dhcp, checked: nconfig.dhcp">
+                                <form action="add_eth.php" method="post">
+                                    <input type="checkbox">
                                     <snap data-bind="text: 'Mode: '+(nconfig.dhcp()?'DHCP':'Static')"></snap>
+                                    <br/>DHCP*<br/>
+                                    <input type="text" name="dhcp" />
                                     <br/>IP*<br/>
-                                    <input type="text" data-bind="textInput: nconfig.ip, disable: nconfig.dhcp()" />
+                                    <input type="text" name="ip" />
                                     <br/>Netmask*<br/>
-                                    <input type="text" data-bind="textInput: nconfig.nm, disable: nconfig.dhcp()" />
+                                    <input type="text" name="mask" />
                                     <br/>Gateway*<br/>
-                                    <input type="text" data-bind="textInput: nconfig.gw, disable: nconfig.dhcp()" />
+                                    <input type="text" name="gateway" />
                                     <br/>Broadcast<br/>
-                                    <input type="text" data-bind="textInput: nconfig.br, disable: nconfig.dhcp()" />
+                                    <input type="text" name="broadcast" />
                                     <br/>DNS Nameserver<br/>
-                                    <input type="text" data-bind="textInput: nconfig.dns, disable: nconfig.dhcp()" />
+                                    <input type="text" name="nameserver" />
                                     <br/>DNS Domain<br/>
-                                    <input type="text" data-bind="textInput: nconfig.dom, disable: nconfig.dhcp()" />
+                                    <input type="text" name="domain" />
                                     <br/>DNS Search<br/>
-                                    <input type="text" data-bind="textInput: nconfig.sr, disable: nconfig.dhcp()" />
+                                    <input type="text" name="search" />
                                     <br/><br/>
-                                    <button data-bind="click: saveNET, text: (saveNETFetching() ? 'Saving...' : (saveNETSuccess() ? 'Saved' : 'Save')), disable: saveNETFetching"></button>
+                                    <input type="submit" value="Submit">
                                 </form>
                             </div>
                         </div>
                         <br/>
+                        <button data-bind="click: saveNET, text: (saveNETFetching() ? 'Saving...' : (saveNETSuccess() ? 'Saved' : 'Save')), disable: saveNETFetching"></button>
                     </div>
                     <div id="t2" class="w3-hide">
                         <br/>
-                        <form>
-                            <br/>
-                            <input type="checkbox" data-bind="checkedValue: modbus.enable, checked: modbus.enable" />
-                            <snap data-bind="text: 'Modbus '+(modbus.enable()?'enabled':'disabled')"></snap>
-                            <br/>
-                            <br/>Baud Rate<br/>
-                            <select data-bind="value: $root.modbus.baud_rate()">
-                                <option>4800</option>
-                                <option>9600</option>
-                                <option>19200</option>
-                                <option>38400</option>
-                                <option>57600</option>
-                                <option>115200</option>
-                                <option>128000</option>
-                            </select>
-                            <br/>Parity<br/>
-                            <select data-bind="value: $root.modbus.parity">
-                                <option>even</option>
-                                <option>odd</option>
-                                <option>none</option>
-                            </select>
-                            <br/>Stop Bits<br/>
-                            <select data-bind="value: $root.modbus.stop_bits">
-                                <option>1</option>
-                                <option>1.5</option>
-                                <option>2</option>
-                            </select>
-                            <br/>Data Bits<br/>
-                            <select data-bind="value: $root.modbus.data_bits">
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                            </select>
-                            <br/>Read Interval[sec.]<br/>
-                            <input type="number" data-bind="value: modbus.read_interval" />
-                            <br/>Read Timeout[sec.]<br/>
-                            <input type="number" data-bind="value: modbus.read_timeout" />
-                            <br/>
-                        </form>
-                        <br/>
-                        <button onclick="document.getElementById('add').style.display='block'">Add</button>
-                        <table>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Device addr.</th>
-                                <th>Register addr.</th>
-                                <th>Register type</th>
-                                <th>Unit</th>
-                                <th>Slope</th>
-                                <th>Offset</th>
-                                <th>32 bit</th>
-                                <th>IEEE754</th>
-                                <th>Low Word First</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                            <tbody data-bind="foreach: modbus.dev_list">
-                                <tr>
-                                    <td>
-                                        <snap data-bind="text: $index()+'.'"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[0]"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[1]"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[2]"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[3]"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[4]"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[5]"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[6]"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[7]?'ON':'OFF'"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[8]?'ON':'OFF'"></snap>
-                                    </td>
-                                    <td>
-                                        <snap data-bind="text: $data[9]?'ON':'OFF'"></snap>
-                                    </td>
-                                    <td><button>del</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <br/>
-                        <div id="add" class="w3-modal">
-                            <div class="w3-modal-content">
-                                <button class="w3-right" onclick="document.getElementById('add').style.display='none'" class="w3-display-topright">&times;</button>
-                                <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
 
-                                    <h4>Add new Modbus unit</h4>
-                                    <form target="_blank" method="post" action='/add_mbus'>
-                                        Name<br/>
-                                        <input type="text" max="10" name="dev_name" />
-                                        <br/>Device addr.<br/>
-                                        <input type="number" name="dev_addr" />
-                                        <br/>Register addr.<br/>
-                                        <input type="number" name="reg_addr" />
-                                        <br/>Register type<br/>
-                                        <select name="reg_type">
-                                            <option value="Coil">Coil</option>
-                                            <option value="Discret input">Discret input</option>
-                                            <option value="Holding register">Holding register</option>
-                                            <option value="Input register">Input register</option>
-                                        </select>
-                                        <br/>Unit<br/>
-                                        <input type="text" name="unit" />
-                                        <br/>Slope<br/>
-                                        <input type="text" name="slope" />
-                                        <br/>Offset<br/>
-                                        <input type="text" name="offset" />
-                                        <br/>
-                                        <input type="checkbox" name="32bit" />&nbsp;32 bit Enable<br/>
-                                        <input type="checkbox" name="IEEE754" />&nbsp;IEEE754<br/>
-                                        <input type="checkbox" name="lwf" />&nbsp;Low Word First<br/>
-                                        <br/>
-                                        <input type="submit" />
-                                        <br/>
-                                        <br/>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        <hr/>
+
+                        <br/>
+
                     </div>
                     <div id="t3" class="w3-hide">
                         <br/>

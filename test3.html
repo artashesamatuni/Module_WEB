@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+</html>
+
+<?php
+require 'connection.php';
+$conn    = Connect();
+
+$id=    $_GET['network'];
+
+    $select_query=  "select * from products Left join product_description 
+        ON products.product_id=$id and product_description.product_id=$id";
+
+    if(!$select_query_run=   mysql_query($select_query))
+    {
+        echo mysql_error();
+
+        }
+
+    else
+    {
+            $fetch =     mysql_fetch_array ($select_query_run);     
+
+
+
+                echo "  
+                <form action='insert_product.php' method='POST' enctype='multipart/form-data' >
+                <table border=1>
+                <tr>
+                <td>
+
+                <label>Product Name:</label> </td>  <td><input type='text' 
+                name='product_name' value='<?php echo $fetch['product_id']; ?>'  />*Required</td></tr>
+
+                <tr><td><label>Item No:</label></td> <td><input type='text' name='item_no' ></td></tr>
+
+
+            <tr><td>    Image3:</td><td> <input type='file' name= 'image3' ></td></tr></table>  ";
+
+
+/*------------------
+Drop Down List Start
+------------------  */      
+
+
+            echo "<select name='category'>";
+
+                $select_query=          'Select * from category';
+                $select_query_run =     mysql_query($select_query);
+
+                $sub_category_query=    "Select * from sub_categories";
+                $sub_query_run=         mysql_query($sub_category_query);
+
+
+
+            while   ($select_query_array=   mysql_fetch_array($select_query_run) )
+            {
+
+                        echo "<option value='".$select_query_array['category_id']."' >".
+                        htmlspecialchars($select_query_array["name"]).
+
+                        "<option value='".$sub_query_run['sub_category_id']."'  >" .
+                        htmlspecialchars($sub_query_run['sub_category_name']).   "</option>".
+
+                "</option>";
+
+
+
+
+            }
+            echo "</br>";
+
+         $selectTag= "</br><input type='submit' value='Update Product'  /></select></form>";
+
+         echo "</div></div>";
+
+         echo $selectTag;
