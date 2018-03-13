@@ -45,7 +45,7 @@ function analog_panel()
               <tbody>";
               //-------------------------------
               $conn    = Connect();
-              $ai_status_sql = "SELECT state FROM ai_status";
+              $ai_status_sql = "SELECT id,state FROM ai_status";
               $ai_status_result = $conn->query($ai_status_sql);
 
               if ($ai_status_result->num_rows > 0)

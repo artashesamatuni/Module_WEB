@@ -2,15 +2,13 @@
 require 'connection.php';
 $conn    = Connect();
 
-$sql = "DROP TABLE mbus";
+$sql = "DROP TABLE mbus_configs";
 
-if ($conn->query($sql) === TRUE) {
-    echo "OK";
-} else {
+if ($conn->query($sql) != TRUE) {
     echo "ERR: " . $conn->error;
 }
 
-$sql = "CREATE TABLE mbus (
+$sql = "CREATE TABLE mbus_configs (
 enabled         TINYINT,
 baud_rate       INT NOT NULL,
 parity          TEXT NOT NULL,
@@ -20,9 +18,7 @@ read_interval   INT NOT NULL,
 read_timeout    INT NOT NULL
 )";
 
-if ($conn->query($sql) === TRUE) {
-    echo "OK";
-} else {
+if ($conn->query($sql) != TRUE) {
     echo "ERR: " . $conn->error;
 }
 
@@ -37,12 +33,12 @@ $read_timeout   = $conn->real_escape_string($_POST['read_timeout']);
 
 
 
-$sql = "INSERT INTO mbus (enabled,baud_rate, parity, stop_bits,data_bits,read_interval,read_timeout)
+$sql = "INSERT INTO mbus_configs (enabled,baud_rate, parity, stop_bits,data_bits,read_interval,read_timeout)
 VALUES ('".$enabled."','".$baud_rate."','".$parity."','".$stop_bits."','".$data_bits."','".$read_interval."','".$read_timeout."')";
-if ($conn->query($sql) === TRUE) {
-    echo "OK";
-} else {
+if ($conn->query($sql) != TRUE) {
     echo "ERR: " . $sql . "<br>" . $conn->error;
+} else {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 $conn->close();

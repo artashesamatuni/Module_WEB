@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EM-1044</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="description" content="EM-1044">
+    <meta name="author" content="EagleMON">
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="spinner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="w3-content" style="max-width:1024px;min-width:350px">
+    <div class='w3-panel'>
+                    <div class='w3-row w3-light-gray'><div class='w3-col  m4 s4'><button onclick='fn_0' class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn0'>Tab 1</button></div><div class='w3-col  m4 s4'><button onclick='fn_1' class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn1'>Tab 2</button></div><div class='w3-col  m4 s4'><button onclick='fn_2' class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn2'>Tab 3</button></div></div>
+        </div><script type='text/javascript'>function fn0() {
+        var x = document.getElementById('tab0');
+        if (x.className.indexOf('w3-show') == -1) {
+            x.className = ' w3-show';document.getElementById('btn0').className = 'w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top'document.getElementById('btn1').className = 'w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top'document.getElementById('btn2').className = 'w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top'}}function fn1() {
+        var x = document.getElementById('tab1');
+        if (x.className.indexOf('w3-show') == -1) {
+            x.className = ' w3-show';document.getElementById('btn0').className = 'w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top'document.getElementById('btn1').className = 'w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top'document.getElementById('btn2').className = 'w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top'}}function fn2() {
+        var x = document.getElementById('tab2');
+        if (x.className.indexOf('w3-show') == -1) {
+            x.className = ' w3-show';document.getElementById('btn0').className = 'w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top'document.getElementById('btn1').className = 'w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top'document.getElementById('btn2').className = 'w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top'}}</script></body>
+
+</html>

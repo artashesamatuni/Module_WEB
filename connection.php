@@ -1,17 +1,14 @@
 <?php
- 
+include ('settings.php');
  
 function Connect()
 {
-$servername = "localhost";
-$username = "eaglemon";
-$password = "eaglemon";
-$dbname = "eaglemon";   
- 
-
-$conn = new mysqli($servername, $username, $password, $dbname) or die($conn->connect_error);
- 
- return $conn;
+    global $servername;
+    global $username;
+    global $password;
+    global $dbname;
+    $conn = new mysqli($servername, $username, $password, $dbname) or die($conn->connect_error);
+    return $conn;
 }
  
 ?>

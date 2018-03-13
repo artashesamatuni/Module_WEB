@@ -10,7 +10,60 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+add_ai($conn);
 
+function add_ai($conn)
+{
+$sql = "DROP TABLE ai_configs";
+if ($conn->query($sql) === TRUE) {
+    echo "Table nods created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+$sql = "CREATE TABLE ai_configs (
+id  INT(2) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name TEXT,
+enabled TINYINT,
+unit TEXT,
+min REAL,
+max REAL
+)";
+if ($conn->query($sql) === TRUE) {
+    echo "Table nods created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+ $sql = "INSERT INTO ai_configs (name,enabled,unit,min,max)
+VALUES ('Pump',1,'L',0,5)";
+    if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+ $sql = "INSERT INTO ai_configs (name,enabled,unit,min,max)
+VALUES ('Pump 2',1,'L',0,10)";
+    if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+ $sql = "INSERT INTO ai_configs (name,enabled,unit,min,max)
+VALUES ('Motor 2',1,'RPM',0,100)";
+    if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+} 
+ $sql = "INSERT INTO ai_configs (name,enabled,unit,min,max)
+VALUES ('Temperature',1,'C',0,35)";
+    if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+}
+
+/*
 $sql = "DROP TABLE relay";
 
 if ($conn->query($sql) === TRUE) {
@@ -58,7 +111,7 @@ if ($conn->query($sql) === TRUE) {
 }
 echo "<br/>";
 
-
+*/
 
    /*
 
