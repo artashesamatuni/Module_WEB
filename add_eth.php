@@ -7,6 +7,8 @@ add_table();
 add_data();
 $conn->close();
 
+
+
 function drop_table() {
     $sql = "DROP TABLE network";
 
@@ -16,7 +18,7 @@ function drop_table() {
         echo "Error deleting table: " . $conn->error;
     }
 }
-  
+
 function add_table() {
     $sql = "CREATE TABLE network (
     dhcp INT(1) NOT NULL,
@@ -37,7 +39,7 @@ function add_table() {
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    } 
+    }
 }
 
 function add_data() {

@@ -6,7 +6,7 @@ require 'tabs.php';
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>\n";
 
-$cur = 'Analog Inputs';
+$cur = 'Digital Inputs';
 show_menu($cur);
 
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";

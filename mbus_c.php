@@ -3,17 +3,20 @@ require 'basic.php';
 require 'mbus_nodes.php';
 require 'del_node.php';
 require 'tabs.php';
+
+$cur_tab = $_COOKIE['cookieName'];
+
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>\n";
-loader();
-echo "<div data-bind='visible: initialised' style='display: none'>\n";
-menu('Dashboard');
+require 'menu.php';
+$cur = 'Modbus Settings';
+show_menu($cur);
 
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
-            
+
 $t_names = array("Modbus-RTU", "Channels");
 
-draw_tabs($t_names,0);
+draw_tabs($t_names,$cur_tab);
 
  ?>
     <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
@@ -29,7 +32,7 @@ draw_tabs($t_names,0);
         <br/>
     </div>
     <?php
-echo "</div>\n</div>\n</div>";
+echo "</div>\n</div>";
 ?>
         <!-------------------------------------------------------------------------------------------------------->
         <div id="add" class="w3-modal">
@@ -39,7 +42,7 @@ echo "</div>\n</div>\n</div>";
             </div>
         </div>
         <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
-        <?php footer(); 
+        <?php footer();
 echo "</body>\n";
 echo "<script src=\"lib.js\" type=\"text/javascript\"></script>
       <script src=\"config.js\" type=\"text/javascript\"></script>\n";

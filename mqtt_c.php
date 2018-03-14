@@ -1,40 +1,50 @@
 <?php
 require 'basic.php';
+require 'menu.php';
 require 'tabs.php';
 require 'connection.php';
 
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>\n";
 echo "<div>\n";
-menu('Dashboard');
+
+$cur = 'MQTT Settings';
+show_menu($cur);
 
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
-            
+
 $t_names = array("MQTT Reports Config", "MQTT Channels Topics");
+$cur_tab = $_COOKIE['c_tab'];
+draw_tabs($t_names,$cur_tab);
 
-draw_tabs($t_names,0);
-
- ?>
-
-    <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
-        <div id="tab0" class="w3-show">
-            <?php config(); ?>
-        </div>
-        <div id="tab1" class="w3-hide">
-            <?php show_list(); ?>
-            <br/>
-
+echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">";
+if ($cur_tab==0) {
+  echo "<div id=\"tab0\" class=\"w3-show\">\n";
+}
+else {
+  echo "<div id=\"tab0\" class=\"w3-hide\">\n";
+}
+            config();
+echo "</div>";
+if ($cur_tab==1) {
+  echo "<div id=\"tab1\" class=\"w3-show\">\n";
+}
+else {
+  echo "<div id=\"tab1\" class=\"w3-hide\">\n";
+}
+            show_list();
+echo "<br/>
         </div>
         <br/>
-    </div>
-    <?php
+    </div>\n";
+
 echo "</div>\n</div>\n</div>";
-footer(); 
+footer();
 echo "</body>\n";
 echo "<script src=\"lib.js\" type=\"text/javascript\"></script>
       <script src=\"config.js\" type=\"text/javascript\"></script>
       <script type=\"text/javascript\">
-      
+
       </script>";
 echo "</html>";
 
@@ -91,7 +101,7 @@ function config()
                       <input name=\"username\" type=\"text\" value=\"".$mqtt_row["username"]."\" />
                       <br/>Password<br/>
                       <input name=\"password\" type=\"password\" value=\"".$mqtt_row["password"]."\"/>
-                    </form>";   
+                    </form>";
               }
               echo "<br/>\n";
   }
