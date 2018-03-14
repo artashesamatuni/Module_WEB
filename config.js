@@ -677,23 +677,7 @@ $(function () {
     orange.start();
 });
 // MENU FUNCTIONS---------------------------------------------------------
-function dropdown() {
-    var x = document.getElementById("config_menu");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
 
-function smallMenu() {
-    var x = document.getElementById("small_menu");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
 
 // -----------------------------------------------------------------------
 function relayDRAW(rVal) {

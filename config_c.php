@@ -1,14 +1,16 @@
 <?php
 require 'basic.php';
+require 'menu.php';
 require 'tzone.php';
 require 'connection.php';
 require 'tabs.php';
 
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>";
-loader();
-echo "<div data-bind='visible: initialised' style='display: none'>";
-menu('Dashboard');
+echo "<div>";
+
+$cur = 'Settings';
+show_menu($cur);
 echo "<div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>";
 echo "<div class='w3-panel'>";
 $t_names = array("System", "Network", "Status");
@@ -22,7 +24,7 @@ echo "<div id=\"tab0\" class=\"w3-show\">\n<br/>\n<div class=\"w3-row\">\n";
 echo "<div class=\"w3-col w3-container m12 s12\">\n<h4 class=\"w3-container w3-center\">Your Timezone</h4>\n<form>\n";
                           echo "<select>\n";
                           echo "<option value=\"0\">Please, select timezone</option>\n";
-                            foreach(tz_list() as $t) { 
+                            foreach(tz_list() as $t) {
                               echo "<option value=\"".$t['zone']."\">".$t['diff_from_GMT']. " - " . $t['zone']."</option>\n";
                             }
                           echo "</select>\n</form>\n<br/>\n";
