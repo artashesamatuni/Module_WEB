@@ -51,18 +51,16 @@ function read_config($cur_tab)
             echo "<input name=\"polarity\" type=\"hidden\" value=\"0\">
                               <input name=\"polarity\" type=\"checkbox\" value=\"";
             if ($row["polarity"]) {
-                echo $row["polarity"]."\" checked/>
-                              Inverse\n";
+                echo $row["polarity"]."\" checked/>&nbspInverse\n";
             } else {
-                echo $row["polarity"]."\" />
-                              Normal\n";
+                echo $row["polarity"]."\" />&nbspNormal\n";
             }
             echo "<br/>
-                              <br/>
-                              <input type=\"submit\" name=\"insert".$row["id"]."\" value=\"Save\">
-                              </form>
-                              <br/>
-                            </div>\n";
+                  <br/>
+                  <input type=\"submit\" name=\"insert".$row["id"]."\" value=\"Save\">
+                  </form>
+                  <br/>
+                </div>\n";
         }
     }
     $conn->close();
