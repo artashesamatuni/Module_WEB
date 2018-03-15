@@ -11,27 +11,22 @@ $cur = 'Digital Outputs';
 show_menu($cur);
 
 
-echo "<table>";
+
 $conn    = Connect();
 
-$rl_status_sql = "SELECT rl_status.id, rl_status.state, rl_configs.name
-FROM rl_status
-INNER JOIN rl_configs
-ON rl_status.id=rl_configs.id";
-$rl_status_result = $conn->query($rl_status_sql);
-echo $rl_status_result->num_rows;
-if ($rl_status_result->num_rows > 0) {
-    while ($rl_status_row = $rl_status_result->fetch_assoc()) {
-        echo "<tr>
-                      <td style='width: 10%'>".$rl_status_row['id']."</td>
-                      <td style='width: 10%'>".$rl_status_row['state']."</td>
-                      <td style='width: 20%'>".$rl_status_row['name']."</td>
-              </tr>";
+$sql = "SELECT cpu_temp,  mqtt_conn, local_ip
+FROM dev_status";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<br/>Temperature: ".$row[cpu_temp]." C";
+        echo "<br/>MQTT status: ".$row[mqtt_conn];
+        echo "<br/>Local IP: ".$row[local_ip];
     }
 } else {
     echo "No results";
 }
-echo "</table>";
+
 
 $conn->close();
 

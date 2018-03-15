@@ -40,16 +40,16 @@ function read_config($cur_tab)
             echo "<br/>\n";
             echo "<form method=\"post\">\n";
             if ($row["enabled"]==1) {
-                echo "<input type=\"checkbox\" name=\"enabled\" value=\"1\" checked/>&nbsp;Enabled\n";
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"1\" checked/>&nbsp;Enabled\n";
             } else {
-                echo "<input type=\"checkbox\" name=\"enabled\" value=\"0\" />&nbsp;Disabled\n";
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"0\" />&nbsp;Disabled\n";
             }
             echo "<br/>Label<br/>\n";
-            echo "<input name=\"name\" type=\"text\" placeholder=\"e.g. Room temperature\" value=\"".$row["name"]."\" />
+            echo "<input name=\"name\" class=\"w3-input w3-border\"  type=\"text\" placeholder=\"e.g. Room temperature\" value=\"".$row["name"]."\" />
                   <br/>
                   <br/>";
             echo "<input name=\"polarity\" type=\"hidden\" value=\"0\">
-                              <input name=\"polarity\" type=\"checkbox\" value=\"";
+                              <input name=\"polarity\" class=\"w3-check\" type=\"checkbox\" value=\"";
             if ($row["polarity"]) {
                 echo $row["polarity"]."\" checked/>&nbspInverse\n";
             } else {
