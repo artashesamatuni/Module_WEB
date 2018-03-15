@@ -6,8 +6,4 @@ $board          = "EM-1044";
 $servername     = "localhost";
 $username       = "eaglemon";
 $password       = "eaglemon";
-$dbname         = "eaglemon";   
-
-
-
-?>
+$dbname         = "eaglemon";

@@ -31,9 +31,7 @@ echo "</div>
 
 
 
-footer(); echo "</div>
-</body>"; ?>
-    <script src="lib.js" type="text/javascript"></script>
-    <script src="config.js" type="text/javascript"></script>
-
-    </html>
+footer();
+echo "</div>
+  </body>
+</html>";
