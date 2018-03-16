@@ -1,8 +1,8 @@
 <?php
-require 'basic.php';
-require 'menu.php';
-require 'connection.php';
-require 'tabs.php';
+require 'modules/basic.php';
+require 'modules/menu.php';
+require 'modules/connection.php';
+require 'modules/tabs.php';
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>\n";
 $cur = 'Digital Inputs';
@@ -32,33 +32,28 @@ function read_config($cur_tab)
             } else {
                 echo "<div id=\"tab".($row["id"])."\" class=\"w3-hide\">\n";
             }
-
             echo "<br/>\n";
-            echo "<form method=\"post\">\n";
+            echo "<form method=\"post\">
+                    <p>\n";
             if ($row["enabled"]==1) {
-                echo "<input type=\"checkbox\" name=\"enabled\" value=\"1\" checked/>&nbsp;Enabled\n";
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"1\" checked=\"checked\"><label>Enabled</label>\n";
             } else {
-                echo "<input type=\"checkbox\" name=\"enabled\" value=\"0\" />&nbsp;Disabled\n";
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"0\"><label>Disabled</label>\n";
             }
-            echo "<br/>Label<br/>\n";
-            echo "<input name=\"name\" type=\"text\" placeholder=\"e.g. Room temperature\" value=\"".$row["name"]."\" />
+            echo "</p>
+                  <label>Label</label>\n";
+            echo "<input name=\"name\" class=\"w3-input w3-border\" type=\"text\" placeholder=\"e.g. Room temperature\" value=\"".$row["name"]."\" />
+                  <p>\n";
+            if ($row["polarity"]==1) {
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"polarity\" value=\"1\" checked=\"checked\"><label>Inverse</label>\n";
+            } else {
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"polarity\" value=\"0\"><label>Normal</label>\n";
+            }
+            echo "</p>
+                  <input type=\"submit\" class=\"w3-button w3-blue w3-card-4\" name=\"insert".$row["id"]."\" value=\"Save\">
+                </form>
                 <br/>
-                <br/>";
-            echo "<input name=\"polarity\" type=\"hidden\" value=\"0\">
-                            <input name=\"polarity\" type=\"checkbox\" value=\"";
-            if ($row["polarity"]) {
-                echo $row["polarity"]."\" checked/>
-                            Inverse\n";
-            } else {
-                echo $row["polarity"]."\" />
-                            Normal\n";
-            }
-            echo "<br/>
-                            <br/>
-                            <input type=\"submit\" name=\"insert".$row["id"]."\" value=\"Save\">
-                            </form>
-                            <br/>
-                          </div>\n";
+            </div>\n";
         }
     }
     $conn->close();

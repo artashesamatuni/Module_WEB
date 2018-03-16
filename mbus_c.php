@@ -1,8 +1,8 @@
 <?php
-require 'connection.php';
-require 'basic.php';
-require 'menu.php';
-require 'tabs.php';
+require 'modules/connection.php';
+require 'modules/basic.php';
+require 'modules/menu.php';
+require 'modules/tabs.php';
 
 
 head();

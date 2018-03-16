@@ -11,7 +11,6 @@ $cur = 'Digital Outputs';
 show_menu($cur);
 
 
-
 $conn    = Connect();
 
 $sql = "SELECT cpu_temp,  mqtt_conn, local_ip
