@@ -50,40 +50,69 @@ echo "</html>";
 function tzone_config()
 {
     echo "<br/>
-    <form>\n";
-    echo "<select>\n";
-    echo "<option value=\"0\">Please, select timezone</option>\n";
+    <form method=\"post\">";
+    $conn    = Connect();
+    $sql = "SELECT timezone FROM timezone";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $conn->close();
+    echo "<div class=\"w3-row-padding\">
+            <div class=\"w3-col m12 s12\">
+                <label>Timezone</label>
+                <select class=\"w3-select w3-border\" name=\"timezone\">\n";
     foreach (tz_list() as $t) {
-        echo "<option value=\"".$t['zone']."\">".$t['diff_from_GMT']. " - " . $t['zone']."</option>\n";
+        echo "<option value=\"".$t['zone']."\"";
+        if ($t['zone']==$row["timezone"]) {
+            echo " selected";
+        }
+        echo ">".$t['zone'];
+
+        echo "</option>\n";
     }
     echo "</select>
-</form>
-<br/>\n";
+        </div>
+    </div>
+    <br/>";
+    echo "<div class=\"w3-row-padding\">
+            <div class=\"w3-col m12 s12\">
+                <div class=\"w3-right\">
+                    <input type=\"submit\" name=\"save_timezone\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <br/>\n";
 }
 
 function network_config()
 {
     echo "<br/>
-        <form action='add_eth.php' method='post'>";
+          <form method=\"post\">";
     $conn    = Connect();
-    $sql = "SELECT dhcp, ip, mask,gateway,broadcast,nameserver,domain,search FROM network";
+    $sql = "SELECT id, dhcp, ip, mask,gateway,broadcast,nameserver,domain,search FROM eth_configs";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $conn->close();
-
-    echo "<input type=\"checkbox\" name=\"dhcp\" class=\"w3-check\" value='".$row ['dhcp']."'/>
-    <label>DHCP</label>";
     echo "<div class=\"w3-row-padding\">
-            <div class=\"w3-col m4 s12\">
+            <div class=\"w3-col m3 s12\">
+            <label>Enable DHCP</label><br/>";
+    if ($row["dhcp"]==1) {
+        echo "<input type=\"checkbox\" class=\"w3-check\" name=\"dhcp\" value=\"1\" checked=\"checked\" />";
+    } else {
+        echo "<input type=\"checkbox\" class=\"w3-check\" name=\"dhcp\" value=\"0\" />";
+    }
+    echo "</div>
+            <div class=\"w3-col m3 s12\">
                 <label>IP*</label><input type=\"text\" class=\"w3-input w3-border\" name=\"ip\" value='".$row ['ip']."' />
             </div>
-            <div class=\"w3-col m4 s12\">
+            <div class=\"w3-col m3 s12\">
                 <label>Netmask*</label><input type=\"text\" class=\"w3-input w3-border\" name=\"mask\" value='".$row ['mask']."' />
             </div>
-            <div class=\"w3-col m4 s12\">
+            <div class=\"w3-col m3 s12\">
                 <label>Gateway*</label><input type=\"text\" class=\"w3-input w3-border\" name=\"gateway\" value='".$row ['gateway']."' />
             </div>
-        </div>";
+        </div>
+        <br/>";
     echo "<div class=\"w3-row-padding\">
             <div class=\"w3-col m3 s12\">
                 <label>Broadcast</label><input type=\"text\" class=\"w3-input w3-border\" name=\"broadcast\" value='".$row ['broadcast']."' />
@@ -97,9 +126,72 @@ function network_config()
             <div class=\"w3-col m3 s12\">
                 <label>DNS Search</label><input type=\"text\" class=\"w3-input w3-border\" name=\"search\" value='".$row ['search']."' />
             </div>
-        </div>";
-    echo "<br/><br/>
-    <input type='submit' value='Submit'>
-   </form>
+        </div>
+        <br/>";
+    echo "<div class=\"w3-row-padding\">
+                <div class=\"w3-col m12 s12\">
+                    <div class=\"w3-right\">
+                        <input type=\"submit\" name=\"save_ethernet\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
+                    </div>
+                </div>
+            </div>";
+    echo "</form>
    <br/>";
+}
+
+
+if (isset($_POST['save_ethernet'])) {
+    save_ethernet(0);
+}
+if (isset($_POST['save_timezone'])) {
+    save_timezone();
+}
+
+
+function save_timezone()
+{
+    $conn       = Connect();
+    $timezone   = $conn->real_escape_string($_POST['timezone']);
+
+    $sql = "UPDATE timezone SET timezone ='".$timezone."'";
+    if ($conn->query($sql)!=true) {
+        echo "ERR: " . $sql . "<br>" . $conn->error;
+    } else {
+        date_default_timezone_set($timezone);
+        alert("DONE");
+    }
+    $conn->close();
+}
+
+function save_ethernet($id)
+{
+    if (isset($_POST['dhcp'])) {
+        $dhcp=1;
+    } else {
+        $dhcp=0;
+    }
+    $conn= Connect();
+    $ip             = $conn->real_escape_string($_POST['ip']);
+    $mask           = $conn->real_escape_string($_POST['mask']);
+    $gateway        = $conn->real_escape_string($_POST['gateway']);
+    $broadcast      = $conn->real_escape_string($_POST['broadcast']);
+    $nameserver     = $conn->real_escape_string($_POST['nameserver']);
+    $domain         = $conn->real_escape_string($_POST['domain']);
+    $search         = $conn->real_escape_string($_POST['search']);
+
+    $sql = "UPDATE eth_configs SET
+    dhcp = ".$dhcp.",
+    ip='".$ip."',
+    mask='".$mask."',
+    gateway='".$gateway."',
+    broadcast='".$broadcast."',
+    nameserver='".$nameserver."',
+    domain='".$domain."',
+    search='".$search."' WHERE id = ".$id."";
+    if ($conn->query($sql)!=true) {
+        echo "ERR: " . $sql . "<br>" . $conn->error;
+    } else {
+        alert("DONE");
+    }
+    $conn->close();
 }

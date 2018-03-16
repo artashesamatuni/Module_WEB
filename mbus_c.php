@@ -61,26 +61,18 @@ function mbus_config()
     if ($mbus_result->num_rows > 0) {
         while ($mbus_row = $mbus_result->fetch_assoc()) {
             echo "<div class=\"w3-row-padding\">
-                    <div class=\"w3-col m3 s4\">";
-            if ($row["enabled"]==1) {
-                echo "<label>Enabled</label><input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"1\" checked=\"checked\"/>\n";
+                    <div class=\"w3-col m1 s4\">
+                        <label>Enable</label>
+                        <br/>";
+            if ($mbus_row["enabled"]==1) {
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"1\" checked=\"checked\"/>\n";
             } else {
-                echo "<label>Disabled</label><input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"0\" />\n";
+                echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"0\" />\n";
             }
             echo "</div>
-                    <div class=\"w3-col m3 s4\">
-                      <label>Read Interval[sec.]</label>
-                      <input name=\"read_interval\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"300\" value=\"".$mbus_row["read_interval"]."\" />
-                    </div>
-                    <div class=\"w3-col m3 s6\">
-                      <label>Read Timeout[sec.]</label>
-                      <input name=\"read_timeout\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"5\" value=\"".$mbus_row["read_timeout"]."\" />
-                    </div>
-                  </div>";
-            echo "<div class=\"w3-row-padding\">
-                    <div class=\"w3-col m3 s4\">";
-            echo "<br/>Baud Rate<br/>
-               <select name=\"baud_rate\" class=\"w3-select\" value=\"".$mbus_row["baud_rate"]."\">\n";
+                    <div class=\"w3-col m2 s4\">
+                        <label>Baudrate</label>
+                            <select name=\"baud_rate\" class=\"w3-select\" value=\"".$mbus_row["baud_rate"]."\">\n";
             $baud_rates_sql = "SELECT id,baud_rates FROM mbus_baud_rates";
             $baud_rates_result = $conn->query($baud_rates_sql);
 
@@ -96,10 +88,9 @@ function mbus_config()
                 echo "0 results";
             }
             echo "</select>
-                </div>\n";
-            //-------------------------------------------------------------------------------------------------------------------------------------
-            echo "<div class=\"w3-col m3 s6\">
-                    <br/>Parity<br/>
+                </div>";
+            echo "<div class=\"w3-col m2 s4\">
+                    <label>Parity</label>
                     <select name=\"parity\" class=\"w3-select\" value=\"".$mbus_row["parity"]."\">";
             $parity_sql = "SELECT id,parity FROM mbus_parity";
             $parity_result = $conn->query($parity_sql);
@@ -116,10 +107,9 @@ function mbus_config()
                 echo "0 results";
             }
             echo "</select>
-            </div>\n";
-            //-------------------------------------------------------------------------------------------------------------------------------------
-            echo "<div class=\"w3-col m3 s6\">
-                    <br/>Stop Bits<br/>
+                </div>\n";
+            echo "<div class=\"w3-col m1 s3\">
+                    <label>StopBits</label>
                     <select name=\"stop_bits\" class=\"w3-select\" value=\"".$mbus_row["stop_bits"]."\">";
             $stop_bits_sql = "SELECT id, stop_bits FROM mbus_stop_bits";
             $stop_bits_result = $conn->query($stop_bits_sql);
@@ -137,9 +127,8 @@ function mbus_config()
             }
             echo "</select>
                 </div>\n";
-            //-------------------------------------------------------------------------------------------------------------------------------------
-            echo "<div class=\"w3-col m3 s6\">
-                    <br/>Data Bits<br/>
+            echo "<div class=\"w3-col m1 s3\">
+                    <label>DataBits</label>
                     <select name=\"data_bits\" class=\"w3-select\" value=\"".$mbus_row["data_bits"]."\">";
             $data_bits_sql = "SELECT id, data_bits FROM mbus_data_bits";
             $data_bits_result = $conn->query($data_bits_sql);
@@ -156,14 +145,22 @@ function mbus_config()
                 echo "0 results";
             }
             echo "</select>
+                </div>\n";
+            echo "<div class=\"w3-col m2 s3\">
+                    <label>Timeout[sec.]</label>
+                    <input name=\"read_timeout\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"5\" value=\"".$mbus_row["read_timeout"]."\" />
+                  </div>";
+            echo "<div class=\"w3-col m2 s3\">
+                    <label>Interval[sec.]</label>
+                    <input name=\"read_interval\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"300\" value=\"".$mbus_row["read_interval"]."\" />
+                </div>\n";
+            echo "</div>";
+            echo "<div class=\"w3-row-padding\">
+            <div class=\"w3-right\">
+                    <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" name=\"insert0\" value=\"Save\" />
                 </div>
-              </div>\n";
-            //-------------------------------------------------------------------------------------------------------------------------------------
-
-            echo "<br/>
-                      <br/>
-                <input type=\"submit\" value=\"Submit\" class=\"w3-btn w3-blue\"/>
-              </form>
+            </div>";
+            echo "</form>
               <br/>\n";
         }
     } else {
@@ -272,6 +269,7 @@ function new_node()
         <br/>\n<br/>\n<input type=\"submit\" value=\"Submit\" />\n<br/>\n<br/>\n</form>\n</div>\n";
 }
 
+
 function register_type($item)
 {
     $conn    = Connect();
@@ -287,4 +285,50 @@ function register_type($item)
     $conn->close();
     return $reg_types_row["reg_types"];
 }
+
+if (isset($_POST['insert0'])) {
+    save_config(1);
+}
+
+function save_config($id)
+{
+    echo isset($_POST['enabled']);
+    $conn    = Connect();
+    if (isset($_POST['enabled'])) {
+        $enabled=1;
+    } else {
+        $enabled=0;
+    }
+
+    $enabled = 1;
+    $baud_rate      = $conn->real_escape_string($_POST['baud_rate']);
+    $parity         = $conn->real_escape_string($_POST['parity']);
+    $stop_bits      = $conn->real_escape_string($_POST['stop_bits']);
+    $data_bits      = $conn->real_escape_string($_POST['data_bits']);
+    $read_interval  = $conn->real_escape_string($_POST['read_interval']);
+    $read_timeout   = $conn->real_escape_string($_POST['read_timeout']);
+
+    $sql = "UPDATE mbus_configs SET
+    enabled = ".$enabled.",
+    baud_rate=".$baud_rate.",
+    parity=".$parity.",
+    stop_bits=".$stop_bits."
+    data_bits=".$data_bits.",
+    read_interval=".$read_interval.",
+    read_timeout=".$read_timeout."
+    WHERE id = ".$id."";
+    $sql = "INSERT INTO mbus_configs (enabled,baud_rate, parity, stop_bits,data_bits,read_interval,read_timeout)
+    VALUES ('".$enabled."','".$baud_rate."','".$parity."','".$stop_bits."','".$data_bits."','".$read_interval."','".$read_timeout."')";
+    if ($conn->query($sql) != true) {
+        echo "ERR: " . $sql . "<br>" . $conn->error;
+    } else {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        echo $sql;
+    }
+
+    $conn->close();
+}
+
+
+
 ?>

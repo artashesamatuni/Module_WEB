@@ -25,7 +25,7 @@ digital_panel();
 echo "</div>
 </div>
 <div class='w3-row'>
-<div class='w3-col w3-container m12 s12'>";
+<div class='w3-col w3-container m4 s12'>";
 node_panel();
 echo "</div>
 </div>";

@@ -755,7 +755,7 @@ function R3Menu() {
     }
 }
 
-
+document.getElementById("b0").disabled
 
 
 function ff() {

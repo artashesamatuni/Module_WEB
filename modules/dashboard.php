@@ -103,58 +103,28 @@ function digital_panel()
 }
 function node_panel()
 {
+    echo "<div class='w3-panel w3-border'>\n<h4>Modbus Nods</h4>\n";
     $conn    = Connect();
     echo "<br/>
-      <table class=\"w3-table w3-border\">
+      <table class=\"w3-table w3-border 3w-card-4\">
         <tr class=\"w3-light-gray\">
           <th>Name</th>
-          <th>Dev. addr.</th>
-          <th>Reg. addr.</th>
-          <th>Reg. type</th>
-          <th>Unit</th>
-          <th>Slope</th>
-          <th>Offset</th>
-          <th>32 bit</th>
-          <th>IEEE754</th>
-          <th>Low First</th>
+          <th>Value</th>
         </tr>\n";
 
-    $sql = "SELECT id, name, dev_addr, reg_addr,reg_type,unit,slope,offset,bit32,ieee754,low_first FROM mbus_nods";
+    $sql = "SELECT mbus_nods.name, mbus_nods.unit, mbus_nods_values.value
+        FROM mbus_nods
+        INNER JOIN mbus_nods_values
+        ON mbus_nods.id=mbus_nods_values.id";
+
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         echo "<tbody>\n";
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
                     <td>".$row["name"]."</td>
-                    <td>".$row["dev_addr"]."</td>
-                    <td>".$row["reg_addr"]."</td>";
-            //-------------------------------------------
-            $sql = "SELECT reg_types FROM mbus_reg_types WHERE id=2";//".$row["reg_type"]."\"";
-            $reg_types_result = $conn->query($sql);
-            $row1 = $reg_types_result->fetch_assoc();
-
-            echo "<td>".$row1["reg_types"]."</td>";
-            //---------------------------------------------
-            echo "<td>".$row["unit"]."</td>
-                    <td>".$row["slope"]."</td>
-                    <td>".$row["offset"]."</td>\n";
-
-            if ($row["bit32"]) {
-                echo "<td><input type=\"checkbox\" class=\"w3-check\" checked=\"checked\" disabled/></td>\n";
-            } else {
-                echo "<td><input type=\"checkbox\" class=\"w3-check\" disabled/></td>\n";
-            }
-            if ($row["ieee754"]) {
-                echo "<td><input type=\"checkbox\" class=\"w3-check\" checked=\"checked\" disabled/></td>\n";
-            } else {
-                echo "<td><input type=\"checkbox\" class=\"w3-check\" disabled/></td>\n";
-            }
-            if ($row["low_first"]) {
-                echo "<td><input type=\"checkbox\" class=\"w3-check\" checked=\"checked\" disabled/></td>\n";
-            } else {
-                echo "<td><input type=\"checkbox\" class=\"w3-check\" disabled/></td>\n";
-            }
-            echo "</tr>\n";
+                    <td>".$row["value"]." ".$row["unit"]."</td>
+                 </tr>\n";
         }
         echo "</tbody>\n";
     } else {
@@ -164,23 +134,5 @@ function node_panel()
       <br/>\n";
 
     $conn->close();
-}
-
-
-function add_zero($val, $cnt)
-{
-    $zero="";
-    for ($i =1; $i < $cnt; $i++) {
-        if ($val<10*i) {
-            if ($cnt==i) {
-                return $val;
-            } else {
-                for ($j =1; $j < $i; $j++) {
-                    $zero+="0";
-                }
-                $zero+=$val;
-                return $zero;
-            }
-        }
-    }
+    echo "</div>\n";
 }
