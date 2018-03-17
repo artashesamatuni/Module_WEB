@@ -1,7 +1,9 @@
 <?php
+require '/modules/login.php';
 require '/modules/basic.php';
 require '/modules/menu.php';
 require '/modules/dashboard.php';
+
 
 $url1=$_SERVER['REQUEST_URI'];
 header("Refresh: 5; URL=$url1");

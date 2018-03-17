@@ -14,7 +14,7 @@ show_menu($cur);
 $conn    = Connect();
 
 $sql ="DROP TABLE admin";
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) === true) {
     echo "Table deleted\n";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -35,7 +35,7 @@ if ($conn->query($sql) != true) {
 $sql   = "INSERT INTO admin (username, passcode) VALUES ('admin','admin')";
 
 
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) === true) {
     echo "New record created successfully\n";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -44,7 +44,7 @@ if ($conn->query($sql) === TRUE) {
 $sql   = "INSERT INTO admin (username, passcode) VALUES ('guest','guest')";
 
 
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) === true) {
     echo "New record created successfully\n";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -55,7 +55,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         echo "id: " . $row["id"]. " - Name: " . $row["username"]. " " . $row["passcode"]. "<br>";
     }
 } else {
@@ -72,4 +72,3 @@ footer();
 echo "</div>
 </body>
 </html>";
-?>

@@ -337,3 +337,4 @@ function register_type($item)
     $conn->close();
     return $reg_types_row["reg_types"];
 }
+?>
