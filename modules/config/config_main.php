@@ -1,8 +1,9 @@
 <?php
+require '../connection.php';
+require '../login.php';
 require '../basic.php';
 require '../menu.php';
 require '../tzone.php';
-require '../connection.php';
 require '../tabs.php';
 
 head();
@@ -15,21 +16,21 @@ $t_names = array("Timezone", "Network", "Status");
 $cur_tab = $_COOKIE['c_tab'];
 draw_tabs($t_names, $cur_tab);
 echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">";
-if ($cur_tab==0) {
+if ($cur_tab == 0) {
     echo "<div id=\"tab0\" class=\"w3-show\">";
 } else {
     echo "<div id=\"tab0\" class=\"w3-hide\">";
 }
 tzone_config();
 echo "</div>";
- if ($cur_tab==1) {
+ if ($cur_tab == 1) {
      echo "<div id=\"tab1\" class=\"w3-show\">";
  } else {
      echo "<div id=\"tab1\" class=\"w3-hide\">";
  }
 network_config();
 echo "</div>";
-if ($cur_tab==2) {
+if ($cur_tab == 2) {
     echo "<div id=\"tab2\" class=\"w3-show\">";
 } else {
     echo "<div id=\"tab2\" class=\"w3-hide\">";
@@ -51,7 +52,7 @@ function tzone_config()
 {
     echo "<br/>
     <form method=\"post\">";
-    $conn    = Connect();
+    $conn = Connect();
     $sql = "SELECT timezone FROM timezone";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -62,7 +63,7 @@ function tzone_config()
                 <select class=\"w3-select w3-border\" name=\"timezone\">\n";
     foreach (tz_list() as $t) {
         echo "<option value=\"".$t['zone']."\"";
-        if ($t['zone']==$row["timezone"]) {
+        if ($t['zone'] == $row["timezone"]) {
             echo " selected";
         }
         echo ">".$t['zone'];
@@ -88,7 +89,7 @@ function network_config()
 {
     echo "<br/>
           <form method=\"post\" action=\"config_save_eth.php\">";
-    $conn    = Connect();
+    $conn = Connect();
     $sql = "SELECT id, dhcp, ip, mask,gateway,broadcast,nameserver,domain,search FROM eth_configs";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -96,7 +97,7 @@ function network_config()
     echo "<div class=\"w3-row-padding\">
             <div class=\"w3-col m3 s12\">
             <label>Enable DHCP</label><br/>";
-    if ($row["dhcp"]==1) {
+    if ($row["dhcp"] == 1) {
         echo "<input type=\"checkbox\" class=\"w3-check\" name=\"dhcp\" value=\"1\" checked=\"checked\" />";
     } else {
         echo "<input type=\"checkbox\" class=\"w3-check\" name=\"dhcp\" value=\"0\" />";
@@ -146,11 +147,11 @@ if (isset($_POST['save_timezone'])) {
 
 function save_timezone()
 {
-    $conn       = Connect();
-    $timezone   = $conn->real_escape_string($_POST['timezone']);
+    $conn = Connect();
+    $timezone = $conn->real_escape_string($_POST['timezone']);
 
     $sql = "UPDATE timezone SET timezone ='".$timezone."'";
-    if ($conn->query($sql)!=true) {
+    if ($conn->query($sql) != true) {
         echo "ERR: " . $sql . "<br>" . $conn->error;
     } else {
         date_default_timezone_set($timezone);
