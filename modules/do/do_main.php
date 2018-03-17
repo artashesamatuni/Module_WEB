@@ -1,8 +1,8 @@
 <?php
-require 'modules/basic.php';
-require 'modules/menu.php';
-require 'modules/connection.php';
-require 'modules/tabs.php';
+require '../basic.php';
+require '../menu.php';
+require '../connection.php';
+require '../tabs.php';
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>\n";
 
@@ -19,8 +19,6 @@ echo "</div>
 footer();
 echo "</div>
 </body>\n";
-
-
 echo "</html>";
 
 

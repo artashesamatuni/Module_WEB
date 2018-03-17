@@ -1,7 +1,7 @@
 <?php
-require 'basic.php';
-require 'menu.php';
-require 'connection.php';
+require 'modules/basic.php';
+require 'modules/menu.php';
+require 'modules/connection.php';
 
 
 head();
@@ -13,45 +13,56 @@ show_menu($cur);
 
 $conn    = Connect();
 
-$sql = "DROP TABLE mbus_configs";
-
-if ($conn->query($sql) != true) {
-    echo "ERR: " . $conn->error;
-}
-
-$sql = "CREATE TABLE mbus_configs (
-id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-enabled         TINYINT,
-baud_rate       INT NOT NULL,
-parity          TEXT NOT NULL,
-stop_bits       TINYINT NOT NULL,
-data_bits       TINYINT NOT NULL,
-read_interval   INT NOT NULL,
-read_timeout    INT NOT NULL
-)";
-
-if ($conn->query($sql) != true) {
-    echo "ERR: " . $conn->error;
-}
-
-echo $_POST['reg_type'];
-$enabled        = 1;
-$baud_rate      = 1;//$conn->real_escape_string($_POST['baud_rate']);
-$parity         = 2;//$conn->real_escape_string($_POST['parity']);
-$stop_bits      = 1;//$conn->real_escape_string($_POST['stop_bits']);
-$data_bits      = 1;//$conn->real_escape_string($_POST['data_bits']);
-$read_interval  = 5;//$conn->real_escape_string($_POST['read_interval']);
-$read_timeout   = 50;//$conn->real_escape_string($_POST['read_timeout']);
-
-
-
-$sql = "INSERT INTO mbus_configs (enabled,baud_rate, parity, stop_bits,data_bits,read_interval,read_timeout)
-VALUES ('".$enabled."','".$baud_rate."','".$parity."','".$stop_bits."','".$data_bits."','".$read_interval."','".$read_timeout."')";
-if ($conn->query($sql) != true) {
-    echo "ERR: " . $sql . "<br>" . $conn->error;
+$sql ="DROP TABLE admin";
+if ($conn->query($sql) === TRUE) {
+    echo "Table deleted\n";
 } else {
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
+$sql= "CREATE TABLE admin (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(30) NOT NULL,
+    passcode VARCHAR(30) NOT NULL
+    )";
+
+if ($conn->query($sql) != true) {
+    echo "ERR: " . $conn->error;
+} else {
+    echo "Table created\n";
+}
+
+$sql   = "INSERT INTO admin (username, passcode) VALUES ('admin','admin')";
+
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully\n";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$sql   = "INSERT INTO admin (username, passcode) VALUES ('guest','guest')";
+
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully\n";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$sql = "SELECT id, username, passcode FROM admin";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["username"]. " " . $row["passcode"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+
 
 
 $conn->close();
@@ -61,3 +72,4 @@ footer();
 echo "</div>
 </body>
 </html>";
+?>

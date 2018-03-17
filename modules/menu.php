@@ -3,26 +3,26 @@
 function gen_dropdown($cur)
 {
     if ($cur!='Analog Inputs') {
-        echo "<a href=\"ai_c.php\" class=\"w3-bar-item w3-button\">Analog Inputs</a>\n";
+        echo "<a href=\"/modules/ai/ai_main.php\" class=\"w3-bar-item w3-button\">Analog Inputs</a>\n";
     }
     if ($cur!='Digital Inputs') {
-        echo "<a href=\"di_c.php\" class=\"w3-bar-item w3-button\">Digital Inputs</a>\n";
+        echo "<a href=\"/modules/di/di_main.php\" class=\"w3-bar-item w3-button\">Digital Inputs</a>\n";
     }
     if ($cur!='Digital Outputs') {
-        echo "<a href=\"do_c.php\" class=\"w3-bar-item w3-button\">Digital Outputs</a>\n";
+        echo "<a href=\"/modules/do/do_main.php\" class=\"w3-bar-item w3-button\">Digital Outputs</a>\n";
     }
     echo "<hr/>";
     if ($cur!='MQTT Settings') {
-        echo "<a href=\"mqtt_c.php\" class=\"w3-bar-item w3-button\">MQTT Settings</a>\n";
+        echo "<a href=\"/modules/mqtt/mqtt_main.php\" class=\"w3-bar-item w3-button\">MQTT Settings</a>\n";
     }
     if ($cur!='Modbus Settings') {
-        echo "<a href=\"mbus_c.php\" class=\"w3-bar-item w3-button\">Modbus Settings</a>\n";
+        echo "<a href=\"/modules/mbus/mbus_main.php\" class=\"w3-bar-item w3-button\">Modbus Settings</a>\n";
     }
     if ($cur!='Access control') {
-        echo "<a href=\"login_c.php\" class=\"w3-bar-item w3-button\">Access control</a>\n";
+        echo "<a href=\"/modules/access/login_main.php\" class=\"w3-bar-item w3-button\">Access control</a>\n";
     }
     if ($cur!='Settings') {
-        echo "<a href=\"config_c.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
+        echo "<a href=\"/modules/config/config_main.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
     }
 }
 
@@ -39,7 +39,7 @@ function show_menu($cur)
           <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium\" onclick=\"smallMenu()\"><i class=\"fa fa-navicon\"></i></a>
           <div class=\"w3-right\">\n";
     if ($cur!='Dashboard') {
-        echo "<a href=\"index.php\" class=\"w3-bar-item w3-button\">Dashboard</a>\n";
+        echo "<a href=\"/index.php\" class=\"w3-bar-item w3-button\">Dashboard</a>\n";
     }
     echo "<div class=\"w3-dropdown-click w3-hide-small\">
                   <button class=\"w3-button\" onclick=\"dropdown()\">Configuration&nbsp;<i class=\"fa fa-caret-down\"></i></button>
@@ -51,7 +51,7 @@ function show_menu($cur)
               </div>
               <a onclick=\"document.getElementById('help').style.display='block'\" class=\"w3-bar-item w3-button w3-hide-small\">Help</a>
               <a href=\"http://www.eaglemon.com\" target=\"_blank\" class=\"w3-bar-item w3-right\">
-                  <image alt=\"logo\" src=\"images/logo_s.png\" style=\"height: 24px\" />
+                  <image alt=\"logo\" src=\"/images/logo_s.png\" style=\"height: 24px\" />
               </a>
           </div>
       </div>

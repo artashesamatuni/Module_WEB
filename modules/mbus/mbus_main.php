@@ -1,8 +1,8 @@
 <?php
-require 'modules/connection.php';
-require 'modules/basic.php';
-require 'modules/menu.php';
-require 'modules/tabs.php';
+require '../connection.php';
+require '../basic.php';
+require '../menu.php';
+require '../tabs.php';
 
 
 head();
@@ -30,36 +30,32 @@ if ($cur_tab==0) {
       } else {
           echo "<div id=\"tab1\" class=\"w3-hide\">";
       }
-            show_nodes();
+      require 'mbus_show_nodes.php';
+            //modbus_show_nodes();
             echo "<button onclick=\"document.getElementById('add').style.display='block'\" class=\"w3-btn w3-blue w3-card-4\">Add</button>
             <br/>
         </div>
         <br/>
     </div>
 </div>\n</div>";
-?>
-        <!-------------------------------------------------------------------------------------------------------->
-        <div id="add" class="w3-modal">
-            <div class="w3-modal-content">
-                <button class="w3-right" onclick="document.getElementById('add').style.display='none'" class="w3-display-topright">&times;</button>
-                <?php new_node(); ?>
-            </div>
-        </div>
-        <?php footer();
-echo "</body>\n";
-echo "<script src=\"lib.js\" type=\"text/javascript\"></script>
-      <script src=\"config.js\" type=\"text/javascript\"></script>\n";
-echo "</html>";
+new_node_modal();
+footer();
+echo "</body>
+</html>";
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function mbus_config()
 {
     $conn    = Connect();
     echo "<br/>
-          <form method=\"post\" action=\"save_mbus.php\">";
+          <form method=\"post\" action=\"mbus_save.php\">";
     $mbus_sql = "SELECT enabled, baud_rate, parity, stop_bits,data_bits,read_interval,read_timeout FROM mbus_configs";
     $mbus_result = $conn->query($mbus_sql);
     if ($mbus_result->num_rows > 0) {
         while ($mbus_row = $mbus_result->fetch_assoc()) {
+            echo "<hr/>";
+            echo $mbus_row["enabled"];
+            echo $mbus_row["baud_rate"];
+            echo "<hr/>";
             echo "<div class=\"w3-row-padding\">
                     <div class=\"w3-col m1 s4\">
                         <label>Enable</label>
@@ -157,7 +153,7 @@ function mbus_config()
             echo "</div>";
             echo "<div class=\"w3-row-padding\">
             <div class=\"w3-right\">
-                    <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" name=\"insert0\" value=\"Save\" />
+                    <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
                 </div>
             </div>";
             echo "</form>
@@ -169,12 +165,13 @@ function mbus_config()
 
     $conn->close();
 }
-
+/*
 function show_nodes()
 {
     $conn    = Connect();
-    echo "<br/>
-      <table class=\"w3-table w3-border\">
+    echo "<br/>\n";
+    echo "<form method=\"post\">\n";
+    echo "<table class=\"w3-table w3-border\">
         <tr class=\"w3-blue\">
           <th>#</th>
           <th>Name</th>
@@ -187,6 +184,8 @@ function show_nodes()
           <th>32 bit</th>
           <th>IEEE754</th>
           <th>Low First</th>
+          <th>Edit</th>
+          <th>Delete</th>
         </tr>\n";
 
     $sql = "SELECT id, name, dev_addr, reg_addr,reg_type,unit,slope,offset,bit32,ieee754,low_first FROM mbus_nods";
@@ -194,22 +193,19 @@ function show_nodes()
     if ($result->num_rows > 0) {
         echo "<tbody>\n";
         while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <td>".$row["id"]."</td>
-                    <td>".$row["name"]."</td>
-                    <td>".$row["dev_addr"]."</td>
-                    <td>".$row["reg_addr"]."</td>";
-            //-------------------------------------------
+            echo "<tr>\n";
+            echo "<td>".$row["id"]."</td>\n";
+            echo "<td>".$row["name"]."</td>\n";
+            echo "<td>".$row["dev_addr"]."</td>\n";
+            echo "<td>".$row["reg_addr"]."</td>\n";
             $sql = "SELECT reg_types FROM mbus_reg_types WHERE id=2";//".$row["reg_type"]."\"";
             $reg_types_result = $conn->query($sql);
             $row1 = $reg_types_result->fetch_assoc();
 
-            echo "<td>".$row1["reg_types"]."</td>";
-            //---------------------------------------------
-            echo "<td>".$row["unit"]."</td>
-                    <td>".$row["slope"]."</td>
-                    <td>".$row["offset"]."</td>\n";
-
+            echo "<td>".$row1["reg_types"]."</td>\n";
+            echo "<td>".$row["unit"]."</td>\n";
+            echo "<td>".$row["slope"]."</td>\n";
+            echo "<td>".$row["offset"]."</td>\n";
             if ($row["bit32"]) {
                 echo "<td><input type=\"checkbox\" class=\"w3-check\" checked=\"checked\" disabled/></td>\n";
             } else {
@@ -225,33 +221,52 @@ function show_nodes()
             } else {
                 echo "<td><input type=\"checkbox\" class=\"w3-check\" disabled/></td>\n";
             }
+            echo "<td><input type=\"submit\" name=\"edit".$row["id"]."\" class=\"w3-button w3-right w3-gray w3-text-white w3-card-4\" value=\"Edit\"/></td>\n";
+            echo "<td><input type=\"submit\" name=\"delete".$row["id"]."\" class=\"w3-button w3-right w3-red w3-card-4\" value=\"&times;\"/></td>\n";
             echo "</tr>\n";
         }
         echo "</tbody>\n";
     } else {
         echo "No data";
     }
-    echo "</table>
+    echo "</table>\n";
+    echo "</form>
       <br/>\n";
-
     $conn->close();
 }
+*/
 
-function new_node()
+function new_node_modal()
 {
+    echo "<div id=\"add\" class=\"w3-modal\">
+                <div class=\"w3-modal-content\">
+                    <button class=\"w3-button w3-right w3-red w3-display-topright\" onclick=\"document.getElementById('add').style.display='none'\">&times;</button>";
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n
-      <h4>Add new Modbus unit</h4>\n
-      <form method=\"post\" action=\"new_node.php\">\n
-          Name<br/>\n<input type=\"text\" max=\"10\" name=\"name\" />\n
-          <br/>Device addr.<br/>\n<input type=\"number\" name=\"dev_addr\" />\n
-          <br/>Register addr.<br/>\n<input type=\"number\" name=\"reg_addr\" />\n
-          <br/>Register type<br/>\n";
+      <h4>Add new Modbus unit</h4>
+      <form method=\"post\" action=\"mbus_new_node.php\">
+      <div class=\"w3-row-padding\">";
+    echo "<div class=\"w3-col m4 s4\">
+              <label>Name</label>
+              <input type=\"text\" class=\"w3-input w3-border\" max=\"10\" name=\"name\" />
+          </div>";
+    echo "<div class=\"w3-col m4 s4\">
+              <label>Device addr.</label>
+              <input type=\"number\" class=\"w3-input w3-border\" name=\"dev_addr\" />
+          </div>";
+    echo "<div class=\"w3-col m4 s4\">
+              <label>Register addr.</label>
+              <input type=\"number\" class=\"w3-input w3-border\" name=\"reg_addr\" />
+          </div>";
+    echo "</div>
+          <div class=\"w3-row-padding\">";
+    echo "<div class=\"w3-col m3 s3\">
+          <label>Register type</label>\n";
     $conn    = Connect();
     $reg_types_sql = "SELECT id, reg_types FROM mbus_reg_types";
     $reg_types_result = $conn->query($reg_types_sql);
 
     if ($reg_types_result->num_rows > 0) {
-        echo "<select name=\"reg_type\">";
+        echo "<select name=\"reg_type\" class=\"w3-select w3-border\">";
         while ($reg_types_row = $reg_types_result->fetch_assoc()) {
             echo "<option value=\"".$reg_types_row["id"]."\">".$reg_types_row["reg_types"]."</option>";
         }
@@ -260,13 +275,50 @@ function new_node()
         echo "No result";
     }
     $conn->close();
-    echo "<br/>Unit<br/>\n<input type=\"text\" name=\"unit\" />\n
-        <br/>Slope<br/>\n<input type=\"number\" name=\"slope\" value=\"1\" />\n
-        <br/>Offset<br/>\n<input type=\"number\" name=\"offset\" value=\"0\" />\n
-        <br/>\n<input type=\"hidden\" name=\"bit32\" value=\"0\" />\n<input type=\"checkbox\" name=\"bit32\" value=\"1\" />&nbsp;32 bit Enable\n
-        <br/>\n<input type=\"hidden\" name=\"ieee754\" value=\"0\" />\n<input type=\"checkbox\" name=\"ieee754\" value=\"1\" />&nbsp;IEEE754\n
-        <br/>\n<input type=\"hidden\" name=\"low_first\" value=\"0\" />\n<input type=\"checkbox\" name=\"low_first\" value=\"1\" />&nbsp;Low Word First\n
-        <br/>\n<br/>\n<input type=\"submit\" value=\"Submit\" />\n<br/>\n<br/>\n</form>\n</div>\n";
+    echo "</div>
+          <div class=\"w3-col m3 s3\">";
+    echo "<label>Unit</label>
+          <input type=\"text\" class=\"w3-input w3-border\" name=\"unit\" />
+          </div>";
+    echo "<div class=\"w3-col m3 s3\">
+          <label>Slope</label>
+          <input type=\"number\" class=\"w3-input w3-border\" name=\"slope\" value=\"1\" />
+          </div>";
+    echo "<div class=\"w3-col m3 s3\">
+          <label>Offset</label>
+          <input type=\"number\" class=\"w3-input w3-border\" name=\"offset\" value=\"0\" />
+          </div>";
+    echo "</div>
+          <div class=\"w3-row-padding\">";
+    echo "<div class=\"w3-col m4 s4\">
+          <label>32 bit Enable</label>
+          <br/>
+          <input type=\"checkbox\" class=\"w3-check\" name=\"bit32\" value=\"0\" checked=\"checked\">
+          </div>";
+    echo "<div class=\"w3-col m4 s4\">
+          <label>IEEE754</label>
+          <br/>
+          <input type=\"checkbox\" class=\"w3-check\" name=\"ieee754\" value=\"0\" checked=\"checked\">
+          </div>";
+    echo "<div class=\"w3-col m4 s4\">
+          <label>Low Word First</label>
+          <br/>
+          <input type=\"checkbox\" class=\"w3-check\" name=\"low_first\" value=\"0\" checked=\"checked\">
+          </div>
+          </div>
+          <br/>";
+    echo "<div class=\"w3-row-padding\">
+            <div class=\"w3-col m12 s12\">
+                <div class=\"w3-right\">
+                    <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
+                </div>
+            </div>
+        </div>
+          </form>
+          <br/>
+          </div>";
+    echo "</div>
+          </div>";
 }
 
 
@@ -285,50 +337,3 @@ function register_type($item)
     $conn->close();
     return $reg_types_row["reg_types"];
 }
-
-if (isset($_POST['insert0'])) {
-    save_config(1);
-}
-
-function save_config($id)
-{
-    echo isset($_POST['enabled']);
-    $conn    = Connect();
-    if (isset($_POST['enabled'])) {
-        $enabled=1;
-    } else {
-        $enabled=0;
-    }
-
-    $enabled = 1;
-    $baud_rate      = $conn->real_escape_string($_POST['baud_rate']);
-    $parity         = $conn->real_escape_string($_POST['parity']);
-    $stop_bits      = $conn->real_escape_string($_POST['stop_bits']);
-    $data_bits      = $conn->real_escape_string($_POST['data_bits']);
-    $read_interval  = $conn->real_escape_string($_POST['read_interval']);
-    $read_timeout   = $conn->real_escape_string($_POST['read_timeout']);
-
-    $sql = "UPDATE mbus_configs SET
-    enabled = ".$enabled.",
-    baud_rate=".$baud_rate.",
-    parity=".$parity.",
-    stop_bits=".$stop_bits."
-    data_bits=".$data_bits.",
-    read_interval=".$read_interval.",
-    read_timeout=".$read_timeout."
-    WHERE id = ".$id."";
-    $sql = "INSERT INTO mbus_configs (enabled,baud_rate, parity, stop_bits,data_bits,read_interval,read_timeout)
-    VALUES ('".$enabled."','".$baud_rate."','".$parity."','".$stop_bits."','".$data_bits."','".$read_interval."','".$read_timeout."')";
-    if ($conn->query($sql) != true) {
-        echo "ERR: " . $sql . "<br>" . $conn->error;
-    } else {
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
-        echo $sql;
-    }
-
-    $conn->close();
-}
-
-
-
-?>

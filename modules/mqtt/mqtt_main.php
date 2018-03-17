@@ -1,8 +1,8 @@
 <?php
-require 'basic.php';
-require 'menu.php';
-require 'tabs.php';
-require 'connection.php';
+require '../connection.php';
+require '../basic.php';
+require '../menu.php';
+require '../tabs.php';
 
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>\n";
@@ -23,14 +23,14 @@ if ($cur_tab==0) {
 } else {
     echo "<div id=\"tab0\" class=\"w3-hide\">\n";
 }
-            config();
+config();
 echo "</div>";
 if ($cur_tab==1) {
     echo "<div id=\"tab1\" class=\"w3-show\">\n";
 } else {
     echo "<div id=\"tab1\" class=\"w3-hide\">\n";
 }
-            show_list();
+show_list();
 echo "<br/>
         </div>
         <br/>

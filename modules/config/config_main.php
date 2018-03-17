@@ -1,9 +1,9 @@
 <?php
-require 'modules/basic.php';
-require 'modules/menu.php';
-require 'modules/tzone.php';
-require 'modules/connection.php';
-require 'modules/tabs.php';
+require '../basic.php';
+require '../menu.php';
+require '../tzone.php';
+require '../connection.php';
+require '../tabs.php';
 
 head();
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>";
@@ -28,18 +28,18 @@ echo "</div>";
      echo "<div id=\"tab1\" class=\"w3-hide\">";
  }
 network_config();
-
 echo "</div>";
 if ($cur_tab==2) {
     echo "<div id=\"tab2\" class=\"w3-show\">";
 } else {
     echo "<div id=\"tab2\" class=\"w3-hide\">";
 }
+echo "<br/>
+        </div>
+        <br/>
+    </div>\n";
 
-
-
-echo "</div>
-</div>";
+echo "</div>\n</div>";
 footer();
 echo "</body>\n";
 echo "</html>";
@@ -87,7 +87,7 @@ function tzone_config()
 function network_config()
 {
     echo "<br/>
-          <form method=\"post\">";
+          <form method=\"post\" action=\"config_save_eth.php\">";
     $conn    = Connect();
     $sql = "SELECT id, dhcp, ip, mask,gateway,broadcast,nameserver,domain,search FROM eth_configs";
     $result = $conn->query($sql);
@@ -131,7 +131,7 @@ function network_config()
     echo "<div class=\"w3-row-padding\">
                 <div class=\"w3-col m12 s12\">
                     <div class=\"w3-right\">
-                        <input type=\"submit\" name=\"save_ethernet\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
+                        <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
                     </div>
                 </div>
             </div>";
@@ -139,10 +139,6 @@ function network_config()
    <br/>";
 }
 
-
-if (isset($_POST['save_ethernet'])) {
-    save_ethernet(0);
-}
 if (isset($_POST['save_timezone'])) {
     save_timezone();
 }
@@ -162,36 +158,4 @@ function save_timezone()
     }
     $conn->close();
 }
-
-function save_ethernet($id)
-{
-    if (isset($_POST['dhcp'])) {
-        $dhcp=1;
-    } else {
-        $dhcp=0;
-    }
-    $conn= Connect();
-    $ip             = $conn->real_escape_string($_POST['ip']);
-    $mask           = $conn->real_escape_string($_POST['mask']);
-    $gateway        = $conn->real_escape_string($_POST['gateway']);
-    $broadcast      = $conn->real_escape_string($_POST['broadcast']);
-    $nameserver     = $conn->real_escape_string($_POST['nameserver']);
-    $domain         = $conn->real_escape_string($_POST['domain']);
-    $search         = $conn->real_escape_string($_POST['search']);
-
-    $sql = "UPDATE eth_configs SET
-    dhcp = ".$dhcp.",
-    ip='".$ip."',
-    mask='".$mask."',
-    gateway='".$gateway."',
-    broadcast='".$broadcast."',
-    nameserver='".$nameserver."',
-    domain='".$domain."',
-    search='".$search."' WHERE id = ".$id."";
-    if ($conn->query($sql)!=true) {
-        echo "ERR: " . $sql . "<br>" . $conn->error;
-    } else {
-        alert("DONE");
-    }
-    $conn->close();
-}
+?>
