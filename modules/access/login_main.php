@@ -32,18 +32,18 @@ echo "</html>";
 function read_config()
 {
     $conn    = Connect();
-    $sql = "SELECT login, password FROM log_pass";
+    $sql = "SELECT username, passcode FROM admin";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo "<br/>\n";
             echo "<form method=\"post\">
                     <div class=\"w3-row-padding\">
-                        <label>Username</label><input name=\"login\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["name"]."\" />
+                        <label>Username</label><input name=\"username\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["name"]."\" />
                     </div>
                     <br/>
                     <div class=\"w3-row-padding\">
-                        <label>Password</label><input name=\"password\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["password"]."\" />
+                        <label>Password</label><input name=\"passcode\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["password"]."\" />
                     </div>";
             echo "<div class=\"w3-right\">
                         <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" name=\"insert".$row["id"]."\" value=\"Save\" />

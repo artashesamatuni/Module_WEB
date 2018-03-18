@@ -1,66 +1,70 @@
 <?php
-$realm = 'Restricted area';
-
-$users = array();
-$conn    = Connect();
-$sql = "SELECT id, username, passcode FROM admin";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-       $users[$row['username']] = $row['passcode'];
-    }
+include 'settings.php';
 
 
-} else {
-    echo "0 results";
-}
-$conn->close();
-
-
-
-if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    header('WWW-Authenticate: Digest realm="'.$realm.
-           '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
-
-    die('Text to send if user hits Cancel button');
-}
-
-
-// analyze the PHP_AUTH_DIGEST variable
-if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) ||
-    !isset($users[$data['username']]))
-    die("<h1>paka axper</h1>");
-
-
-// generate the valid response
-$A1 = md5($data['username'] . ':' . $realm . ':' . $users[$data['username']]);
-$A2 = md5($_SERVER['REQUEST_METHOD'].':'.$data['uri']);
-$valid_response = md5($A1.':'.$data['nonce'].':'.$data['nc'].':'.$data['cnonce'].':'.$data['qop'].':'.$A2);
-
-if ($data['response'] != $valid_response)
-    die('Wrong Credentials!');
-
-// ok, valid username & password
-echo 'You are logged in as: ' . $data['username'];
-
-
-// function to parse the http auth header
-function http_digest_parse($txt)
+function check_user()
 {
-    // protect against missing data
-    $needed_parts = array('nonce'=>1, 'nc'=>1, 'cnonce'=>1, 'qop'=>1, 'username'=>1, 'uri'=>1, 'response'=>1);
-    $data = array();
-    $keys = implode('|', array_keys($needed_parts));
-
-    preg_match_all('@(' . $keys . ')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $txt, $matches, PREG_SET_ORDER);
-
-    foreach ($matches as $m) {
-        $data[$m[1]] = $m[3] ? $m[3] : $m[4];
-        unset($needed_parts[$m[1]]);
+    if (isset($_POST["user"]))
+	{
+        $user = $_POST['user'];
+        $pass = hash('sha256', $_POST['pass']);
+    }
+	else
+	{
+        $user = "";
+        $pass = "";
     }
 
-    return $needed_parts ? false : $data;
+    # Check Login Data
+    global $servername;
+    global $dbusername;
+    global $dbpassword;
+    global $dbname;
+    $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname) or die($conn->connect_error);
+    $sql = "SELECT username, passcode FROM admin";
+    $result = $conn->query($sql);
+    $conn->close();
+    if ($result->num_rows > 0)
+	{
+        while ($row = $result->fetch_assoc())
+		{
+			if ($user == $row["username"] && $pass == $row["passcode"])
+			{
+				return $user;
+			}
+			else
+			{   # Show login form. Request for username and password
+				require_once 'basic.php';
+				head();
+				echo "<body class=\"w3-content\" style=\"max-width:300px\">";
+				echo "<br/>
+					  <div class=\"w3-card-4 w3-light-grey\">
+						<form method=\"POST\" action=\"\">
+						<div class=\"w3-container w3-center\">
+							<h3>Access Control</h3>
+							<img src=\"../images/img_avatar3.png\" class=\"w3-circle\" alt=\"Avatar\" style=\"width:80%\">
+						</div>
+						<div class=\"w3-container\">
+							<label>Username</label>
+							<input type=\"text\" class=\"w3-input w3-border\" placeholder=\"Enter Username\" name=\"user\" required>
+							<label>Password</label>
+							<input type=\"password\" class=\"w3-input w3-border\" placeholder=\"Enter Password\" name=\"pass\" required>
+						</div>
+						<div class=\"w3-container w3-center\">
+							<br/>
+							<button type=\"submit\" class=\"w3-button w3-green\"name=\"submit\" value=\"Login\">Login</button>
+							<br/>
+						</div>
+						</form>
+						<br/>
+					  </div>";
+					echo "</body>\n";
+					echo "</html>";
+					return Null;
+			}
+        }
+    }
+
 }
+
 ?>

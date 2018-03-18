@@ -23,7 +23,7 @@ if ($conn->query($sql) === true) {
 $sql= "CREATE TABLE admin (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(30) NOT NULL,
-    passcode VARCHAR(30) NOT NULL
+    passcode VARCHAR(64) NOT NULL
     )";
 
 if ($conn->query($sql) != true) {
@@ -31,17 +31,8 @@ if ($conn->query($sql) != true) {
 } else {
     echo "Table created\n";
 }
-
-$sql   = "INSERT INTO admin (username, passcode) VALUES ('admin','admin')";
-
-
-if ($conn->query($sql) === true) {
-    echo "New record created successfully\n";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-$sql   = "INSERT INTO admin (username, passcode) VALUES ('guest','guest')";
+$a = hash('sha256',"admin");
+$sql   = "INSERT INTO admin (username, passcode) VALUES ('admin','".$a."')";
 
 
 if ($conn->query($sql) === true) {
@@ -49,7 +40,24 @@ if ($conn->query($sql) === true) {
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
+$a = hash('sha256',"user");
+$sql   = "INSERT INTO admin (username, passcode) VALUES ('user','".$a."')";
 
+
+if ($conn->query($sql) === true) {
+    echo "New record created successfully\n";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+$a = hash('sha256',"guest");
+$sql   = "INSERT INTO admin (username, passcode) VALUES ('guest','".$a."')";
+
+
+if ($conn->query($sql) === true) {
+    echo "New record created successfully\n";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
 $sql = "SELECT id, username, passcode FROM admin";
 $result = $conn->query($sql);
 
@@ -72,3 +80,4 @@ footer();
 echo "</div>
 </body>
 </html>";
+?>
