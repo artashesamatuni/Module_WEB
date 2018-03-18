@@ -51,7 +51,7 @@ function show_menu($cur)
               </div>
               <a onclick=\"document.getElementById('help').style.display='block'\" class=\"w3-bar-item w3-button w3-hide-small\">Help</a>
               <a href=\"http://www.eaglemon.com\" target=\"_blank\" class=\"w3-bar-item w3-right\">
-                  <image alt=\"logo\" src=\"/images/logo_s.png\" style=\"height: 24px\" />
+                  <image alt=\"logo\" src=\"localstorage/images/logo_s.png\" style=\"height: 24px\" />
               </a>
           </div>
       </div>

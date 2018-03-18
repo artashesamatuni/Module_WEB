@@ -14,7 +14,7 @@ function head()
             <meta name=\"description\" content=\"".$board."\">
             <meta name=\"author\" content=\"EagleMON\">
             <meta name=\"theme-color\" content=\"#000000\" />
-            <link rel=\"stylesheet\" href=\"/modules/css/w3.css\">
+            <link rel=\"stylesheet\" href=\"localstorage/css/w3.css\">
             <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">
           </head>\n";
 }

@@ -4,6 +4,12 @@ include 'settings.php';
 
 function check_user()
 {
+    session_start();
+
+    # Check for session timeout, else initiliaze time
+
+
+    /*
     if (isset($_POST["user"]))
 	{
         $user = $_POST['user'];
@@ -14,8 +20,33 @@ function check_user()
         $user = "";
         $pass = "";
     }
+*/
 
-    # Check Login Data
+	if (isset($_SESSION['timeout'])) {
+		# Check Session Time for expiry
+		#
+		# Time is in seconds. 10 * 60 = 600s = 10 minutes
+		if ($_SESSION['timeout'] + 30 * 60 < time()){
+			session_destroy();
+		}
+	}
+	else {
+		# Initialize variables
+		$_SESSION['user']="";
+		$_SESSION['pass']="";
+		$_SESSION['timeout']=time();
+	}
+
+	# Store POST data in session variables
+	if (isset($_POST["user"])) {
+		$_SESSION['user']=$_POST['user'];
+		$_SESSION['pass']=hash('sha256',$_POST['pass']);
+	}
+
+# Check Login Data
+#
+# Password is hashed (SHA256)
+
     global $servername;
     global $dbusername;
     global $dbpassword;
@@ -28,10 +59,21 @@ function check_user()
 	{
         while ($row = $result->fetch_assoc())
 		{
-			if ($user == $row["username"] && $pass == $row["passcode"])
-			{
-				return $user;
-			}
+            if($_SESSION['user'] == $row["username"]
+            && $_SESSION['pass'] == $row["passcode"])
+            {
+                return $_SESSION['user'];
+            }
+
+
+
+	//		if ($user == $row["username"] && $pass == $row["passcode"])
+	//		{
+	//			return $user;
+	//		}
+
+
+
 			else
 			{   # Show login form. Request for username and password
 				require_once 'basic.php';
@@ -42,7 +84,7 @@ function check_user()
 						<form method=\"POST\" action=\"\">
 						<div class=\"w3-container w3-center\">
 							<h3>Access Control</h3>
-							<img src=\"../images/img_avatar3.png\" class=\"w3-circle\" alt=\"Avatar\" style=\"width:80%\">
+							<img src=\"localstorage/images/img_avatar3.png\" class=\"w3-circle\" alt=\"Avatar\" style=\"width:80%\">
 						</div>
 						<div class=\"w3-container\">
 							<label>Username</label>
