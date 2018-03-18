@@ -18,10 +18,10 @@
         <div class="w3-light-gray w3-bar">
             <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
                 <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a>
+                <a href="/localstorage/modules/ai/ai_main.php" class="w3-bar-item w3-button">Analog Inputs</a>
                 <a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
                 <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
                 <hr/><a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
-                <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
                 <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
                 <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
                 <a onclick="document.getElementById(" help ").style.display='block'" class="w3-bar-item w3-button">Help</a>
@@ -32,10 +32,10 @@
                 <div class="w3-dropdown-click w3-hide-small">
                     <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
                     <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
+                        <a href="/localstorage/modules/ai/ai_main.php" class="w3-bar-item w3-button">Analog Inputs</a>
                         <a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
                         <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
                         <hr/><a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
-                        <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
                         <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
                         <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
                     </div>
@@ -69,17 +69,11 @@
     </script>
     <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
         <div class='w3-row w3-light-gray'>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_0()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top" id="btn0">Channel 0</button>
+            <div class='w3-col  m6 s6'>
+                <button onclick="fn_0()" class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn0'>Modbus-RTU</button>
             </div>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_1()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top" id="btn1">Channel 1</button>
-            </div>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_2()" class="w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top" id="btn2">Channel 2</button>
-            </div>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_3()" class="w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top" id="tn3">Channel 3</button>
+            <div class='w3-col  m6 s6'>
+                <button onclick="fn_1()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn1'>Channels</button>
             </div>
         </div>
 
@@ -92,10 +86,6 @@
                     document.getElementById("tab0").className = "w3-container w3-show";
                     document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
                     document.getElementById("tab1").className = "w3-container w3-hide";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-hide";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-hide";
                 }
                 document.cookie = "c_tab=0";
             }
@@ -108,201 +98,212 @@
                     document.getElementById("tab0").className = "w3-container w3-hide";
                     document.getElementById("btn1").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
                     document.getElementById("tab1").className = "w3-container w3-show";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-hide";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-hide";
                 }
                 document.cookie = "c_tab=1";
             }
-
-            function fn_2() {
-                var x = document.getElementById("tab2");
-                if (x.className.indexOf("w3-show") == -1) {
-                    alert(1);
-                    x.className = "w3-container w3-show";
-                    document.getElementById("btn0").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab0").className = "w3-container w3-hide";
-                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab1").className = "w3-container w3-hide";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-show";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-hide w3-red";
-                }
-                document.cookie = "c_tab=2";
-            }
-
-            function fn_3() {
-                var x = document.getElementById("tab3");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className = "w3-container w3-show";
-                    document.getElementById("btn0").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab0").className = "w3-container w3-hide";
-                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab1").className = "w3-container w3-hide";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-hide";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-show";
-                }
-                document.cookie = "c_tab=3";
-            }
-            fn_3();
+            fn_0();
         </script>
         <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
-            <div id="tab0" class="w3-container w3-hide">
+            <div id="tab0" class="w3-container w3-show">
                 <br/>
-                <form method="post">
+                <form method="post" action="mbus_config_save.php">
+                    <input type="hidden" name="id" value="1" />
                     <div class="w3-row-padding">
                         <div class="w3-col m2 s2">
                             <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Pump" />
+                            <br/>
+                            <input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" />
+                        </div>
+                        <div class="w3-col m3 s3"><label>Baudrate</label>
+                            <select name="baud_rate" class="w3-select" value="14400">
+<option value="2400">2400</option>
+<option value="4800">4800</option>
+<option value="9600">9600</option>
+<option value="14400" selected>14400</option>
+<option value="19200">19200</option>
+<option value="38400">38400</option>
+<option value="57600">57600</option>
+<option value="115200">115200</option>
+</select>
+                        </div>
+                        <div class="w3-col m3 s3"><label>Parity</label>
+                            <select name="parity" class="w3-select" value="Even"><option value="None">None</option>
+<option value="Even" selected>Even</option>
+<option value="Odd">Odd</option>
+</select>
+                        </div>
+                        <div class="w3-col m2 s2"><label>StopBits</label>
+                            <select name="stop_bits" class="w3-select" value="1"><option value="1" selected>1</option>
+<option value="2">2</option>
+</select>
+                        </div>
+                        <div class="w3-col m2 s2"><label>DataBits</label>
+                            <select name="data_bits" class="w3-select" value="8"><option value="7">7</option>
+<option value="8" selected>8</option>
+</select>
                         </div>
                     </div>
+                    <br/>
                     <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="L/min" />
+                        <div class="w3-col m2 s2">&nbsp;</div>
+                        <div class="w3-col m3 s3">
+                            <label>Timeout[sec.]</label>
+                            <input name="read_timeout" class="w3-input w3-border" type="number" min="1" max="5" value="2" />
                         </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
+                        <div class="w3-col m3 s3">
+                            <label>Interval[sec.]</label>
+                            <input name="read_interval" class="w3-input w3-border" type="number" min="1" max="300" value="4" />
                         </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="5" />
-                        </div>
+                        <div class="w3-col m4 s4">&nbsp;</div>
                     </div>
                     <br/>
                     <div class="w3-row-padding">
                         <div class="w3-col m12 s12">
                             <div class="w3-right">
-                                <input type="submit" name="insert0" class="w3-button w3-green" value="Save" />
+                                <input type="submit" name="insert" class="w3-button w3-green" value="Save" />
                             </div>
                         </div>
                     </div>
                 </form>
                 <br/>
+                <div/>
+                <hr>
             </div>
             <div id="tab1" class="w3-container w3-hide">
                 <br/>
                 <form method="post">
-                    <div class="w3-row-padding">
-                        <div class="w3-col m2 s2">
-                            <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Pump 2" />
-                        </div>
-                    </div>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="L" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10" />
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m12 s12">
-                            <div class="w3-right">
-                                <input type="submit" name="insert1" class="w3-button w3-green" value="Save" />
-                            </div>
-                        </div>
-                    </div>
+                    <table class="w3-table w3-border">
+                        <tr class="w3-blue">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Dev. addr.</th>
+                            <th>Reg. addr.</th>
+                            <th>Reg. type</th>
+                            <th>Unit</th>
+                            <th>Slope</th>
+                            <th>Offset</th>
+                            <th>32 bit</th>
+                            <th>IEEE754</th>
+                            <th>Low First</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>test</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>Holding register</td>
+                                <td>C</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" disabled/></td>
+                                <td><input type="submit" name="edit1" class="w3-button w3-right w3-gray w3-text-white w3-card-4" value="Edit" /></td>
+                                <td><input type="submit" name="delete1" class="w3-button w3-right w3-red w3-card-4" value="&times;" /></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>q</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>Holding register</td>
+                                <td>tt</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="submit" name="edit2" class="w3-button w3-right w3-gray w3-text-white w3-card-4" value="Edit" /></td>
+                                <td><input type="submit" name="delete2" class="w3-button w3-right w3-red w3-card-4" value="&times;" /></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Andranik</td>
+                                <td>3</td>
+                                <td>234</td>
+                                <td>Holding register</td>
+                                <td>P</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" disabled/></td>
+                                <td><input type="submit" name="edit3" class="w3-button w3-right w3-gray w3-text-white w3-card-4" value="Edit" /></td>
+                                <td><input type="submit" name="delete3" class="w3-button w3-right w3-red w3-card-4" value="&times;" /></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Avag</td>
+                                <td>67</td>
+                                <td>23456</td>
+                                <td>Holding register</td>
+                                <td>OP</td>
+                                <td>1</td>
+                                <td>-2</td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="submit" name="edit4" class="w3-button w3-right w3-gray w3-text-white w3-card-4" value="Edit" /></td>
+                                <td><input type="submit" name="delete4" class="w3-button w3-right w3-red w3-card-4" value="&times;" /></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Voltage_A</td>
+                                <td>21</td>
+                                <td>0</td>
+                                <td>Holding register</td>
+                                <td>Volt</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="submit" name="edit5" class="w3-button w3-right w3-gray w3-text-white w3-card-4" value="Edit" /></td>
+                                <td><input type="submit" name="delete5" class="w3-button w3-right w3-red w3-card-4" value="&times;" /></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>New node</td>
+                                <td>12</td>
+                                <td>234</td>
+                                <td>Holding register</td>
+                                <td>C</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" disabled/></td>
+                                <td><input type="submit" name="edit6" class="w3-button w3-right w3-gray w3-text-white w3-card-4" value="Edit" /></td>
+                                <td><input type="submit" name="delete6" class="w3-button w3-right w3-red w3-card-4" value="&times;" /></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>test</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>Holding register</td>
+                                <td></td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td><input type="checkbox" class="w3-check" checked="checked" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" disabled/></td>
+                                <td><input type="checkbox" class="w3-check" disabled/></td>
+                                <td><input type="submit" name="edit7" class="w3-button w3-right w3-gray w3-text-white w3-card-4" value="Edit" /></td>
+                                <td><input type="submit" name="delete7" class="w3-button w3-right w3-red w3-card-4" value="&times;" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
                 <br/>
             </div>
-            <div id="tab2" class="w3-container w3-hide">
-                <br/>
-                <form method="post">
-                    <div class="w3-row-padding">
-                        <div class="w3-col m2 s2">
-                            <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Motor" />
-                        </div>
-                    </div>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="RPM" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="100" />
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m12 s12">
-                            <div class="w3-right">
-                                <input type="submit" name="insert2" class="w3-button w3-green" value="Save" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <br/>
-            </div>
-            <div id="tab3" class="w3-container w3-show">
-                <br/>
-                <form method="post">
-                    <div class="w3-row-padding">
-                        <div class="w3-col m2 s2">
-                            <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Temperature" />
-                        </div>
-                    </div>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="C" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0.5" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="3.5" />
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m12 s12">
-                            <div class="w3-right">
-                                <input type="submit" name="insert3" class="w3-button w3-green" value="Save" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <br/>
-            </div>
+            <hr>
         </div>
     </div>
     <div class="w3-bottom w3-light-gray" style="max-width:600px;min-width:300px">
-        <div class="w3-bar w3-center">05:07 pm Sunday, 18 Mar 2018</div>
+        <div class="w3-bar w3-center">12:21 am Monday, 19 Mar 2018</div>
         <div class="w3-bar w3-center">
             <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
         </div>

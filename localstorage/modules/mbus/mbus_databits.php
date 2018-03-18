@@ -1,7 +1,7 @@
 <?php
 require_once '../connection.php';
 echo "<label>DataBits</label>
-      <select name=\"data_sbits\" class=\"w3-select\" value=\"".$mbus_row["databits"]."\">";
+      <select name=\"data_bits\" class=\"w3-select\" value=\"".$mbus_row["data_bits"]."\">";
 $conn    = Connect();
 $sql = "SELECT id, data_bits FROM mbus_data_bits";
 $result = $conn->query($sql);

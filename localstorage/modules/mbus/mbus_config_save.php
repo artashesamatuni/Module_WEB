@@ -8,13 +8,13 @@ if (isset($_POST['enabled'])) {
 } else {
     $enabled        = 0;
 }
-$baud_rate      = $conn->real_escape_string($_POST['baud_rate']);
-$parity         = $conn->real_escape_string($_POST['parity']);
-$stop_bits      = $conn->real_escape_string($_POST['stop_bits']);
-$data_bits      = $conn->real_escape_string($_POST['data_bits']);
-$read_interval  = $conn->real_escape_string($_POST['read_interval']);
-$read_timeout   = $conn->real_escape_string($_POST['read_timeout']);
-$sql = "UPDATE mbus_configs SET
+    $baud_rate      = $conn->real_escape_string($_POST['baud_rate']);
+    $parity         = $conn->real_escape_string($_POST['parity']);
+    $stop_bits      = $conn->real_escape_string($_POST['stop_bits']);
+    $data_bits      = $conn->real_escape_string($_POST['data_bits']);
+    $read_interval  = $conn->real_escape_string($_POST['read_interval']);
+    $read_timeout   = $conn->real_escape_string($_POST['read_timeout']);
+    $sql = "UPDATE mbus_configs SET
     enabled = ".$enabled.",
     baud_rate=".$baud_rate.",
     parity='".$parity."',
@@ -29,3 +29,4 @@ if ($conn->query($sql) != true) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 $conn->close();
+?>
