@@ -4,9 +4,13 @@
 require 'localstorage/modules/login.php';
 require 'localstorage/modules/basic.php';
 
-if(check_user())
+$user = check_user();
+if($user=='admin')
 {
     include 'localstorage/main.php';
+}
+else {
+    echo "bad user";
 }
 
 

@@ -1,35 +1,38 @@
 <?php
+include 'settings.php';
 
 function gen_dropdown($cur)
 {
     if ($cur!='Analog Inputs') {
-        echo "<a href=\"/modules/ai/ai_main.php\" class=\"w3-bar-item w3-button\">Analog Inputs</a>\n";
+        echo "<a href=\"/localstorage/modules/ai/ai_main.php\" class=\"w3-bar-item w3-button\">Analog Inputs</a>\n";
     }
     if ($cur!='Digital Inputs') {
-        echo "<a href=\"/modules/di/di_main.php\" class=\"w3-bar-item w3-button\">Digital Inputs</a>\n";
+        echo "<a href=\"/localstorage/modules/di/di_main.php\" class=\"w3-bar-item w3-button\">Digital Inputs</a>\n";
     }
     if ($cur!='Digital Outputs') {
-        echo "<a href=\"/modules/do/do_main.php\" class=\"w3-bar-item w3-button\">Digital Outputs</a>\n";
+        echo "<a href=\"/localstorage/modules/do/do_main.php\" class=\"w3-bar-item w3-button\">Digital Outputs</a>\n";
     }
     echo "<hr/>";
     if ($cur!='MQTT Settings') {
-        echo "<a href=\"/modules/mqtt/mqtt_main.php\" class=\"w3-bar-item w3-button\">MQTT Settings</a>\n";
+        echo "<a href=\"/localstorage/modules/mqtt/mqtt_main.php\" class=\"w3-bar-item w3-button\">MQTT Settings</a>\n";
     }
     if ($cur!='Modbus Settings') {
-        echo "<a href=\"/modules/mbus/mbus_main.php\" class=\"w3-bar-item w3-button\">Modbus Settings</a>\n";
+        echo "<a href=\"/localstorage/modules/mbus/mbus_main.php\" class=\"w3-bar-item w3-button\">Modbus Settings</a>\n";
     }
     if ($cur!='Access control') {
-        echo "<a href=\"/modules/access/login_main.php\" class=\"w3-bar-item w3-button\">Access control</a>\n";
+        echo "<a href=\"/localstorage/modules/access/login_main.php\" class=\"w3-bar-item w3-button\">Access control</a>\n";
     }
     if ($cur!='Settings') {
-        echo "<a href=\"/modules/config/config_main.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
+        echo "<a href=\"/localstorage/modules/config/config_main.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
     }
 }
 
 
 function show_menu($cur)
 {
-    echo "<div class=\"w3-top\" style=\"max-width:1024px;min-width:350px\">
+    global $max_window;
+    global $min_window;
+    echo "<div class=\"w3-top\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
       <div class=\"w3-light-gray w3-bar\">
           <div id=\"small_menu\" class=\"w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium\">
               <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button\" onclick=\"smallMenu()\"><i class=\"fa fa-window-close-o\"></i></a>\n";
@@ -51,7 +54,7 @@ function show_menu($cur)
               </div>
               <a onclick=\"document.getElementById('help').style.display='block'\" class=\"w3-bar-item w3-button w3-hide-small\">Help</a>
               <a href=\"http://www.eaglemon.com\" target=\"_blank\" class=\"w3-bar-item w3-right\">
-                  <image alt=\"logo\" src=\"localstorage/images/logo_s.png\" style=\"height: 24px\" />
+                  <image alt=\"logo\" src=\"/localstorage/images/logo_s.png\" style=\"height: 24px\" />
               </a>
           </div>
       </div>

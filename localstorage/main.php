@@ -4,7 +4,6 @@ require_once 'modules/menu.php';
 require_once 'modules/dashboard.php';
 
 head();
-
 echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>";
 echo "<div>";
 $cur = 'Dashboard';
