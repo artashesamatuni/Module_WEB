@@ -36,7 +36,7 @@ $success = $conn->query($query);
 if (!$success) {
     die("Couldn't enter data: ".$conn->error);
 } else {
-    echo "Done!";
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 

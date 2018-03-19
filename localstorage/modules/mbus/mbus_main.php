@@ -14,6 +14,11 @@ draw_tabs($t_names, $cur_tab);
 read_config($cur_tab);
 echo "</div>\n";
 footer();
+new_node_modal();
+
+
+
+
 /*
 echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">";
 if ($cur_tab==0) {
@@ -45,19 +50,19 @@ echo "</body>
 function read_config($cur_tab)
 {
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n";
-    if ($cur_tab==0) {
-        echo "<div id=\"tab0\" class=\"w3-container w3-show\">\n";
+    if ($cur_tab == 1) {
+        echo "<div id=\"tab1\" class=\"w3-container w3-show\">\n";
     } else {
-        echo "<div id=\"tab0\" class=\"w3-container w3-hide\">\n";
+        echo "<div id=\"tab1\" class=\"w3-container w3-hide\">\n";
     }
     require_once 'mbus_config_load.php';
     echo "</div>\n";
 
 
-    if ($cur_tab==1) {
-        echo "<div id=\"tab1\" class=\"w3-container w3-show\">\n";
+    if ($cur_tab == 2) {
+        echo "<div id=\"tab2\" class=\"w3-container w3-show\">\n";
     } else {
-        echo "<div id=\"tab1\" class=\"w3-container w3-hide\">\n";
+        echo "<div id=\"tab2\" class=\"w3-container w3-hide\">\n";
     }
     require_once 'mbus_nods_load.php';
     echo "</div>\n";
@@ -69,69 +74,64 @@ function read_config($cur_tab)
 
 function new_node_modal()
 {
+    echo "<script>
+    var modal = document.getElementById('add');
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+    </script>";
+
     echo "<div id=\"add\" class=\"w3-modal\">
                 <div class=\"w3-modal-content\">
                     <button class=\"w3-button w3-right w3-red w3-display-topright\" onclick=\"document.getElementById('add').style.display='none'\">&times;</button>";
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n
-      <h4>Add new Modbus unit</h4>
+      <h4>Add new Modbus node</h4>
       <form method=\"post\" action=\"mbus_new_node.php\">
       <div class=\"w3-row-padding\">";
     echo "<div class=\"w3-col m4 s4\">
               <label>Name</label>
               <input type=\"text\" class=\"w3-input w3-border\" max=\"10\" name=\"name\" />
           </div>";
-    echo "<div class=\"w3-col m4 s4\">
-              <label>Device addr.</label>
+    echo "<div class=\"w3-col m2 s4\">
+              <label>Dev. addr.</label>
               <input type=\"number\" class=\"w3-input w3-border\" name=\"dev_addr\" />
           </div>";
-    echo "<div class=\"w3-col m4 s4\">
-              <label>Register addr.</label>
+    echo "<div class=\"w3-col m2 s4\">
+              <label>Reg. addr.</label>
               <input type=\"number\" class=\"w3-input w3-border\" name=\"reg_addr\" />
           </div>";
-    echo "</div>
-          <div class=\"w3-row-padding\">";
-    echo "<div class=\"w3-col m3 s3\">
-          <label>Register type</label>\n";
-    $conn    = Connect();
-    $reg_types_sql = "SELECT id, reg_types FROM mbus_reg_types";
-    $reg_types_result = $conn->query($reg_types_sql);
-
-    if ($reg_types_result->num_rows > 0) {
-        echo "<select name=\"reg_type\" class=\"w3-select w3-border\">";
-        while ($reg_types_row = $reg_types_result->fetch_assoc()) {
-            echo "<option value=\"".$reg_types_row["id"]."\">".$reg_types_row["reg_types"]."</option>";
-        }
-        echo "</select>\n";
-    } else {
-        echo "No result";
-    }
-    $conn->close();
-    echo "</div>
-          <div class=\"w3-col m3 s3\">";
-    echo "<label>Unit</label>
-          <input type=\"text\" class=\"w3-input w3-border\" name=\"unit\" />
-          </div>";
-    echo "<div class=\"w3-col m3 s3\">
+          echo "<div class=\"w3-col m2 s4\">\n";
+                register_type();
+          echo "</div>";
+          echo "<div class=\"w3-col m2 s4\">
+                    <label>Unit</label>
+                    <input type=\"text\" class=\"w3-input w3-border\" name=\"unit\" />
+                </div>";
+    echo "<div class=\"w3-col m2 s2\">
           <label>Slope</label>
           <input type=\"number\" class=\"w3-input w3-border\" name=\"slope\" value=\"1\" />
           </div>";
-    echo "<div class=\"w3-col m3 s3\">
+    echo "<div class=\"w3-col m2 s2\">
           <label>Offset</label>
           <input type=\"number\" class=\"w3-input w3-border\" name=\"offset\" value=\"0\" />
           </div>";
-    echo "</div>
-          <div class=\"w3-row-padding\">";
-    echo "<div class=\"w3-col m4 s4\">
-          <label>32 bit Enable</label>
+    echo "<div class=\"w3-col m2 s0\">
+            &nbsp;
+          </div>";
+    echo "<div class=\"w3-col m2 s4\">
+          <label>32 bit</label>
           <br/>
           <input type=\"checkbox\" class=\"w3-check\" name=\"bit32\" value=\"0\" checked=\"checked\">
           </div>";
-    echo "<div class=\"w3-col m4 s4\">
+    echo "<div class=\"w3-col m2 s4\">
           <label>IEEE754</label>
           <br/>
           <input type=\"checkbox\" class=\"w3-check\" name=\"ieee754\" value=\"0\" checked=\"checked\">
           </div>";
-    echo "<div class=\"w3-col m4 s4\">
+    echo "<div class=\"w3-col m2 s4\">
           <label>Low Word First</label>
           <br/>
           <input type=\"checkbox\" class=\"w3-check\" name=\"low_first\" value=\"0\" checked=\"checked\">
@@ -141,7 +141,7 @@ function new_node_modal()
     echo "<div class=\"w3-row-padding\">
             <div class=\"w3-col m12 s12\">
                 <div class=\"w3-right\">
-                    <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
+                    <input type=\"submit\" class=\"w3-button w3-green\" value=\"Save\" />
                 </div>
             </div>
         </div>
@@ -153,19 +153,21 @@ function new_node_modal()
 }
 
 
-function register_type($item)
+function register_type()
 {
-    $conn    = Connect();
-    echo "<select name='reg_type'>";
-    $reg_types_sql = "SELECT id, reg_types FROM mbus_reg_types";
-    $reg_types_result = $conn->query($reg_types_sql);
-    if ($reg_types_result->num_rows > 0) {
-        $reg_types_row = $reg_types_result->fetch_array($item);
+    echo "<label>Reg. type</label>\n";
+    echo "<select name=\"reg_type\" class=\"w3-select w3-border\">";
+    $conn = Connect();
+    $sql = "SELECT id, reg_types FROM mbus_reg_types";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<option value=\"".$row["id"]."\">".$row["reg_types"]."</option>";
+        }
     } else {
-        echo "0 results";
+        echo "No result";
     }
-    echo "</select>";
     $conn->close();
-    return $reg_types_row["reg_types"];
+    echo "</select>\n";
 }
 ?>

@@ -8,20 +8,6 @@ function check_user()
 
     # Check for session timeout, else initiliaze time
 
-
-    /*
-    if (isset($_POST["user"]))
-	{
-        $user = $_POST['user'];
-        $pass = hash('sha256', $_POST['pass']);
-    }
-	else
-	{
-        $user = "";
-        $pass = "";
-    }
-*/
-
 	if (isset($_SESSION['timeout'])) {
 		# Check Session Time for expiry
 		#
@@ -65,26 +51,17 @@ function check_user()
                 return $_SESSION['user'];
             }
 
-
-
-	//		if ($user == $row["username"] && $pass == $row["passcode"])
-	//		{
-	//			return $user;
-	//		}
-
-
-
 			else
 			{   # Show login form. Request for username and password
 				require_once 'basic.php';
 				head();
-				echo "<body class=\"w3-content\" style=\"max-width:300px\">";
+				echo "<div class=\"w3-content\" style=\"max-width:300px\">";
 				echo "<br/>
 					  <div class=\"w3-card-4 w3-light-grey\">
 						<form method=\"POST\" action=\"\">
 						<div class=\"w3-container w3-center\">
 							<h3>Access Control</h3>
-							<img src=\"localstorage/images/img_avatar3.png\" class=\"w3-circle\" alt=\"Avatar\" style=\"width:80%\">
+							<img src=\"localstorage/images/img_avatar".rand(1,6).".png\" class=\"w3-circle\" alt=\"Avatar\" style=\"width:60%\">
 						</div>
 						<div class=\"w3-container\">
 							<label>Username</label>
@@ -99,9 +76,10 @@ function check_user()
 						</div>
 						</form>
 						<br/>
-					  </div>";
-					echo "</body>\n";
-					echo "</html>";
+					  </div>
+                      </div>
+                      </body>
+                      </html>";
 					return Null;
 			}
         }

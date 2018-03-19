@@ -19,7 +19,7 @@ function read_config($cur_tab)
 {
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n";
     $conn    = Connect();
-    $sql = "SELECT id, name, enabled, polarity FROM di_configs";
+    $sql = "SELECT id, name, enabled, polarity FROM rl_configs";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {

@@ -76,9 +76,6 @@ function read_config($cur_tab)
     echo "</div>";
 }
 
-if (isset($_POST['insert0'])) {
-    save(0);
-}
 if (isset($_POST['insert1'])) {
     save(1);
 }
@@ -87,6 +84,9 @@ if (isset($_POST['insert2'])) {
 }
 if (isset($_POST['insert3'])) {
     save(3);
+}
+if (isset($_POST['insert4'])) {
+    save(4);
 }
 
 

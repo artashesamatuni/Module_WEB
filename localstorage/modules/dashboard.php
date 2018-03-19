@@ -1,39 +1,55 @@
 <?php
 require "connection.php";
 
+function get_ip()
+{
+    $ch = curl_init ();
+    curl_setopt ($ch, CURLOPT_URL, "http://ipecho.net/plain");
+    curl_setopt ($ch, CURLOPT_HEADER, 0);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $pubip = curl_exec ($ch);
+    curl_close ($ch);
+
+    return $pubip;
+}
+
+
+
 function relay_panel()
 {
-    echo "
+    echo "<form action=\"http://".get_ip().":81/do\" method=\"post\">
 <div class='w3-panel w3-border'>
   <h4>Relay Outputs</h4>\n";
     $conn    = Connect();
-    $rl_status_sql = "SELECT rl_status.state, rl_configs.name
+    $rl_status_sql = "SELECT rl_status.id, rl_status.state, rl_configs.name
     FROM rl_status
     INNER JOIN rl_configs
     ON rl_status.id=rl_configs.id";
     $rl_status_result = $conn->query($rl_status_sql);
     if ($rl_status_result->num_rows > 0) {
         while ($rl_status_row = $rl_status_result->fetch_assoc()) {
-            echo "<button class=\"w3-button w3-block";
+            echo "<input type=\"submit\" name=\"do".$rl_status_row["id"]."\" class=\"w3-button w3-block ";
             if ($rl_status_row['state']) {
-                echo " w3-light-gray ";
+                echo "w3-green";
             } else {
-                echo " w3-gray ";
+                echo "w3-red";
             }
-            echo "w3-card-4\">".$rl_status_row['name']." ";
+            echo "\" value=\"".$rl_status_row['name']." ";
             if ($rl_status_row['state']) {
                 echo "ON";
             } else {
                 echo "OFF";
             }
-            echo "</button>
-                  <br/>\n";
+            echo "\" />\n";
+            echo "<br/>";
         }
     } else {
         echo "No results";
     }
     $conn->close();
-    echo "</div>\n";
+    echo "</div>
+    </form>\n";
 }
 
 

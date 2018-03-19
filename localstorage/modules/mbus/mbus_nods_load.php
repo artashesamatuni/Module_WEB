@@ -33,9 +33,16 @@ if ($result->num_rows > 0) {
 }
 echo "</table>\n";
 echo "</form>
-  <br/>\n";
+      <br/>\n";
+echo "<div class=\"w3-row-padding\">
+        <div class=\"w3-col m12 s12\">
+            <div class=\"w3-right\">
+                <button onclick=\"document.getElementById('add').style.display='block'\" class=\"w3-button w3-green\">Add new</button>
+            </div>
+        </div>
+    </div>\n";
 
 
-
+  echo "<br/>\n";
 $conn->close();
 ?>

@@ -1,6 +1,38 @@
 <?php
 include 'settings.php';
 
+function destroy()
+{
+    $_SESSION['user']="";
+}
+
+function gen_user($user)
+{
+
+echo "<div class=\"w3-left\">
+<div class=\"w3-bar-item\">";
+switch ($user)
+{
+    case 'admin':
+        echo "<img src=\"/localstorage/images/img_avatar1.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
+        break;
+    case 'user':
+        echo "<img src=\"/localstorage/images/img_avatar2.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
+        break;
+    case 'guest':
+        echo "<img src=\"/localstorage/images/img_avatar3.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
+        break;
+}
+
+
+
+
+            echo "</div>
+            <div class=\"w3-bar-item\">".$user."</div>
+    </div>";
+}
+
+
 function gen_dropdown($cur)
 {
     if ($cur!='Analog Inputs') {
@@ -32,6 +64,7 @@ function show_menu($cur)
 {
     global $max_window;
     global $min_window;
+    $user = 2;
     echo "<div class=\"w3-top\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
       <div class=\"w3-light-gray w3-bar\">
           <div id=\"small_menu\" class=\"w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium\">
@@ -41,6 +74,7 @@ function show_menu($cur)
           </div>
           <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium\" onclick=\"smallMenu()\"><i class=\"fa fa-navicon\"></i></a>
           <div class=\"w3-right\">\n";
+
     if ($cur!='Dashboard') {
         echo "<a href=\"/index.php\" class=\"w3-bar-item w3-button\">Dashboard</a>\n";
     }
@@ -49,15 +83,15 @@ function show_menu($cur)
                   <div id=\"config_menu\" class=\"w3-dropdown-content w3-bar-block w3-border\" style=\"z-index:10\">\n";
 
     gen_dropdown($cur);
-
     echo "</div>
               </div>
               <a onclick=\"document.getElementById('help').style.display='block'\" class=\"w3-bar-item w3-button w3-hide-small\">Help</a>
               <a href=\"http://www.eaglemon.com\" target=\"_blank\" class=\"w3-bar-item w3-right\">
                   <image alt=\"logo\" src=\"/localstorage/images/logo_s.png\" style=\"height: 24px\" />
               </a>
-          </div>
-      </div>
+          </div>\n";
+          gen_user($_SESSION['user']);
+          echo "</div>
   </div>\n";
     include_js();
 }
