@@ -8,13 +8,33 @@ head();
 $cur = 'MQTT Settings';
 show_menu($cur);
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
-$t_names = array("MQTT Reports Config", "MQTT Channels Topics");
+$t_names = array("MQTT Server Config", "MQTT Certificates", "MQTT Channels Topics");
 $cur_tab = $_COOKIE['c_tab'];
 draw_tabs($t_names, $cur_tab);
 read_config($cur_tab);
 echo "</div>\n";
 footer();
+cert_upload_modal();
 
+
+function cert_upload_modal()
+{
+
+    echo "<div id=\"upload\" class=\"w3-modal\">
+                <div class=\"w3-modal-content\">
+                    <button class=\"w3-button w3-right w3-red w3-display-topright\" onclick=\"document.getElementById('upload').style.display='none'\">&times;</button>";
+    echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n
+      <h4>Upload Server Certificates</h4>
+      <form action=\"mqtt_cert_upload.php\" method=\"post\" enctype=\"multipart/form-data\">
+                      Certificate<br/>
+                      <input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\">
+                      <input type=\"submit\" value=\"Upload File\" name=\"submit\">
+                  </form>
+          <br/>
+          </div>\n";
+    echo "</div>
+          </div>\n";
+}
 
 
 function read_config($cur_tab)
@@ -28,11 +48,20 @@ function read_config($cur_tab)
     require_once 'mqtt_config_load.php';
     echo "</div>\n";
 
-
     if ($cur_tab == 2) {
         echo "<div id=\"tab2\" class=\"w3-container w3-show\">\n";
     } else {
         echo "<div id=\"tab2\" class=\"w3-container w3-hide\">\n";
+    }
+    require_once 'mqtt_certs_load.php';
+    echo "</div>\n";
+
+
+
+    if ($cur_tab == 3) {
+        echo "<div id=\"tab3\" class=\"w3-container w3-show\">\n";
+    } else {
+        echo "<div id=\"tab3\" class=\"w3-container w3-hide\">\n";
     }
     show_list();
     echo "</div>\n";

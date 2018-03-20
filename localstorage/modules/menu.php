@@ -70,7 +70,7 @@ function show_menu($cur)
           <div id=\"small_menu\" class=\"w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium\">
               <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button\" onclick=\"smallMenu()\"><i class=\"fa fa-window-close-o\"></i></a>\n";
     gen_dropdown($cur);
-    echo "<a onclick=\"document.getElementById(\"help\").style.display='block'\" class=\"w3-bar-item w3-button\">Help</a>
+    echo "<a onclick=\"document.getElementById('help').style.display='block'\" class=\"w3-bar-item w3-button\">Help</a>
           </div>
           <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium\" onclick=\"smallMenu()\"><i class=\"fa fa-navicon\"></i></a>
           <div class=\"w3-right\">\n";

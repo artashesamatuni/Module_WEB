@@ -14,46 +14,48 @@ if ($result->num_rows > 0) {
                     <br/>\n";
             if ($row["enabled"]==1) {
                 echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"1\" checked=\"checked\"/>\n";
+                $disabled = " ";
             } else {
                 echo "<input type=\"checkbox\" class=\"w3-check\" name=\"enabled\" value=\"0\" />\n";
+                $disabled = "disabled";
             }
             echo "</div>\n";
             echo "<div class=\"w3-col m10 s10\">
-                    <label>Server*<label>
-                    <input name=\"addr\" class=\"w3-input w3-border\" type=\"text\" size=\"36\" placeholder=\"e.g. test.mosquitto.org\" value=\"".$row["srv_addr"]."\" />
-                </div>";
+                    <label>Server*</label>
+                    <input name=\"addr\" class=\"w3-input w3-border\" type=\"text\" size=\"36\" placeholder=\"e.g. test.mosquitto.org\" value=\"".$row["srv_addr"]."\"/>
+                </div>\n";
             echo "<div class=\"w3-col m6 s6\">
-                    <label>Base-topic*<label>
-                    <input name=\"topic\" class=\"w3-input w3-border\" type=\"text\" size=\"36\" value=\"".$row["base_topic"]."\" />
-                </div>";
+                    <label>Base-topic*</label>
+                    <input name=\"topic\" class=\"w3-input w3-border\" type=\"text\" size=\"36\" value=\"".$row["base_topic"]."\"/>
+                </div>\n";
             echo "<div class=\"w3-col m6 s6\">
-                    <label>Feed prefix<label>
+                    <label>Feed prefix</label>
                     <input name=\"prefix\" class=\"w3-input w3-border\" type=\"text\" size=\"36\" value=\"".$row["prefix"]."\"/>
-                </div>";
+                </div>\n";
             echo "<div class=\"w3-col m3 s6\">
-                    <label>Interval[sec.]<label>
-                    <input name=\"interval\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"60\" value=\"".$row["read_interval"]."\" />
-                </div>";
+                    <label>Interval[sec.]</label>
+                    <input name=\"interval\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"60\" value=\"".$row["read_interval"]."\"/>
+                </div>\n";
             echo "<div class=\"w3-col m3 s6\">
-                    <label>Port<label>
-                    <input name=\"port\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"99999\" value=\"".$row["srv_port"]."\" />
-                </div>";
+                    <label>Port</label>
+                    <input name=\"port\" class=\"w3-input w3-border\" type=\"number\" min=\"1\" max=\"99999\" value=\"".$row["srv_port"]."\"/>
+                </div>\n";
             echo "<div class=\"w3-col m12 s12\">
                     <label>Enable SSL</label>
                     <br/>\n";
                 if ($row["crt_enabled"]==1) {
                     echo "<input type=\"checkbox\" class=\"w3-check\" name=\"crt_enabled\" value=\"1\" checked=\"checked\"/>\n";
                 } else {
-                    echo "<input type=\"checkbox\" class=\"w3-check\" name=\"crt_enabled\" value=\"0\" />\n";
+                    echo "<input type=\"checkbox\" class=\"w3-check\" name=\"crt_enabled\" value=\"0\" ".$disabled."/>\n";
                 }
-            echo "</div>";
+            echo "</div>\n";
             echo "<div class=\"w3-col m12 s12\">
-                    <label>Username<label>
-                    <input name=\"username\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["username"]."\" />
-                </div>";
+                    <label>Username</label>
+                    <input name=\"username\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["username"]."\"/>
+                </div>\n";
             echo "<div class=\"w3-col m12 s12\">
-                    <label>Password<label>
-                    <input name=\"password\" class=\"w3-input w3-border\" type=\"password\"\" />
+                    <label>Password</label>
+                    <input name=\"password\" class=\"w3-input w3-border\" type=\"password\"/>
                 </div>";
             echo "</div>
             <br/>";
@@ -65,24 +67,15 @@ if ($result->num_rows > 0) {
                     </div>
                 </div>\n";
             echo "</form>\n";
-            echo "<br/>
-            <br/>";
-            echo "</form><form method=\"POST\" target=\"_blank\" action=\"/mqttcert\" enctype=\"multipart/form-data\">
-                            Certificate<br/>
-                            <input type=\"file\" name=\"mqttcert\" />
-                            <input type=\"submit\" value=\"Upload\" />
-                        </form>
-                        <form method=\"POST\" target=\"_blank\" action=\"/mqttkey\" enctype=\"multipart/form-data\">
-                            Key<br/>
-                            <input type=\"file\" name=\"mqttkey\" />
-                            <input type=\"submit\" value=\"Upload\" />
-                        </form>
-                        <form method=\"POST\" target=\"_blank\" action=\"/mqttca\" enctype=\"multipart/form-data\">
-                            Certificate CA<br/>
-                            <input type=\"file\" name=\"mqttca\" />
-                            <input type=\"submit\" value=\"Upload\" accept=\".crt\" />
-                        </form>";
-
+            echo "<br/>";
+            echo "<div class=\"w3-row-padding\">
+                    <div class=\"w3-col m12 s12\">
+                        <div class=\"w3-right\">
+                            <button onclick=\"document.getElementById('upload').style.display='block'\" class=\"w3-button w3-green\">Upload Certificates</button>
+                        </div>
+                    </div>
+                </div>\n";
+            echo "<br/>";
         echo "<br/>\n";
     }
 } else {
