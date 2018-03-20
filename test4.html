@@ -1,7 +1,7 @@
-
 <!doctype html>
-        <html lang="en">
-          <head>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
     <title>EM-1044</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
                 <hr/><a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
                 <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
                 <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
-                <a onclick="document.getElementById(" help ").style.display='block'" class="w3-bar-item w3-button">Help</a>
+                <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
             </div>
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
             <div class="w3-right">
@@ -46,8 +46,8 @@
                 </a>
             </div>
             <div class="w3-left">
-                <div class="w3-bar-item"></div>
-                <div class="w3-bar-item"></div>
+                <div class="w3-bar-item"><img src="/localstorage/images/img_avatar1.png" class="w3-circle w3-border" alt="Admin" width="24" height="24" /></div>
+                <div class="w3-bar-item">admin</div>
             </div>
         </div>
     </div>
@@ -73,11 +73,14 @@
     </script>
     <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
         <div class='w3-row w3-light-gray'>
-            <div class='w3-col  m6 s6'>
-                <button onclick="fn_1()" class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn1'>MQTT Reports Config</button>
+            <div class='w3-col  m4 s4'>
+                <button onclick="fn_1()" class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn1'>MQTT Server Config</button>
             </div>
-            <div class='w3-col  m6 s6'>
-                <button onclick="fn_2()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn2'>MQTT Channels Topics</button>
+            <div class='w3-col  m4 s4'>
+                <button onclick="fn_2()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn2'>MQTT Certificates</button>
+            </div>
+            <div class='w3-col  m4 s4'>
+                <button onclick="fn_3()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn3'>MQTT Channels Topics</button>
             </div>
         </div>
 
@@ -90,6 +93,8 @@
                     document.getElementById("tab1").className = "w3-container w3-show";
                     document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
                     document.getElementById("tab2").className = "w3-container w3-hide";
+                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab3").className = "w3-container w3-hide";
                 }
                 document.cookie = "c_tab=1";
             }
@@ -102,8 +107,24 @@
                     document.getElementById("tab1").className = "w3-container w3-hide";
                     document.getElementById("btn2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
                     document.getElementById("tab2").className = "w3-container w3-show";
+                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab3").className = "w3-container w3-hide";
                 }
                 document.cookie = "c_tab=2";
+            }
+
+            function fn_3() {
+                var x = document.getElementById("tab3");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className = "w3-container w3-show";
+                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab1").className = "w3-container w3-hide";
+                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab2").className = "w3-container w3-hide";
+                    document.getElementById("btn3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab3").className = "w3-container w3-show";
+                }
+                document.cookie = "c_tab=3";
             }
             fn_1();
         </script>
@@ -138,11 +159,6 @@
                             <input name="port" class="w3-input w3-border" type="number" min="1" max="99999" value="1883" />
                         </div>
                         <div class="w3-col m12 s12">
-                            <label>Enable SSL</label>
-                            <br/>
-                            <input type="checkbox" class="w3-check" name="crt_enabled" value="1" checked="checked" />
-                        </div>
-                        <div class="w3-col m12 s12">
                             <label>Username</label>
                             <input name="username" class="w3-input w3-border" type="text" value="admin" />
                         </div>
@@ -150,28 +166,53 @@
                             <label>Password</label>
                             <input name="password" class="w3-input w3-border" type="password" />
                         </div>
+                        <div class="w3-col m12 s12">
+                            <label>Enable SSL</label>
+                            <br/>
+                            <input type="checkbox" class="w3-check" name="crt_enabled" value="1" checked="checked" />
+                        </div>
                     </div>
                     <br/>
-
                     <div class="w3-row-padding">
                         <div class="w3-col m12 s12">
-                            <div class="w3-right">
-                                <input type="submit" name="save" class="w3-button w3-green" value="Save" />
-                            </div>
+                            <input type="submit" name="save" class="w3-button w3-block w3-green" value="Save" />
                         </div>
                     </div>
                 </form>
                 <br/>
-                <div class="w3-row-padding">
-                    <div class="w3-col m12 s12">
-                        <div class="w3-right">
-                            <button onclick="document.getElementById('upload').style.display='block'" class="w3-button w3-green">Upload Certificates</button>
-                        </div>
+            </div>
+            <div id="tab2" class="w3-container w3-hide">
+                <br/>
+                <table class="w3-table w3-border">
+                    <tr>
+                        <th>Type</th>
+                        <th>File</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>PEM</td>
+                            <td>test1.cert.pem</td>
+                        </tr>
+                        <tr>
+                            <td>KEY</td>
+                            <td>test1.private.key</td>
+                        </tr>
+                        <tr>
+                            <td>CRT</td>
+                            <td>root-CA.crt</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <div class="w3-col m12 s12">
+                    <div class="w3-right">
+                        <button onclick="document.getElementById('upload').style.display='block'" class="w3-button w3-block w3-green">Upload Certificates</button>
                     </div>
                 </div>
                 <br/><br/>
+                <br/>
             </div>
-            <div id="tab2" class="w3-container w3-hide">
+            <div id="tab3" class="w3-container w3-hide">
                 <br/>
                 <table class="w3-table w3-border">
                     <tr>
@@ -241,26 +282,29 @@
         </div>
     </div>
     <div class="w3-bottom w3-light-gray" style="max-width:600px;min-width:300px">
-        <div class="w3-bar w3-center">01:12 pm Tuesday, 20 Mar 2018</div>
+        <div class="w3-bar w3-center">04:04 pm Tuesday, 20 Mar 2018</div>
         <div class="w3-bar w3-center">
             <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
         </div>
     </div>
-    <div id="upload" class="w3-modal">
-        <div class="w3-modal-content">
-            <button class="w3-button w3-right w3-red w3-display-topright" onclick="document.getElementById('upload').style.display='none'">&times;</button>
-            <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+</body>
 
-                <h4>Add new Modbus node</h4>
-                <form action="mqtt_cert_upload.php" method="post" enctype="multipart/form-data">
-                    Certificate<br/>
-                    <input type="file" name="fileToUpload" id="fileToUpload">
-                    <input type="submit" value="Upload File" name="submit">
-                </form>
+</html>
+<div id="upload" class="w3-modal">
+    <div class="w3-modal-content">
+        <span onclick="document.getElementById('upload').style.display='none'" class="w3-button w3-light-gray w3-text-red w3-display-topright"><i class="fa fa-close"></i></span>
+        <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+
+            <h4>Upload Server Certificates</h4>
+            <form action="mqtt_cert_upload.php" method="post" enctype="multipart/form-data">
+                <label>Certificate</label>
                 <br/>
-            </div>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <br/>
+                <br/>
+                <input class="w3-button w3-green" type="submit" value="Upload File" name="submit">
+            </form>
+            <br/>
         </div>
     </div>
-
-</body>
-</html>
+</div>

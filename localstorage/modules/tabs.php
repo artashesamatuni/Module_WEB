@@ -18,8 +18,6 @@ function draw_tabs($t_names, $sel)
     //------------------------------------------------------------------
 
     echo "\n<script type='text/javascript'>\n";
-    //echo "function fn_".$sel."();\n";
-
     for ($i =1; $i <= $n; $i++) {
         echo "function fn_".$i."() {
         var x = document.getElementById(\"tab".$i."\");

@@ -31,21 +31,21 @@ if ($uploadOk == 1) {
         $conn    = Connect();
         if ($FileType == "pem")
         {
-            $name       =$target_file;
+            $name       =   basename($_FILES["fileToUpload"]["name"]);
             $sql            = "UPDATE mqtt_configs SET
             crt_name        ='".$name."'
             WHERE id        = 1";
         }
         if ($FileType == "key")
         {
-            $name       =$target_file;
+            $name       =   basename($_FILES["fileToUpload"]["name"]);
             $sql            = "UPDATE mqtt_configs SET
             key_name        ='".$name."'
             WHERE id        = 1";
         }
         if ($FileType == "crt")
         {
-            $name       =$target_file;
+            $name       =   basename($_FILES["fileToUpload"]["name"]);
             $sql            = "UPDATE mqtt_configs SET
             ca_name        ='".$name."'
             WHERE id        = 1";
