@@ -25,12 +25,11 @@ echo "<div class='w3-row'>
 require 'localstorage/modules/mbus.php';
 echo "</div>
 </div>\n";
-    footer();
-    $id = 'help';
-    $label = "Test Help";
-    $body = "<h1>Test</h1>\n";
-    modal($id,$label,$body);
-
+footer();
+$id = 'help';
+$label = "Test Help";
+$body = "<h1>Test</h1>\n";
+modal($id,$label,$body);
 end_line();
 
 ?>
