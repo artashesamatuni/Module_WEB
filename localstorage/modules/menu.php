@@ -1,6 +1,5 @@
 <?php
 include 'settings.php';
-
 function destroy()
 {
     $_SESSION['user']="";
@@ -57,6 +56,7 @@ function gen_dropdown($cur)
     if ($cur!='Settings') {
         echo "<a href=\"/localstorage/modules/config/config_main.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
     }
+    echo "<a href=\"/localstorage/modules/foo.php?something=config_main.php\" class=\"w3-bar-item w3-button\">test</a>\n";
 }
 
 

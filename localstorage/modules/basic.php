@@ -4,8 +4,6 @@ include 'settings.php';
 function head()
 {
     global $board;
-    global $max_window;
-    global $min_window;
     echo "<!doctype html>
         <html lang=\"en\">
           <head>
@@ -19,7 +17,6 @@ function head()
             <link rel=\"stylesheet\" href=\"/localstorage/css/w3.css\">
             <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">
           </head>\n";
-          echo "<body class='w3-content' style='max-width:".$max_window."px;min-width:".$min_window."px'>\n";
 }
 
 function footer()
@@ -31,10 +28,33 @@ function footer()
               <div class=\"w3-bar w3-center\">
                 <h4><span class=\"w3-text-gray\">Eagle</span><span class=\"w3-text-orange\">MON</span></h4>
               </div>
-             </div>
-    </body>
-</html>";
+         </div>\n";
 }
+function start_line()
+{
+    global $max_window;
+    global $min_window;
+    echo "<body class='w3-content' style='max-width:".$max_window."px;min-width:".$min_window."px'>\n";
+}
+function end_line()
+{
+    echo "</body>
+    </html>\n";
+}
+
+function modal($id,$label,$body)
+{
+    echo "<div id=\"".$id."\" class=\"w3-modal\">
+            <div class=\"w3-modal-content\">
+                <span onclick=\"document.getElementById('".$id."').style.display='none'\" class=\"w3-button w3-light-gray w3-text-red w3-display-topright\"><i class=\"fa fa-close\"></i></span>
+                <div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n
+                    <h4>".$label."</h4>
+                    <div>".$body."</div>
+                </div>
+            </div>
+        </div>\n";
+}
+
 
 function alert($msg)
 {

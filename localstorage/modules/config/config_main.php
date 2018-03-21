@@ -7,7 +7,7 @@ require '../tzone.php';
 require '../tabs.php';
 
 head();
-echo "<body class='w3-content' style='max-width:1024px;min-width:350px'>";
+start_line();
 
 $cur = 'Settings';
 show_menu($cur);
@@ -16,24 +16,24 @@ $t_names = array("Timezone", "Network", "Status");
 $cur_tab = $_COOKIE['c_tab'];
 draw_tabs($t_names, $cur_tab);
 echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">";
-if ($cur_tab == 0) {
-    echo "<div id=\"tab0\" class=\"w3-show\">";
+if ($cur_tab == 1) {
+    echo "<div id=\"tab1\" class=\"w3-show\">";
 } else {
-    echo "<div id=\"tab0\" class=\"w3-hide\">";
+    echo "<div id=\"tab1\" class=\"w3-hide\">";
 }
 tzone_config();
 echo "</div>";
- if ($cur_tab == 1) {
-     echo "<div id=\"tab1\" class=\"w3-show\">";
+ if ($cur_tab == 2) {
+     echo "<div id=\"tab2\" class=\"w3-show\">";
  } else {
-     echo "<div id=\"tab1\" class=\"w3-hide\">";
+     echo "<div id=\"tab2\" class=\"w3-hide\">";
  }
 network_config();
 echo "</div>";
-if ($cur_tab == 2) {
-    echo "<div id=\"tab2\" class=\"w3-show\">";
+if ($cur_tab == 3) {
+    echo "<div id=\"tab3\" class=\"w3-show\">";
 } else {
-    echo "<div id=\"tab2\" class=\"w3-hide\">";
+    echo "<div id=\"tab3\" class=\"w3-hide\">";
 }
 echo "<br/>
         </div>
@@ -42,8 +42,7 @@ echo "<br/>
 
 echo "</div>\n</div>";
 footer();
-echo "</body>\n";
-echo "</html>";
+end_line();
 
 
 
@@ -119,13 +118,13 @@ function network_config()
                 <label>Broadcast</label><input type=\"text\" class=\"w3-input w3-border\" name=\"broadcast\" value='".$row ['broadcast']."' />
             </div>
             <div class=\"w3-col m3 s12\">
-                <label>DNS Nameserver</label><input type=\"text\" class=\"w3-input w3-border\" name=\"nameserver\" value='".$row ['nameserver']."' />
+                <label>Nameserver</label><input type=\"text\" class=\"w3-input w3-border\" name=\"nameserver\" value='".$row ['nameserver']."' />
             </div>
             <div class=\"w3-col m3 s12\">
-                <label>DNS Domain</label><input type=\"text\" class=\"w3-input w3-border\" name=\"domain\" value='".$row ['domain']."' />
+                <label>Domain</label><input type=\"text\" class=\"w3-input w3-border\" name=\"domain\" value='".$row ['domain']."' />
             </div>
             <div class=\"w3-col m3 s12\">
-                <label>DNS Search</label><input type=\"text\" class=\"w3-input w3-border\" name=\"search\" value='".$row ['search']."' />
+                <label>Search</label><input type=\"text\" class=\"w3-input w3-border\" name=\"search\" value='".$row ['search']."' />
             </div>
         </div>
         <br/>";

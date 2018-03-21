@@ -4,8 +4,9 @@ require_once '../basic.php';
 $conn = Connect();
 if (isset($_POST['edit'])) {
     $edit = $conn->real_escape_string($_POST['edit']);
-    //header('Location: ' . $_SERVER['HTTP_REFERER']);
+    echo "<script>document.getElementById('edit').style.display='block';</script>";
 
+/*
 
     require_once '../menu.php';
     require_once '../tabs.php';
@@ -17,6 +18,7 @@ if (isset($_POST['edit'])) {
     $t_names = array("Modbus-RTU");
     $cur_tab = 0;
     draw_tabs($t_names, $cur_tab);
+
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">";
     echo "<div id=\"tab0\" class=\"w3-container w3-show\">";
     echo "<div class=\"w3-container\">
@@ -28,7 +30,7 @@ if (isset($_POST['edit'])) {
     echo "</div>
     </div>\n";
     footer();
-
+*/
 } else {
     $edit = 0;
 }
@@ -44,7 +46,9 @@ if (isset($_POST['remove'])) {
 } else {
     $remove = 0;
 }
-echo $edit;
-echo $remove;
+//echo $edit;
+//echo $remove;
+
 $conn->close();
+header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>

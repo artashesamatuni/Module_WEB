@@ -4,6 +4,7 @@ require '../menu.php';
 require '../connection.php';
 require '../tabs.php';
 head();
+start_line();
 $cur = 'Digital Outputs';
 show_menu($cur);
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
@@ -13,6 +14,7 @@ draw_tabs($t_names, $cur_tab);
 read_config($cur_tab);
 echo "</div>\n";
 footer();
+end_line();
 
 
 function read_config($cur_tab)

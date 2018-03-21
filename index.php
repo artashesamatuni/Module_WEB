@@ -7,15 +7,15 @@ require_once 'localstorage/modules/basic.php';
 $user = check_user();
 if($user=='admin')
 {
-    include 'localstorage/main.php';
+    include 'localstorage/'.$_SESSION['page'];
 }
 else {
     #echo "bad user";
 }
 
 
-
-
+$aba = $_SESSION['page'];
+echo "<script>alert('".$aba."')</script>";
 
 
 ?>

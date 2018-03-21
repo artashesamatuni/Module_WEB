@@ -5,14 +5,12 @@ require '../menu.php';
 require '../tabs.php';
 
 head();
-echo "<body class='w3-content' style='max-width:600px;min-width:300px'>";
-
+start_line();
 $cur = 'Access control';
 show_menu($cur);
 read_config();
 footer();
-echo "</body>\n";
-echo "</html>";
+end_line();
 
 function read_config()
 {
