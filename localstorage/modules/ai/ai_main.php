@@ -109,7 +109,7 @@ function save($id)
     if ($conn->query($sql)!=true) {
         echo "ERR: " . $sql . "<br>" . $conn->error;
     } else {
-        alert("Done");
+        snackbar("Done");
     }
 
     $conn->close();
