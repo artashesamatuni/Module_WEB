@@ -1,217 +1,241 @@
-<!doctype html>
-<html lang="en">
 
-<head>
+<style>
+      #snackbar {
+          visibility: hidden;
+          min-width: 250px;
+          margin-left: -125px;
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          border-radius: 2px;
+          padding: 16px;
+          position: fixed;
+          z-index: 1;
+          left: 50%;
+          bottom: 30px;
+          font-size: 17px;
+      }
+      #snackbar.show {
+          visibility: visible;
+          -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+          animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+
+      @-webkit-keyframes fadein {
+          from {bottom: 0; opacity: 0;}
+          to {bottom: 30px; opacity: 1;}
+      }
+
+      @keyframes fadein {
+          from {bottom: 0; opacity: 0;}
+          to {bottom: 30px; opacity: 1;}
+      }
+
+      @-webkit-keyframes fadeout {
+          from {bottom: 30px; opacity: 1;}
+          to {bottom: 0; opacity: 0;}
+      }
+
+      @keyframes fadeout {
+          from {bottom: 30px; opacity: 1;}
+          to {bottom: 0; opacity: 0;}
+      }
+      </style><div id="snackbar">admin</div><script>
+      var x = document.getElementById("snackbar")
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      </script><!doctype html>
+        <html lang="en">
+          <head>
     <meta charset="utf-8">
     <title>EM-1044</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/localstorage/favicon.ico" type="image/x-icon">
     <meta name="description" content="EM-1044">
     <meta name="author" content="EagleMON">
     <meta name="theme-color" content="#000000" />
-    <link rel="stylesheet" href="w3.css">
-    <link rel="stylesheet" href="spinner.css">
-    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="/localstorage/css/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body class="w3-content" style="max-width:1024px;min-width:350px">
-    <div class="cssload-thecube" data-bind="visible: !initialised()">
-        <div class="cssload-cube cssload-c1"></div>
-        <div class="cssload-cube cssload-c2"></div>
-        <div class="cssload-cube cssload-c4"></div>
-        <div class="cssload-cube cssload-c3"></div>
+<body class='w3-content' style='max-width:800px;min-width:300px'>
+    <div class="w3-top w3-light-gray w3-bar" style="max-width:800px;min-width:300px">
+        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-card-4 w3-hide w3-hide-large w3-hide-medium">
+            <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a>
+            <a href="/localstorage/modules/ai/ai_main.php" class="w3-bar-item w3-button">Analog Inputs</a>
+            <a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
+            <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
+            <hr/><a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
+            <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
+            <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
+            <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
+            <a href="/localstorage/modules/foo.php?link=modules/mbus/mbus_main.php" class="w3-bar-item w3-button">test</a>
+            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
+        </div>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
+        <div class="w3-right">
+            <div class="w3-dropdown-click w3-hide-small">
+                <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
+                <div id="big_menu" class="w3-dropdown-content w3-bar-block w3-card" style="z-index:10">
+                    <a href="/localstorage/modules/ai/ai_main.php" class="w3-bar-item w3-button">Analog Inputs</a>
+                    <a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
+                    <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
+                    <hr/><a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
+                    <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
+                    <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
+                    <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
+                    <a href="/localstorage/modules/foo.php?link=modules/mbus/mbus_main.php" class="w3-bar-item w3-button">test</a>
+                </div>
+            </div>
+            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-question-circle-o"></i></a>
+            <a href="http://www.eaglemon.com" target="_blank" class="w3-bar-item w3-right">
+                <image alt="logo" src="/localstorage/images/logo_s.png" style="height: 24px" />
+            </a>
+        </div>
+        <div class="w3-left">
+            <a href="session_destroy()" class="w3-bar-item w3-button w3-red"><i class="fa fa-sign-in"></i></a></div>
     </div>
-    <div data-bind="visible: initialised" style="display: none">
-        <!---------------------------------------------------------------- MENU ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-top" style="max-width:1024px;min-width:350px">
-            <div class="w3-light-gray w3-bar">
-                <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
-                    <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a>
-                    <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
-                    <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
-                    <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
-                    <hr/>
-                    <a href="mqtt_c.html" class="w3-bar-item w3-button">MQTT Settings</a>
-                    <a href="mbus_c.html" class="w3-bar-item w3-button">Modbus Settings</a>
-                    <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
-                    <a href="config_c.html" class="w3-bar-item w3-button">Settings</a>
-                    <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
-                </div>
-                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
-                <div class="w3-right">
-                    <a href="index.html" class="w3-bar-item w3-button">Dashboard</a>
-                    <div class="w3-dropdown-click w3-hide-small">
-                        <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
-                        <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
-                            <a href="analog_c.html" class="w3-bar-item w3-button">Analog Inputs</a>
-                            <a href="input_c.html" class="w3-bar-item w3-button">Digital Inputs</a>
-                            <a href="relay_c.html" class="w3-bar-item w3-button">Digital Outputs</a>
-                            <hr/>
-                            <a href="mqtt_c.html" class="w3-bar-item w3-button">MQTT Settings</a>
-                            <a href="mbus_c.html" class="w3-bar-item w3-button">Modbus Settings</a>
-                            <a href="login_c.html" class="w3-bar-item w3-button">Access control</a>
-                            <a href="config_c.html" class="w3-bar-item w3-button">Setings</a>
-                        </div>
-                    </div>
-                    <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small">Help</a>
-                    <a href="http://www.eaglemon.com" target="_blank" class="w3-bar-item w3-right">
-                        <image alt="logo" src="images/logo_s.png" style="height: 24px" />
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!---------------------------------------------------------------- BODY ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
-            <div class="w3-row">
-                <div class="w3-col w3-container m4 s12">
-                    <div class="w3-panel w3-border">
+
+    <script type='text/javascript'>
+        function dropdown() {
+            var x = document.getElementById("big_menu");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function smallMenu() {
+            var x = document.getElementById("small_menu");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+    <div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m6 s12'>
+                <form method="post" action="localstorage/modules/dashboard/button.php">
+                    <div class='w3-panel w3-border'>
                         <h4>Relay Outputs</h4>
-                        <table style="width: 100%">
-                            <tr>
-                                <td style="width: 20%"><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R0())}" /></td>
-                                <td style="width: 80%"><button style="width:100%" data-bind="click: BTN0, disable: BTN0Fetching, text: config.R0N()+' is '+(status.R0() ? 'ON' : 'OFF'), visible: config.R0E()"></button></td>
-                            </tr>
-                            <tr>
-                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R1())}" /></td>
-                                <td><button style="width:100%" data-bind="click: BTN1, disable: BTN1Fetching, text: config.R1N()+' is '+(status.R1() ? 'ON' : 'OFF'), visible: config.R1E()"></button></td>
-                            </tr>
-                            <tr>
-                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R2())}" /></td>
-                                <td><button style="width:100%" data-bind="click: BTN2, disable: BTN2Fetching, text: config.R2N()+' is '+(status.R2() ? 'ON' : 'OFF'), visible: config.R2E()"></button></td>
-                            </tr>
-                            <tr>
-                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.R3())}" /></td>
-                                <td><button style="width:100%" data-bind="click: BTN3, disable: BTN3Fetching, text: config.R3N()+' is '+(status.R3() ? 'ON' : 'OFF'), visible: config.R3E()"></button></td>
-                            </tr>
-                        </table>
-                        <br/>
+                        <form>
+                            <button type="submit" name="do1" class="w3-button w3-block w3-red">AlarmOFF</button>
+                            <br/><button type="submit" name="do2" class="w3-button w3-block w3-red">GateOFF</button>
+                            <br/><button type="submit" name="do3" class="w3-button w3-block w3-green">LampON</button>
+                            <br/><button type="submit" name="do4" class="w3-button w3-block w3-green">MotorON</button>
+                            <br/></form>
                     </div>
-                </div>
-                <div class="w3-col w3-container m4 s12">
-                    <div class="w3-panel w3-border">
-                        <h4>Analog Inputs</h4>
-                        <table style="width: 100%">
-                            <tr>
-                                <td style="width: 50%"><span data-bind="text: config.A0N()+' '+status.A0()+ ' '+config.A0U()"></span></td>
-                                <td style="width: 50%"><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A0MAX()-config.A0MIN()), value: (status.A0()-config.A0MIN())}"></progress></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50%"><span data-bind="text: config.A1N()+' '+status.A1()+ ' '+config.A1U()"></span></td>
-                                <td><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A1MAX()-config.A1MIN()), value: (status.A1()-config.A1MIN())}"></progress></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50%"><span data-bind="text: config.A2N()+' '+status.A2()+ ' '+config.A2U()"></span></td>
-                                <td><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A2MAX()-config.A2MIN()), value: (status.A2()-config.A2MIN())}"></progress></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50%"><span data-bind="text: config.A3N()+' '+status.A3()+ ' '+config.A3U()"></span></td>
-                                <td><progress style="width: 100%;height: 18px" data-bind="attr: {max: (config.A3MAX()-config.A3MIN()), value: (status.A3()-config.A3MIN())}"></progress></td>
-                            </tr>
-                        </table>
-                        <br/>
-                    </div>
-                </div>
-                <div class="w3-col w3-container m4 s12">
-                    <div class="w3-panel w3-border">
-                        <h4>Digital Inputs</h4>
-                        <table style="width: 100%">
-                            <tr>
-                                <td style="width: 20%"><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P0())}" /></td>
-                                <td style="width: 80%">
-                                    <snap data-bind="text: config.P0N()"></snap>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P1())}" /></td>
-                                <td>
-                                    <snap data-bind="text: config.P1N()"></snap>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P2())}" /></td>
-                                <td>
-                                    <snap data-bind="text: config.P2N()"></snap>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><img style="width:24px;height:24px" data-bind="attr: {src: ledDRAW(status.P3())}" /></td>
-                                <td>
-                                    <snap data-bind="text: config.P3N()"></snap>
-                                </td>
-                            </tr>
-                        </table>
-                        <br/>
-                    </div>
-                </div>
+                </form>
             </div>
-            <div class="w3-panel w3-border">
-                <h4 class="w3-center">Info</h4>
-                <div class="w3-row">
-                    <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4">
-                            <div class="w3-center">
-                                <div class="w3-container">
-                                    <h6>
-                                        <snap data-bind="text: 'MQTT Conection status: '+(status.mqtt_status()?'Connected':'-----')"></snap>
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                        <br/>
-                    </div>
-                    <div class="w3-col w3-container m3 s6">
-                        &nbsp;
-                        <br/>
-                    </div>
-                    <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4">
-                            <div class="w3-center">
-                                <div class="w3-container">
-                                    <h6>CPU Temperature:<br/>
-                                        <snap data-bind="text: status.tCPU()+' &deg;C'"></snap>
-                                    </h6>
-                                </div>
-                                <div class="w3-container">
-                                    <progress style="width: 100%" max="100" data-bind="attr: {value: status.tCPU()}"></progress>
-                                </div>
-                                <br/>
-                            </div>
-                        </div>
-                        <br/>
-                    </div>
-                    <div class="w3-col w3-container m3 s6">
-                        <div class="w3-container w3-card-4">
-                            <div class="w3-center">
-                                <div class="w3-container">
-                                    <h6>
-                                        <snap data-bind="text: 'Device IP: '+status.ip()"></snap>
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                        <br/>
-                    </div>
+            <div class='w3-col w3-container m6 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Digital Input</h4>
+                    <div class="w3-card-4 w3-center w3-padding w3-gray">Stop Button OFF</div>
+                    <br/>
+                    <div class="w3-card-4 w3-center w3-padding w3-gray"> OFF</div>
+                    <br/>
+                    <div class="w3-card-4 w3-center w3-padding w3-gray"> OFF</div>
+                    <br/>
+                    <div class="w3-card-4 w3-center w3-padding w3-gray"> OFF</div>
+                    <br/>
                 </div>
-                <br/>
             </div>
         </div>
-        <!---------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------------------------------------>
-        <div class="w3-bottom w3-light-gray" style="max-width:1024px;min-width:350px">
-            <div class="w3-bar w3-center">
-                <snap data-bind="text: status.showTime()">time</snap>
-                <snap data-bind="text: status.showDate()">date</snap>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m12 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Analog Inputs</h4>
+                    <div class="w3-card-4">
+                        <header class="w3-container w3-light-gray w3-border-bottom">
+                            <div class="w3-left">Pump</div>
+                            <div class="w3-right"><span id="a_1">aaa</span>L/min</div>
+                        </header>
+                        <div class="w3-light-gray">
+                            <div class="w3-grey" style="height:15px;width:0%">&nbsp;</div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="w3-card-4">
+                        <header class="w3-container w3-light-gray w3-border-bottom">
+                            <div class="w3-left">Temperature</div>
+                            <div class="w3-right"><span id="a_2">aaa</span>C</div>
+                        </header>
+                        <div class="w3-light-gray">
+                            <div class="w3-grey" style="height:15px;width:1%">&nbsp;</div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="w3-card-4">
+                        <header class="w3-container w3-light-gray w3-border-bottom">
+                            <div class="w3-left">Tank</div>
+                            <div class="w3-right"><span id="a_3">aaa</span>L</div>
+                        </header>
+                        <div class="w3-light-gray">
+                            <div class="w3-grey" style="height:15px;width:0.033333333333333%">&nbsp;</div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="w3-card-4">
+                        <header class="w3-container w3-light-gray w3-border-bottom">
+                            <div class="w3-left">Level</div>
+                            <div class="w3-right"><span id="a_4">aaa</span>m</div>
+                        </header>
+                        <div class="w3-light-gray">
+                            <div class="w3-grey" style="height:15px;width:100%">&nbsp;</div>
+                        </div>
+                    </div>
+                    <br/></div>
+                <script type='text/javascript'>
+                    function showUpdate() {
+                        var xhttp;
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                document.getElementById("a_1").innerHTML = this.responseText;
+                            }
+                        };
+                        xhttp.open("GET", "get_values.php?q=" + str, true);
+                        xhttp.send();
+                    }
+                </script>
             </div>
-            <div class="w3-bar w3-center">
-                <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
+        </div>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m12 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Modbus Nods</h4>
+                    <table class="w3-table w3-border 3w-card-4">
+                        <tr class="w3-light-gray">
+                            <th>Name</th>
+                            <th>Value</th>
+                        </tr>
+                        No data</table>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w3-bottom w3-light-gray" style="max-width:800px;min-width:300px">
+        <div class="w3-bar w3-center">05:57 pm Thursday, 22 Mar 2018</div>
+        <div class="w3-bar w3-center">
+            <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
+        </div>
+        <div class="w3-bar w3-center">Sesion started: 1 Timeout: 1 User: 1 page: 1</div>
+    </div>
+    <div id="help" class="w3-modal">
+        <div class="w3-modal-content">
+            <span onclick="document.getElementById('help').style.display='none'" class="w3-button w3-light-gray w3-text-red w3-display-topright"><i class="fa fa-close"></i></span>
+            <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+
+                <h4>Test Help</h4>
+                <div>
+                    <h1>Test</h1>
+                </div>
             </div>
         </div>
     </div>
 </body>
-<snap id="x">aaa</snap>
-<script src="lib.js" type="text/javascript"></script>
-<script src="config.js" type="text/javascript"></script>
-<script>
-    document.getElementById("x").innerHTML = 1;
-</script>
-
-</html>
+    </html>

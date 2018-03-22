@@ -18,13 +18,13 @@ if ($result->num_rows > 0) {
         } else {
             echo "w3-red";
         }
-        echo "\" ";
+        echo "\">".$row["name"];
         if ($row['state']) {
             echo "ON";
         } else {
             echo "OFF";
         }
-        echo "\">".$row["name"]."</button>\n";
+        echo "</button>\n";
         echo "<br/>";
     }
 } else {

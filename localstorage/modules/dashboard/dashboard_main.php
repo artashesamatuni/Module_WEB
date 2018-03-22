@@ -3,7 +3,6 @@ require_once 'localstorage/modules/basic.php';
 require_once 'localstorage/modules/menu.php';
 head();
 start_line();
-echo "<div>";
 $cur = 'Dashboard';
 show_menu($cur);
 echo "<div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>
@@ -24,6 +23,7 @@ echo "<div class='w3-row'>
 <div class='w3-col w3-container m12 s12'>";
 require 'dashboard_mbus.php';
 echo "</div>
+    </div>
 </div>\n";
 footer();
 $id = 'help';

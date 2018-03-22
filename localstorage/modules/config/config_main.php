@@ -13,7 +13,13 @@ $cur = 'Settings';
 show_menu($cur);
 echo "<div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>";
 $t_names = array("Timezone", "Network", "Status");
-$cur_tab = $_COOKIE['c_tab'];
+if (isset($_COOKIE['c_tab']))
+{
+    $cur_tab = $_COOKIE['c_tab'];
+}
+else {
+    $cur_tab = 1;
+}
 draw_tabs($t_names, $cur_tab);
 echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">";
 if ($cur_tab == 1) {

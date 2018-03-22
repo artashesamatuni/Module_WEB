@@ -28,7 +28,7 @@ function footer()
               <div class=\"w3-bar w3-center\">
                 <h4><span class=\"w3-text-gray\">Eagle</span><span class=\"w3-text-orange\">MON</span></h4>
               </div>
-              <div class=\"w3-bar w3-center\">Sesion started: ".$_SESSION['started']." Timeout: ".$_SESSION['timeout']." User: ".$_SESSION['user']." page: ".$_SESSION['page']."</div>
+              <div class=\"w3-bar w3-center\">Sesion started: ".isset($_SESSION['started'])." Timeout: ".isset($_SESSION['timeout'])." User: ".isset($_SESSION['user'])." page: ".isset($_SESSION['page'])."</div>
          </div>\n";
 }
 function start_line()

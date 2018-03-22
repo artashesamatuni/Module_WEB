@@ -4,15 +4,18 @@ include 'settings.php';
 
 function check_user()
 {
-
-    if (isset($_SESSION['timeout'])) {
-        if ($_SESSION['timeout'] + 30 * 60 < time()) {
+    if (isset($_SESSION['timeout']))
+    {
+        if ($_SESSION['timeout'] + 30 * 60 < time())
+        {
             session_destroy();
         }
-    } else {
+    }
+    else
+    {
         # Initialize variables
-        $_SESSION['user']   = "";
-        $_SESSION['pass']   = "";
+        $_SESSION['user']       = "";
+        $_SESSION['pass']       = "";
     //    $_SESSION['timeout'] = time();
     }
 
@@ -36,22 +39,7 @@ function check_user()
     $conn->close();
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            if ($_SESSION['user'] == $row["username"]
-            && $_SESSION['pass'] == $row["passcode"]) {
-              switch($row["username"])
-              {
-                case 'admin':
-                  $_SESSION['priority'] = 1;
-                break;
-                case 'user':
-                  $_SESSION['priority'] = 2;
-                break;
-                case 'guest':
-                  $_SESSION['priority'] = 3;
-                break;
-                default:
-                break;
-              }
+            if ($_SESSION['user'] == $row["username"]  && $_SESSION['pass'] == $row["passcode"]) {
                 return $_SESSION['user'];
             } else {
                 require_once 'basic.php';
@@ -83,6 +71,7 @@ function check_user()
                 end_line();
                 return null;
             }
+            return null;
         }
     }
 }
