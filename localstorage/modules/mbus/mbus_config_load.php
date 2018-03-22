@@ -47,9 +47,7 @@ if ($mbus_result->num_rows > 0) {
         <br/>\n";
         echo "<div class=\"w3-row-padding\">
                 <div class=\"w3-col m12 s12\">
-                    <div class=\"w3-right\">
-                        <input type=\"submit\" name=\"insert".$row["id"]."\" class=\"w3-button w3-green\" value=\"Save\" />
-                    </div>
+                        <input type=\"submit\" name=\"insert".$row["id"]."\" class=\"w3-button w3-block w3-green\" value=\"Save\" />
                 </div>
             </div>\n";
         echo "</form>

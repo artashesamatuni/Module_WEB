@@ -29,11 +29,9 @@ if ($result->num_rows > 0) {
 }
 echo "</form>
       <br/>\n";
-echo "<div class=\"w3-row-padding\">
+echo "<div class=\"w3-row\">
         <div class=\"w3-col m12 s12\">
-            <div class=\"w3-right\">
-                <button onclick=\"document.getElementById('add').style.display='block'\" class=\"w3-button w3-green\">Add new</button>
-            </div>
+                <button onclick=\"document.getElementById('add').style.display='block'\" class=\"w3-button w3-block w3-green\">Add new</button>
         </div>
     </div>\n";
 

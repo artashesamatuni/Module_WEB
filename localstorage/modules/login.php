@@ -17,15 +17,17 @@ function check_user()
         }
     } else {
         # Initialize variables
-        $_SESSION['user'] = "";
-        $_SESSION['pass'] = "";
-        $_SESSION['page'] = "";
+        $_SESSION['user']   = "";
+        $GLOBALS['user']    = "";
+        $_SESSION['pass']   = "";
+        $_SESSION['page']   = "";
         $_SESSION['timeout'] = time();
     }
 
     # Store POST data in session variables
     if (isset($_POST["user"])) {
         $_SESSION['user'] = $_POST['user'];
+        $GLOBALS['user'] = $_POST['user'];
         $_SESSION['pass'] = hash('sha256', $_POST['pass']);
         $_SESSION['page'] = "main.php";
     }

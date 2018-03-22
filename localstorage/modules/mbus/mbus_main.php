@@ -11,7 +11,13 @@ $cur = 'Modbus Settings';
 show_menu($cur);
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
 $t_names = array("Configuration", "Nods");
-$cur_tab = $_COOKIE['c_tab'];
+if (isset($_COOKIE['c_tab']))
+{
+    $cur_tab = $_COOKIE['c_tab'];
+}
+else {
+    $cur_tab = 1;
+}
 draw_tabs($t_names, $cur_tab);
 read_config($cur_tab);
 echo "</div>\n";

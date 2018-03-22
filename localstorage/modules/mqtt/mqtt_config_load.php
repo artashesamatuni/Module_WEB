@@ -42,11 +42,11 @@ if ($result->num_rows > 0) {
                 </div>\n";
         echo "<div class=\"w3-col m12 s12\">
                         <label>Username</label>
-                        <input name=\"username\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["username"]."\"/>
+                        <input name=\"mqtt_username\" class=\"w3-input w3-border\" type=\"text\" value=\"".$row["username"]."\"/>
                     </div>\n";
         echo "<div class=\"w3-col m12 s12\">
                         <label>Password</label>
-                        <input name=\"password\" class=\"w3-input w3-border\" type=\"password\"/>
+                        <input name=\"mqtt_password\" class=\"w3-input w3-border\" type=\"password\"/>
                     </div>";
         echo "<div class=\"w3-col m12 s12\">
                     <label>Enable SSL</label>

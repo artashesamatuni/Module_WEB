@@ -9,7 +9,13 @@ $cur = 'Analog Inputs';
 show_menu($cur);
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
 $t_names = array("Channel 0", "Channel 1","Channel 2","Channel 3");
-$cur_tab = $_COOKIE['c_tab'];
+if (isset($_COOKIE['c_tab']))
+{
+    $cur_tab = $_COOKIE['c_tab'];
+}
+else {
+    $cur_tab = 1;
+}
 draw_tabs($t_names, $cur_tab);
 read_config($cur_tab);
 echo "</div>\n";
@@ -64,9 +70,7 @@ function read_config($cur_tab)
                   <br/>";
             echo "<div class=\"w3-row-padding\">
                     <div class=\"w3-col m12 s12\">
-                        <div class=\"w3-right\">
-                            <input type=\"submit\" name=\"insert".$row["id"]."\" class=\"w3-button w3-green\" value=\"Save\" />
-                        </div>
+                            <input type=\"submit\" name=\"insert".$row["id"]."\" class=\"w3-button w3-block w3-green\" value=\"Save\" />
                     </div>
                 </div>";
             echo "</form>

@@ -1,5 +1,6 @@
 <?php
 require_once '../connection.php';
+require_once '../basic.php';
 if (isset($_POST['enabled'])) {
     $enabled=1;
 } else {
@@ -19,6 +20,7 @@ echo $sql;
 if ($conn->query($sql)!=true) {
     echo "ERR: " . $sql . "<br>" . $conn->error;
 } else {
+    snackbar("Done");
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 $conn->close();

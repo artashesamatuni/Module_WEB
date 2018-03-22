@@ -10,7 +10,7 @@ function head()
             <meta charset=\"utf-8\">
             <title>".$board."</title>
             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-            <link rel=\"icon\" href=\"favicon.ico\" type=\"image/x-icon\">
+            <link rel=\"icon\" href=\"/localstorage/favicon.ico\" type=\"image/x-icon\">
             <meta name=\"description\" content=\"".$board."\">
             <meta name=\"author\" content=\"EagleMON\">
             <meta name=\"theme-color\" content=\"#000000\" />

@@ -90,7 +90,7 @@ function show_menu($cur)
                   <image alt=\"logo\" src=\"/localstorage/images/logo_s.png\" style=\"height: 24px\" />
               </a>
           </div>\n";
-          gen_user($_SESSION['user']);
+          gen_user(isset($GLOBALS['user']));//$_SESSION['user']);
           echo "</div>
   </div>\n";
     include_js();

@@ -19,8 +19,8 @@ if (isset($_POST['crt_enabled'])) {
     $base_topic     = $conn->real_escape_string($_POST['topic']);
     $prefix         = $conn->real_escape_string($_POST['prefix']);
     $username       = $conn->real_escape_string($_POST['username']);
-    $password       = $conn->real_escape_string($_POST['password']);
-    $read_interval  = $conn->real_escape_string($_POST['interval']);
+    $password       = $conn->real_escape_string($_POST['mqtt_password']);
+    $read_interval  = $conn->real_escape_string($_POST['mqtt_interval']);
     $crt_name       ="a.crt";
     $key_name       ="a.key";
     $ca_name        ="a.ca";
