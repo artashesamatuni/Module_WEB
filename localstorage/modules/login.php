@@ -40,6 +40,7 @@ function check_user()
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             if ($_SESSION['user'] == $row["username"]  && $_SESSION['pass'] == $row["passcode"]) {
+              snackbar($_SESSION['user']);
                 return $_SESSION['user'];
             } else {
                 require_once 'basic.php';

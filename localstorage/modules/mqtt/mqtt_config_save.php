@@ -21,9 +21,9 @@ if (isset($_POST['crt_enabled'])) {
     $username       = $conn->real_escape_string($_POST['username']);
     $password       = $conn->real_escape_string($_POST['mqtt_password']);
     $read_interval  = $conn->real_escape_string($_POST['mqtt_interval']);
-    $crt_name       ="a.crt";
-    $key_name       ="a.key";
-    $ca_name        ="a.ca";
+    $crt_name       = $conn->real_escape_string($_POST['crt_name']);
+    $key_name       = $conn->real_escape_string($_POST['key_name']);
+    $ca_name        = $conn->real_escape_string($_POST['ca_name']);
     $sql            = "UPDATE mqtt_configs SET
     enabled         = ".$enabled.",
     srv_addr        ='".$srv_addr."',

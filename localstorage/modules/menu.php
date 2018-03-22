@@ -1,37 +1,28 @@
 <?php
 include 'settings.php';
 
-function destroy()
-{
-    session_destroy();
-    header("Location: http://195.250.88.57");
-}
 
 function gen_user($user)
 {
 
 echo "<div class=\"w3-left\">
-<div class=\"w3-bar-item\">
-<a href=\"session_destroy()\" class=\"w3-bar-item\">";
-switch ($_SESSION['priority'])
+<div class=\"w3-bar-item\">\n";
+switch ($user)
 {
-    case 1:
+    case 'admin':
         echo "<img src=\"/localstorage/images/img_avatar1.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
         break;
-    case 2:
+    case 'user':
         echo "<img src=\"/localstorage/images/img_avatar2.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
         break;
-    case 3:
+    case 'guest':
         echo "<img src=\"/localstorage/images/img_avatar3.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
         break;
 }
+echo "</div>\n";
+echo "<a href=\"".session_destroy()."\" class=\"w3-bar-item\"><i class=\"fa fa-sign-out\"></i></a>";
 
 
-
-
-            echo "</a></div>
-            <div class=\"w3-bar-item\">".$user."</div>
-    </div>";
 }
 
 
@@ -68,8 +59,7 @@ function show_menu($cur)
     global $max_window;
     global $min_window;
     $user = 2;
-    echo "<div class=\"w3-top\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
-      <div class=\"w3-light-gray w3-bar\">
+    echo "<div class=\"w3-top w3-light-gray w3-bar\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
           <div id=\"small_menu\" class=\"w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium\">
               <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button\" onclick=\"smallMenu()\"><i class=\"fa fa-window-close-o\"></i></a>\n";
     gen_dropdown($cur);

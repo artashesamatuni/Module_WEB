@@ -8,6 +8,9 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<input type=\"hidden\" name=\"id\" value=\"".$row["id"]."\" />\n";
+        echo "<input type=\"hidden\" name=\"crt_name\" value=\"".$row["crt_name"]."\"/>\n";
+        echo "<input type=\"hidden\" name=\"key_name\" value=\"".$row["key_name"]."\"/>\n";
+        echo "<input type=\"hidden\" name=\"ca_name\" value=\"".$row["ca_name"]."\"/>\n";
         echo "<div class=\"w3-row-padding\">\n";
         echo "<div class=\"w3-col m2 s2\">
                     <label>Enable</label>

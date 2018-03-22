@@ -15,13 +15,10 @@ if (isset($_SESSION['started']))
         require_once 'localstorage/modules/login.php';
         require_once 'localstorage/modules/basic.php';
         if ($a=check_user()) {
-            snackbar($a);
             include 'localstorage/modules/dashboard/dashboard_main.php';
-            //select($_SESSION['page']);
         } else {
             $_SESSION['page']='';
-            session_destroy();
-            snackbar("Wrong User!");
+          //  snackbar("Wrong User!");
         }
 
 }
