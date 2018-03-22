@@ -8,6 +8,6 @@ $dbpassword       = "eaglemon";
 $dbname         = "eaglemon";
 
 #
-$max_window     = 600;
+$max_window     = 800;
 $min_window     = 300;
 $message_window = 300;

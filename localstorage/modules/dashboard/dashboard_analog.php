@@ -1,5 +1,5 @@
 <?php
-require_once "connection.php";
+require_once "localstorage/modules/connection.php";
 echo "<div class='w3-panel w3-border'>\n<h4>Analog Inputs</h4>\n";
 $conn    = Connect();
 $sql = "SELECT ai_status.id, ai_status.state, ai_configs.name, ai_configs.unit, ai_configs.min, ai_configs.max

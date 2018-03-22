@@ -28,6 +28,7 @@ function footer()
               <div class=\"w3-bar w3-center\">
                 <h4><span class=\"w3-text-gray\">Eagle</span><span class=\"w3-text-orange\">MON</span></h4>
               </div>
+              <div class=\"w3-bar w3-center\">Sesion started: ".$_SESSION['started']." Timeout: ".$_SESSION['timeout']." User: ".$_SESSION['user']." page: ".$_SESSION['page']."</div>
          </div>\n";
 }
 function start_line()
@@ -112,6 +113,7 @@ echo "<style>
       x.className = \"show\";
       setTimeout(function(){ x.className = x.className.replace(\"show\", \"\"); }, 3000);
       </script>";
+      return $msg;
 
 }
 

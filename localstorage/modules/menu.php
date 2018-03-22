@@ -1,24 +1,27 @@
 <?php
 include 'settings.php';
+
 function destroy()
 {
-    $_SESSION['user']="";
+    session_destroy();
+    header("Location: http://195.250.88.57");
 }
 
 function gen_user($user)
 {
 
 echo "<div class=\"w3-left\">
-<div class=\"w3-bar-item\">";
-switch ($user)
+<div class=\"w3-bar-item\">
+<a href=\"session_destroy()\" class=\"w3-bar-item\">";
+switch ($_SESSION['priority'])
 {
-    case 'admin':
+    case 1:
         echo "<img src=\"/localstorage/images/img_avatar1.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
         break;
-    case 'user':
+    case 2:
         echo "<img src=\"/localstorage/images/img_avatar2.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
         break;
-    case 'guest':
+    case 3:
         echo "<img src=\"/localstorage/images/img_avatar3.png\" class=\"w3-circle w3-border\" alt=\"Admin\" width=\"24\" height=\"24\"/>";
         break;
 }
@@ -26,7 +29,7 @@ switch ($user)
 
 
 
-            echo "</div>
+            echo "</a></div>
             <div class=\"w3-bar-item\">".$user."</div>
     </div>";
 }
@@ -56,7 +59,7 @@ function gen_dropdown($cur)
     if ($cur!='Settings') {
         echo "<a href=\"/localstorage/modules/config/config_main.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
     }
-    echo "<a href=\"/localstorage/modules/foo.php?something=config_main.php\" class=\"w3-bar-item w3-button\">test</a>\n";
+    echo "<a href=\"/localstorage/modules/foo.php?link=modules/mbus/mbus_main.php\" class=\"w3-bar-item w3-button\">test</a>\n";
 }
 
 
@@ -90,7 +93,7 @@ function show_menu($cur)
                   <image alt=\"logo\" src=\"/localstorage/images/logo_s.png\" style=\"height: 24px\" />
               </a>
           </div>\n";
-          gen_user(isset($GLOBALS['user']));//$_SESSION['user']);
+          gen_user($_SESSION['user']);
           echo "</div>
   </div>\n";
     include_js();
@@ -118,3 +121,4 @@ function include_js()
   }\n";
     echo "</script>\n";
 }
+?>

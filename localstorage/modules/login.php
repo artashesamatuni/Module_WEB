@@ -4,32 +4,22 @@ include 'settings.php';
 
 function check_user()
 {
-    session_start();
-
-    # Check for session timeout, else initiliaze time
 
     if (isset($_SESSION['timeout'])) {
-        # Check Session Time for expiry
-        #
-        # Time is in seconds. 10 * 60 = 600s = 10 minutes
         if ($_SESSION['timeout'] + 30 * 60 < time()) {
             session_destroy();
         }
     } else {
         # Initialize variables
         $_SESSION['user']   = "";
-        $GLOBALS['user']    = "";
         $_SESSION['pass']   = "";
-        $_SESSION['page']   = "";
-        $_SESSION['timeout'] = time();
+    //    $_SESSION['timeout'] = time();
     }
 
     # Store POST data in session variables
     if (isset($_POST["user"])) {
         $_SESSION['user'] = $_POST['user'];
-        $GLOBALS['user'] = $_POST['user'];
         $_SESSION['pass'] = hash('sha256', $_POST['pass']);
-        $_SESSION['page'] = "main.php";
     }
 
     # Check Login Data
@@ -91,7 +81,6 @@ function check_user()
                         </div>
                       </div>\n";
                 end_line();
-
                 return null;
             }
         }

@@ -1,5 +1,5 @@
 <?php
-require_once "connection.php";
+require_once "localstorage/modules/connection.php";
 echo "<div class='w3-panel w3-border'>
         <h4>Digital Input</h4>";
 $conn = Connect();

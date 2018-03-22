@@ -1,6 +1,6 @@
 <?php
-require_once "connection.php";
-echo "<form method=\"post\" action=\"localstorage/modules/button.php\">
+require_once "localstorage/modules/connection.php";
+echo "<form method=\"post\" action=\"localstorage/modules/dashboard/button.php\">
 <div class='w3-panel w3-border'>
 <h4>Relay Outputs</h4>\n";
 $conn    = Connect();

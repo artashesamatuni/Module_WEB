@@ -1,6 +1,6 @@
 <?php
-require_once 'basic.php';
-$_SESSION['page'] = htmlspecialchars($_GET['link']);
-alert("aaaaaa");
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+$_SESSION['page'] = "\"".htmlspecialchars($_GET['link'])."\"";
+echo $_SESSION['page'];
+
+//header('Location: ' . $_SERVER['HTTP_REFERER']);
  ?>
