@@ -33,7 +33,7 @@ function footer()
          </div>\n";
 
          echo "<script>
-         var refInterval = window.setInterval('update_time()', 500); // 1 seconds
+         var refInterval = window.setInterval('update_time()', 10000); // 10 seconds
          var update_time = function() {
              $.ajax({
                 url: '/localstorage/modules/get_time.php',

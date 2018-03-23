@@ -1,8 +1,7 @@
 <?php
-require_once '../connection.php';
 $conn = Connect();
 echo "<br/>\n";
-echo "<form method=\"post\" action=\"mbus_nods_delete.php\">\n";
+echo "<form method=\"post\" action=\"modules/mbus/mbus_nods_delete.php\">\n";
     echo "<div class=\"w3-row-padding\">\n";
     echo "<div class=\"w3-col m3 s3\">Name</div>\n";
     echo "<div class=\"w3-col m2 s2\">Dev.</div>\n";
@@ -34,8 +33,6 @@ echo "<div class=\"w3-row\">
                 <button onclick=\"document.getElementById('add').style.display='block'\" class=\"w3-button w3-block w3-green\">Add new</button>
         </div>
     </div>\n";
-
-
   echo "<br/>\n";
 $conn->close();
 ?>

@@ -1,14 +1,14 @@
 <?php
-require '../basic.php';
-require '../menu.php';
-require '../connection.php';
-require '../tabs.php';
+require_once 'modules/basic.php';
+require_once 'modules/menu.php';
+require_once 'modules/connection.php';
+require_once 'modules/tabs.php';
 head();
 start_line();
-$cur = 'Digital Inputs';
+$cur = 'Digital Outputs';
 show_menu($cur);
 echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
-$t_names = array("Channel 0", "Channel 1","Channel 2","Channel 3");
+$t_names = array("Relay 0", "Relay 1","Relay 2","Relay 3");
 if (isset($_COOKIE['c_tab']))
 {
     $cur_tab = $_COOKIE['c_tab'];
@@ -27,7 +27,7 @@ function read_config($cur_tab)
 {
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n";
     $conn    = Connect();
-    $sql = "SELECT id, name, enabled, polarity FROM di_configs";
+    $sql = "SELECT id, name, enabled, polarity FROM rl_configs";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -37,7 +37,9 @@ function read_config($cur_tab)
                 echo "<div id=\"tab".($row["id"])."\" class=\"w3-container w3-hide\">\n";
             }
             echo "<br/>\n";
-            echo "<form method=\"post\">
+            echo "<form method=\"post\" action=\"modules/do/do_save.php\">
+            <input name=\"id\" type=\"hidden\" value=\"".($row["id"])."\">
+                    <input name=\"id\" type=\"hidden\" value=\"".$row["id"]."\" />
                     <div class=\"w3-row-padding\">
                         <div class=\"w3-col m2 s2\">
                             <label>Enable</label>
@@ -76,6 +78,10 @@ function read_config($cur_tab)
     $conn->close();
     echo "</div>\n";
 }
+
+if (isset($_POST['insert0'])) {
+    save(0);
+}
 if (isset($_POST['insert1'])) {
     save(1);
 }
@@ -85,11 +91,6 @@ if (isset($_POST['insert2'])) {
 if (isset($_POST['insert3'])) {
     save(3);
 }
-if (isset($_POST['insert4'])) {
-    save(4);
-}
-
-
 
 
 function save($id)
@@ -107,14 +108,12 @@ function save($id)
     $conn    = Connect();
     $name       = $conn->real_escape_string($_POST['name']);
 
-    $sql = "UPDATE di_configs SET name = '".$name."', polarity=".$polarity.", enabled=".$enabled." WHERE id = ".$id."";
+    $sql = "UPDATE rl_configs SET name = '".$name."', polarity=".$polarity.", enabled=".$enabled." WHERE id = ".$id."";
     if ($conn->query($sql)!=true) {
         echo "ERR: " . $sql . "<br>" . $conn->error;
     } else {
         snackbar("Done");
     }
-
-
     $conn->close();
 }
 ?>

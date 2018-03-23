@@ -1,10 +1,9 @@
 <?php
-require '../connection.php';
-require '../login.php';
-require '../basic.php';
-require '../menu.php';
-require '../tzone.php';
-require '../tabs.php';
+require_once 'modules/connection.php';
+require_once 'modules/basic.php';
+require_once 'modules/menu.php';
+require_once 'modules/tzone.php';
+require_once 'modules/tabs.php';
 
 head();
 start_line();
@@ -56,7 +55,7 @@ end_line();
 function tzone_config()
 {
     echo "<br/>
-    <form method=\"post\">";
+    <form method=\"post\" action=\"modules/config/config_save_tzone.php\">";
     $conn = Connect();
     $sql = "SELECT timezone FROM timezone";
     $result = $conn->query($sql);
@@ -81,9 +80,7 @@ function tzone_config()
     <br/>";
     echo "<div class=\"w3-row-padding\">
             <div class=\"w3-col m12 s12\">
-                <div class=\"w3-right\">
-                    <input type=\"submit\" name=\"save_timezone\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
-                </div>
+                    <input type=\"submit\" name=\"save_timezone\" class=\"w3-button w3-block w3-green\" value=\"Save\" />
             </div>
         </div>
     </form>
@@ -93,7 +90,7 @@ function tzone_config()
 function network_config()
 {
     echo "<br/>
-          <form method=\"post\" action=\"config_save_eth.php\">";
+          <form method=\"post\" action=\"modules/config/config_save_eth.php\">";
     $conn = Connect();
     $sql = "SELECT id, dhcp, ip, mask,gateway,broadcast,nameserver,domain,search FROM eth_configs";
     $result = $conn->query($sql);
@@ -136,32 +133,10 @@ function network_config()
         <br/>";
     echo "<div class=\"w3-row-padding\">
                 <div class=\"w3-col m12 s12\">
-                    <div class=\"w3-right\">
-                        <input type=\"submit\" class=\"w3-button w3-gray w3-text-white w3-card-4\" value=\"Save\" />
-                    </div>
+                        <input type=\"submit\" class=\"w3-button w3-block w3-green\" value=\"Save\" />
                 </div>
             </div>";
     echo "</form>
    <br/>";
-}
-
-if (isset($_POST['save_timezone'])) {
-    save_timezone();
-}
-
-
-function save_timezone()
-{
-    $conn = Connect();
-    $timezone = $conn->real_escape_string($_POST['timezone']);
-
-    $sql = "UPDATE timezone SET timezone ='".$timezone."'";
-    if ($conn->query($sql) != true) {
-        echo "ERR: " . $sql . "<br>" . $conn->error;
-    } else {
-        date_default_timezone_set($timezone);
-        alert("DONE");
-    }
-    $conn->close();
 }
 ?>

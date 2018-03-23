@@ -8,20 +8,20 @@ show_menu($cur);
 echo "<div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>
 <div class='w3-row'>
 <div class='w3-col w3-container m6 s12'>";
-require 'dashboard_relay.php';
+require 'localstorage/modules/dashboard/dashboard_relay.php';
 echo "</div>
 <div class='w3-col w3-container m6 s12'>";
-require 'dashboard_digital.php';
+require 'localstorage/modules/dashboard/dashboard_digital.php';
 echo "</div>
 </div>\n";
 echo "<div class='w3-row'>
 <div class='w3-col w3-container m12 s12'>";
-require 'dashboard_analog.php';
+require 'localstorage/modules/dashboard/dashboard_analog.php';
 echo "</div>
 </div>\n";
 echo "<div class='w3-row'>
 <div class='w3-col w3-container m12 s12'>";
-require 'dashboard_mbus.php';
+require 'localstorage/modules/dashboard/dashboard_mbus.php';
 echo "</div>
     </div>
 </div>\n";

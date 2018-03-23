@@ -1,7 +1,5 @@
 <?php
 require_once '../connection.php';
-require_once '../basic.php';
-
 $conn    = Connect();
 if (isset($_POST['enabled'])) {
     $enabled        = 1;

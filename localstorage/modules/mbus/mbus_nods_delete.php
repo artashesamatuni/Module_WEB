@@ -1,6 +1,5 @@
 <?php
 require_once '../connection.php';
-require_once '../basic.php';
 $conn = Connect();
 if (isset($_POST['edit'])) {
     $edit = $conn->real_escape_string($_POST['edit']);
@@ -46,8 +45,6 @@ if (isset($_POST['remove'])) {
 } else {
     $remove = 0;
 }
-//echo $edit;
-//echo $remove;
 
 $conn->close();
 header('Location: ' . $_SERVER['HTTP_REFERER']);

@@ -29,25 +29,25 @@ echo "<a href=\"#\" class=\"w3-bar-item\"><i class=\"fa fa-sign-out\"></i></a>";
 function gen_dropdown($cur)
 {
     if ($cur!='Analog Inputs') {
-        echo "<a href=\"/localstorage/modules/ai/ai_main.php\" class=\"w3-bar-item w3-button\">Analog Inputs</a>\n";
+        echo "<a href=\"/localstorage/ai.php\" class=\"w3-bar-item w3-button\">Analog Inputs</a>\n";
     }
     if ($cur!='Digital Inputs') {
-        echo "<a href=\"/localstorage/modules/di/di_main.php\" class=\"w3-bar-item w3-button\">Digital Inputs</a>\n";
+        echo "<a href=\"/localstorage/di.php\" class=\"w3-bar-item w3-button\">Digital Inputs</a>\n";
     }
     if ($cur!='Digital Outputs') {
-        echo "<a href=\"/localstorage/modules/do/do_main.php\" class=\"w3-bar-item w3-button\">Digital Outputs</a>\n";
+        echo "<a href=\"/localstorage/do.php\" class=\"w3-bar-item w3-button\">Digital Outputs</a>\n";
     }
     if ($cur!='MQTT Settings') {
         echo "<a href=\"/localstorage/modules/mqtt/mqtt_main.php\" class=\"w3-bar-item w3-button\">MQTT Settings</a>\n";
     }
     if ($cur!='Modbus Settings') {
-        echo "<a href=\"/localstorage/modules/mbus/mbus_main.php\" class=\"w3-bar-item w3-button\">Modbus Settings</a>\n";
+        echo "<a href=\"/localstorage/mbus.php\" class=\"w3-bar-item w3-button\">Modbus Settings</a>\n";
     }
     if ($cur!='Access control') {
         echo "<a href=\"/localstorage/modules/access/login_main.php\" class=\"w3-bar-item w3-button\">Access control</a>\n";
     }
     if ($cur!='Settings') {
-        echo "<a href=\"/localstorage/modules/config/config_main.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
+        echo "<a href=\"/localstorage/config.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
     }
 }
 

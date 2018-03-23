@@ -1,5 +1,4 @@
 <?php
-    require_once '../connection.php';
     $conn    = Connect();
     echo "<select name='reg_type'>";
     $reg_types_sql = "SELECT id, reg_types FROM mbus_reg_types";

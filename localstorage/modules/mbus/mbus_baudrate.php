@@ -1,5 +1,4 @@
 <?php
-require_once '../connection.php';
 echo "<label>Baudrate</label>
     <select name=\"baud_rate\" class=\"w3-select\" value=\"".$mbus_row["baud_rate"]."\">\n";
 $conn    = Connect();

@@ -1,9 +1,8 @@
 <?php
-#mbus_main.php
-require '../connection.php';
-require '../basic.php';
-require '../menu.php';
-require '../tabs.php';
+require_once 'modules/basic.php';
+require_once 'modules/menu.php';
+require_once 'modules/connection.php';
+require_once 'modules/tabs.php';
 
 head();
 start_line();
@@ -39,7 +38,7 @@ function read_config($cur_tab)
     } else {
         echo "<div id=\"tab1\" class=\"w3-container w3-hide\">\n";
     }
-    require_once 'mbus_config_load.php';
+    require_once 'modules/mbus/mbus_config_load.php';
     echo "</div>\n";
 
 
@@ -48,7 +47,7 @@ function read_config($cur_tab)
     } else {
         echo "<div id=\"tab2\" class=\"w3-container w3-hide\">\n";
     }
-    require_once 'mbus_nods_load.php';
+    require_once 'modules/mbus/mbus_nods_load.php';
     echo "</div>\n";
 
     echo "</div>\n";
@@ -61,8 +60,7 @@ function edit_node_modal()
                 <span onclick=\"document.getElementById('edit').style.display='none'\" class=\"w3-button w3-light-gray w3-text-red w3-display-topright\"><i class=\"fa fa-close\"></i></span>";
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">
             <h4>Edit Modbus node</h4>\n";
-    echo  "<form method=\"post\" action=\"mbus_new_node.php\">\n";
-    require_once '../connection.php';
+    echo  "<form method=\"post\" action=\"modules/mbus/mbus_new_node.php\">\n";
     $conn = Connect();
     $sql = "SELECT id, name, dev_addr, reg_addr, reg_type,unit,slope,offset,bit32,ieee754,low_first FROM mbus_nods WHERE id=1;";
     $result = $conn->query($sql);
@@ -175,7 +173,7 @@ function new_node_modal()
                     <button class=\"w3-button w3-right w3-red w3-display-topright\" onclick=\"document.getElementById('add').style.display='none'\">&times;</button>";
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n
       <h4>Add new Modbus node</h4>
-      <form method=\"post\" action=\"mbus_new_node.php\">
+      <form method=\"post\" action=\"modules/mbus/mbus_new_node.php\">
       <div class=\"w3-row-padding\">";
     echo "<div class=\"w3-col m4 s4\">
               <label>Name</label>

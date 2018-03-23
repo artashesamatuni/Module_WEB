@@ -1,7 +1,5 @@
 <?php
 require '../connection.php';
-require '../basic.php';
-
     $conn= Connect();
     if (isset($_POST['dhcp'])) {
         $dhcp=1;
@@ -29,7 +27,6 @@ require '../basic.php';
     if ($conn->query($sql)!=true) {
         alert("ERR: " . $sql . "<br/>" . $conn->error);
     } else {
-        snackbar("Done");
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
     $conn->close();

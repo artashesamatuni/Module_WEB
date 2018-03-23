@@ -1,5 +1,5 @@
 <?php
-include 'localstorage/modules/dashboard/dashboard_main.php';
+include 'localstorage/dashboard_main.php';
 /*
 if (!isset($_SESSION['started'])) {
     session_start();

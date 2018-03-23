@@ -1,8 +1,7 @@
 <?php
-require_once '../connection.php';
 $conn    = Connect();
 echo "<br/>
-      <form method=\"post\" action=\"mbus_config_save.php\">\n";
+      <form method=\"post\" action=\"modules/mbus/mbus_config_save.php\">\n";
 $mbus_sql = "SELECT id, enabled, baud_rate, parity, stop_bits, data_bits, read_interval, read_timeout FROM mbus_configs";
 $mbus_result = $conn->query($mbus_sql);
 if ($mbus_result->num_rows > 0) {

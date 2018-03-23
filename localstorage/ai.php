@@ -1,8 +1,8 @@
 <?php
-require '../basic.php';
-require '../menu.php';
-require '../connection.php';
-require '../tabs.php';
+require_once 'modules/basic.php';
+require_once 'modules/menu.php';
+require_once 'modules/connection.php';
+require_once 'modules/tabs.php';
 head();
 start_line();
 $cur = 'Analog Inputs';
@@ -37,7 +37,8 @@ function read_config($cur_tab)
                 echo "<div id=\"tab".($row["id"])."\" class=\"w3-container w3-hide\">\n";
             }
             echo "<br/>\n";
-            echo "<form method=\"post\">
+            echo "<form method=\"post\" action=\"modules/ai/ai_save.php\">
+            <input name=\"id\" type=\"hidden\" value=\"".($row["id"])."\">
             <div class=\"w3-row-padding\">
                 <div class=\"w3-col m2 s2\">
                     <label>Enable</label>
@@ -80,42 +81,5 @@ function read_config($cur_tab)
     }
     $conn->close();
     echo "</div>";
-}
-
-if (isset($_POST['insert1'])) {
-    save(1);
-}
-if (isset($_POST['insert2'])) {
-    save(2);
-}
-if (isset($_POST['insert3'])) {
-    save(3);
-}
-if (isset($_POST['insert4'])) {
-    save(4);
-}
-
-
-function save($id)
-{
-    if (isset($_POST['enabled'])) {
-        $enabled=1;
-    } else {
-        $enabled=0;
-    }
-    $conn    = Connect();
-    $name       = $conn->real_escape_string($_POST['name']);
-    $unit       = $conn->real_escape_string($_POST['unit']);
-    $min        = $conn->real_escape_string($_POST['min']);
-    $max        = $conn->real_escape_string($_POST['max']);
-
-    $sql = "UPDATE ai_configs SET name = '".$name."', unit='".$unit."', min=".$min.",max=".$max.",enabled=".$enabled." WHERE id = ".$id."";
-    if ($conn->query($sql)!=true) {
-        echo "ERR: " . $sql . "<br>" . $conn->error;
-    } else {
-        snackbar("Done");
-    }
-
-    $conn->close();
 }
 ?>

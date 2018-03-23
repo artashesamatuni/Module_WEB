@@ -1,5 +1,5 @@
 <?php
-require '../connection.php';
+require_once '../connection.php';
 $conn    = Connect();
 if (isset($_POST['bit32'])) {
     $bit32=1;

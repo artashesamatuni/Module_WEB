@@ -1,5 +1,4 @@
 <?php
-require_once '../connection.php';
 echo "<label>StopBits</label>
       <select name=\"stop_bits\" class=\"w3-select\" value=\"".$mbus_row["stop_bits"]."\">";
       $conn    = Connect();
@@ -13,8 +12,6 @@ if ($result->num_rows > 0) {
             echo "<option value=\"".$row["stop_bits"]."\">".$row["stop_bits"]."</option>\n";
         }
     }
-} else {
-#
 }
 echo "</select>\n";
- ?>
+?>
