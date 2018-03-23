@@ -20,7 +20,7 @@ switch ($user)
         break;
 }
 echo "</div>\n";
-echo "<a href=\"".session_destroy()."\" class=\"w3-bar-item\"><i class=\"fa fa-sign-out\"></i></a>";
+echo "<a href=\"#\" class=\"w3-bar-item\"><i class=\"fa fa-sign-out\"></i></a>";
 
 
 }
@@ -37,7 +37,6 @@ function gen_dropdown($cur)
     if ($cur!='Digital Outputs') {
         echo "<a href=\"/localstorage/modules/do/do_main.php\" class=\"w3-bar-item w3-button\">Digital Outputs</a>\n";
     }
-    echo "<hr/>";
     if ($cur!='MQTT Settings') {
         echo "<a href=\"/localstorage/modules/mqtt/mqtt_main.php\" class=\"w3-bar-item w3-button\">MQTT Settings</a>\n";
     }
@@ -50,7 +49,6 @@ function gen_dropdown($cur)
     if ($cur!='Settings') {
         echo "<a href=\"/localstorage/modules/config/config_main.php\" class=\"w3-bar-item w3-button\">Settings</a>\n";
     }
-    echo "<a href=\"/localstorage/modules/foo.php?link=modules/mbus/mbus_main.php\" class=\"w3-bar-item w3-button\">test</a>\n";
 }
 
 
@@ -61,16 +59,15 @@ function show_menu($cur)
     $user = 2;
     echo "<div class=\"w3-top w3-light-gray w3-bar\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
           <div id=\"small_menu\" class=\"w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium\">
-              <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button\" onclick=\"smallMenu()\"><i class=\"fa fa-window-close-o\"></i></a>\n";
-    gen_dropdown($cur);
-    echo "<a onclick=\"document.getElementById('help').style.display='block'\" class=\"w3-bar-item w3-button\">Help</a>
+              <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button\" onclick=\"smallMenu()\"><i class=\"fa fa-window-close-o\"></i></a>";
+              gen_dropdown($cur);
+        echo "<a onclick=\"document.getElementById('help').style.display='block'\" class=\"w3-bar-item w3-button\">Help</a>
           </div>
           <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium\" onclick=\"smallMenu()\"><i class=\"fa fa-navicon\"></i></a>
           <div class=\"w3-right\">\n";
-
-    if ($cur!='Dashboard') {
-        echo "<a href=\"/index.php\" class=\"w3-bar-item w3-button\">Dashboard</a>\n";
-    }
+          if ($cur!='Dashboard') {
+                echo "<a href=\"/index.php\" class=\"w3-bar-item w3-button\">Dashboard</a>\n";
+            }
     echo "<div class=\"w3-dropdown-click w3-hide-small\">
                   <button class=\"w3-button\" onclick=\"dropdown()\">Configuration&nbsp;<i class=\"fa fa-caret-down\"></i></button>
                   <div id=\"config_menu\" class=\"w3-dropdown-content w3-bar-block w3-border\" style=\"z-index:10\">\n";
@@ -83,7 +80,7 @@ function show_menu($cur)
                   <image alt=\"logo\" src=\"/localstorage/images/logo_s.png\" style=\"height: 24px\" />
               </a>
           </div>\n";
-          gen_user($_SESSION['user']);
+          gen_user('admin');
           echo "</div>
   </div>\n";
     include_js();

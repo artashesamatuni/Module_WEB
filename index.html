@@ -1,50 +1,5 @@
 
-<style>
-      #snackbar {
-          visibility: hidden;
-          min-width: 250px;
-          margin-left: -125px;
-          background-color: #333;
-          color: #fff;
-          text-align: center;
-          border-radius: 2px;
-          padding: 16px;
-          position: fixed;
-          z-index: 1;
-          left: 50%;
-          bottom: 30px;
-          font-size: 17px;
-      }
-      #snackbar.show {
-          visibility: visible;
-          -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-          animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      }
-
-      @-webkit-keyframes fadein {
-          from {bottom: 0; opacity: 0;}
-          to {bottom: 30px; opacity: 1;}
-      }
-
-      @keyframes fadein {
-          from {bottom: 0; opacity: 0;}
-          to {bottom: 30px; opacity: 1;}
-      }
-
-      @-webkit-keyframes fadeout {
-          from {bottom: 30px; opacity: 1;}
-          to {bottom: 0; opacity: 0;}
-      }
-
-      @keyframes fadeout {
-          from {bottom: 30px; opacity: 1;}
-          to {bottom: 0; opacity: 0;}
-      }
-      </style><div id="snackbar">admin</div><script>
-      var x = document.getElementById("snackbar")
-      x.className = "show";
-      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-      </script><!doctype html>
+<!doctype html>
         <html lang="en">
           <head>
     <meta charset="utf-8">
@@ -54,37 +9,34 @@
     <meta name="description" content="EM-1044">
     <meta name="author" content="EagleMON">
     <meta name="theme-color" content="#000000" />
-    <link rel="stylesheet" href="/localstorage/css/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body class='w3-content' style='max-width:800px;min-width:300px'>
     <div class="w3-top w3-light-gray w3-bar" style="max-width:800px;min-width:300px">
-        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-card-4 w3-hide w3-hide-large w3-hide-medium">
-            <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a>
-            <a href="/localstorage/modules/ai/ai_main.php" class="w3-bar-item w3-button">Analog Inputs</a>
-            <a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
+        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
+            <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a><a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
             <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
-            <hr/><a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
+            <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
             <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
             <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
             <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
-            <a href="/localstorage/modules/foo.php?link=modules/mbus/mbus_main.php" class="w3-bar-item w3-button">test</a>
             <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
         </div>
         <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
         <div class="w3-right">
+            <a href="/index.php" class="w3-bar-item w3-button">Dashboard</a>
             <div class="w3-dropdown-click w3-hide-small">
                 <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
-                <div id="big_menu" class="w3-dropdown-content w3-bar-block w3-card" style="z-index:10">
-                    <a href="/localstorage/modules/ai/ai_main.php" class="w3-bar-item w3-button">Analog Inputs</a>
+                <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
                     <a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
                     <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
-                    <hr/><a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
+                    <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
                     <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
                     <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
                     <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
-                    <a href="/localstorage/modules/foo.php?link=modules/mbus/mbus_main.php" class="w3-bar-item w3-button">test</a>
                 </div>
             </div>
             <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-question-circle-o"></i></a>
@@ -93,12 +45,14 @@
             </a>
         </div>
         <div class="w3-left">
-            <a href="session_destroy()" class="w3-bar-item w3-button w3-red"><i class="fa fa-sign-in"></i></a></div>
+            <div class="w3-bar-item">
+            </div>
+            <a href="" class="w3-bar-item"><i class="fa fa-sign-out"></i></a></div>
     </div>
 
     <script type='text/javascript'>
         function dropdown() {
-            var x = document.getElementById("big_menu");
+            var x = document.getElementById("config_menu");
             if (x.className.indexOf("w3-show") == -1) {
                 x.className += " w3-show";
             } else {
@@ -115,127 +69,249 @@
             }
         }
     </script>
-    <div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>
-        <div class='w3-row'>
-            <div class='w3-col w3-container m6 s12'>
-                <form method="post" action="localstorage/modules/dashboard/button.php">
-                    <div class='w3-panel w3-border'>
-                        <h4>Relay Outputs</h4>
-                        <form>
-                            <button type="submit" name="do1" class="w3-button w3-block w3-red">AlarmOFF</button>
-                            <br/><button type="submit" name="do2" class="w3-button w3-block w3-red">GateOFF</button>
-                            <br/><button type="submit" name="do3" class="w3-button w3-block w3-green">LampON</button>
-                            <br/><button type="submit" name="do4" class="w3-button w3-block w3-green">MotorON</button>
-                            <br/></form>
+    <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
+        <div class='w3-row w3-light-gray'>
+            <div class='w3-col  m3 s3'>
+                <button onclick="fn_1()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn1'>Channel 0</button>
+            </div>
+            <div class='w3-col  m3 s3'>
+                <button onclick="fn_2()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn2'>Channel 1</button>
+            </div>
+            <div class='w3-col  m3 s3'>
+                <button onclick="fn_3()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn3'>Channel 2</button>
+            </div>
+            <div class='w3-col  m3 s3'>
+                <button onclick="fn_4()" class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn4'>Channel 3</button>
+            </div>
+        </div>
+
+        <script type='text/javascript'>
+            function fn_1() {
+                var x = document.getElementById("tab1");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className = "w3-container w3-show";
+                    document.getElementById("btn1").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab1").className = "w3-container w3-show";
+                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab2").className = "w3-container w3-hide";
+                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab3").className = "w3-container w3-hide";
+                    document.getElementById("btn4").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab4").className = "w3-container w3-hide";
+                }
+                document.cookie = "c_tab=1";
+            }
+
+            function fn_2() {
+                var x = document.getElementById("tab2");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className = "w3-container w3-show";
+                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab1").className = "w3-container w3-hide";
+                    document.getElementById("btn2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab2").className = "w3-container w3-show";
+                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab3").className = "w3-container w3-hide";
+                    document.getElementById("btn4").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab4").className = "w3-container w3-hide";
+                }
+                document.cookie = "c_tab=2";
+            }
+
+            function fn_3() {
+                var x = document.getElementById("tab3");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className = "w3-container w3-show";
+                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab1").className = "w3-container w3-hide";
+                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab2").className = "w3-container w3-hide";
+                    document.getElementById("btn3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab3").className = "w3-container w3-show";
+                    document.getElementById("btn4").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab4").className = "w3-container w3-hide";
+                }
+                document.cookie = "c_tab=3";
+            }
+
+            function fn_4() {
+                var x = document.getElementById("tab4");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className = "w3-container w3-show";
+                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab1").className = "w3-container w3-hide";
+                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab2").className = "w3-container w3-hide";
+                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab3").className = "w3-container w3-hide";
+                    document.getElementById("btn4").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
+                    document.getElementById("tab4").className = "w3-container w3-show";
+                }
+                document.cookie = "c_tab=4";
+            }
+            fn_4();
+        </script>
+        <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+            <div id="tab1" class="w3-container w3-hide">
+                <br/>
+                <form method="post">
+                    <div class="w3-row-padding">
+                        <div class="w3-col m2 s2">
+                            <label>Enable</label>
+                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
+                        <div class="w3-col m10 s10">
+                            <label>Name</label>
+                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Pump" />
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m4 s4">
+                            <label>Unit</label>
+                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="L/min" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Min</label>
+                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Max</label>
+                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m12 s12">
+                            <input type="submit" name="insert1" class="w3-button w3-block w3-green" value="Save" />
+                        </div>
                     </div>
                 </form>
+                <br/>
             </div>
-            <div class='w3-col w3-container m6 s12'>
-                <div class='w3-panel w3-border'>
-                    <h4>Digital Input</h4>
-                    <div class="w3-card-4 w3-center w3-padding w3-gray">Stop Button OFF</div>
+            <div id="tab2" class="w3-container w3-hide">
+                <br/>
+                <form method="post">
+                    <div class="w3-row-padding">
+                        <div class="w3-col m2 s2">
+                            <label>Enable</label>
+                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
+                        <div class="w3-col m10 s10">
+                            <label>Name</label>
+                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Temperature" />
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m4 s4">
+                            <label>Unit</label>
+                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="C" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Min</label>
+                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Max</label>
+                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
+                        </div>
+                    </div>
                     <br/>
-                    <div class="w3-card-4 w3-center w3-padding w3-gray"> OFF</div>
-                    <br/>
-                    <div class="w3-card-4 w3-center w3-padding w3-gray"> OFF</div>
-                    <br/>
-                    <div class="w3-card-4 w3-center w3-padding w3-gray"> OFF</div>
-                    <br/>
-                </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m12 s12">
+                            <input type="submit" name="insert2" class="w3-button w3-block w3-green" value="Save" />
+                        </div>
+                    </div>
+                </form>
+                <br/>
             </div>
-        </div>
-        <div class='w3-row'>
-            <div class='w3-col w3-container m12 s12'>
-                <div class='w3-panel w3-border'>
-                    <h4>Analog Inputs</h4>
-                    <div class="w3-card-4">
-                        <header class="w3-container w3-light-gray w3-border-bottom">
-                            <div class="w3-left">Pump</div>
-                            <div class="w3-right"><span id="a_1">aaa</span>L/min</div>
-                        </header>
-                        <div class="w3-light-gray">
-                            <div class="w3-grey" style="height:15px;width:0%">&nbsp;</div>
+            <div id="tab3" class="w3-container w3-hide">
+                <br/>
+                <form method="post">
+                    <div class="w3-row-padding">
+                        <div class="w3-col m2 s2">
+                            <label>Enable</label>
+                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
+                        <div class="w3-col m10 s10">
+                            <label>Name</label>
+                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Tank" />
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m4 s4">
+                            <label>Unit</label>
+                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="L" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Min</label>
+                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Max</label>
+                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
                         </div>
                     </div>
                     <br/>
-                    <div class="w3-card-4">
-                        <header class="w3-container w3-light-gray w3-border-bottom">
-                            <div class="w3-left">Temperature</div>
-                            <div class="w3-right"><span id="a_2">aaa</span>C</div>
-                        </header>
-                        <div class="w3-light-gray">
-                            <div class="w3-grey" style="height:15px;width:1%">&nbsp;</div>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m12 s12">
+                            <input type="submit" name="insert3" class="w3-button w3-block w3-green" value="Save" />
                         </div>
                     </div>
-                    <br/>
-                    <div class="w3-card-4">
-                        <header class="w3-container w3-light-gray w3-border-bottom">
-                            <div class="w3-left">Tank</div>
-                            <div class="w3-right"><span id="a_3">aaa</span>L</div>
-                        </header>
-                        <div class="w3-light-gray">
-                            <div class="w3-grey" style="height:15px;width:0.033333333333333%">&nbsp;</div>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="w3-card-4">
-                        <header class="w3-container w3-light-gray w3-border-bottom">
-                            <div class="w3-left">Level</div>
-                            <div class="w3-right"><span id="a_4">aaa</span>m</div>
-                        </header>
-                        <div class="w3-light-gray">
-                            <div class="w3-grey" style="height:15px;width:100%">&nbsp;</div>
-                        </div>
-                    </div>
-                    <br/></div>
-                <script type='text/javascript'>
-                    function showUpdate() {
-                        var xhttp;
-                        xhttp = new XMLHttpRequest();
-                        xhttp.onreadystatechange = function() {
-                            if (this.readyState == 4 && this.status == 200) {
-                                document.getElementById("a_1").innerHTML = this.responseText;
-                            }
-                        };
-                        xhttp.open("GET", "get_values.php?q=" + str, true);
-                        xhttp.send();
-                    }
-                </script>
+                </form>
+                <br/>
             </div>
-        </div>
-        <div class='w3-row'>
-            <div class='w3-col w3-container m12 s12'>
-                <div class='w3-panel w3-border'>
-                    <h4>Modbus Nods</h4>
-                    <table class="w3-table w3-border 3w-card-4">
-                        <tr class="w3-light-gray">
-                            <th>Name</th>
-                            <th>Value</th>
-                        </tr>
-                        No data</table>
+            <div id="tab4" class="w3-container w3-show">
+                <br/>
+                <form method="post">
+                    <div class="w3-row-padding">
+                        <div class="w3-col m2 s2">
+                            <label>Enable</label>
+                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
+                        <div class="w3-col m10 s10">
+                            <label>Name</label>
+                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Level" />
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m4 s4">
+                            <label>Unit</label>
+                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="m" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Min</label>
+                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
+                        </div>
+                        <div class="w3-col m4 s4">
+                            <label>Max</label>
+                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
+                        </div>
+                    </div>
                     <br/>
-                </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-col m12 s12">
+                            <input type="submit" name="insert4" class="w3-button w3-block w3-green" value="Save" />
+                        </div>
+                    </div>
+                </form>
+                <br/>
             </div>
         </div>
     </div>
     <div class="w3-bottom w3-light-gray" style="max-width:800px;min-width:300px">
-        <div class="w3-bar w3-center">05:57 pm Thursday, 22 Mar 2018</div>
+        <div id="clock" class="w3-bar w3-center">empty</div>
         <div class="w3-bar w3-center">
             <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
         </div>
-        <div class="w3-bar w3-center">Sesion started: 1 Timeout: 1 User: 1 page: 1</div>
+        <div class="w3-bar w3-center">Sesion started: Timeout: User: page: </div>
     </div>
-    <div id="help" class="w3-modal">
-        <div class="w3-modal-content">
-            <span onclick="document.getElementById('help').style.display='none'" class="w3-button w3-light-gray w3-text-red w3-display-topright"><i class="fa fa-close"></i></span>
-            <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
-
-                <h4>Test Help</h4>
-                <div>
-                    <h1>Test</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        var refInterval = window.setInterval('update_time()', 500); // 1 seconds
+        var update_time = function() {
+            $.ajax({
+                url: '/localstorage/modules/get_time.php',
+                success: function(response) {
+                    $('#clock').html(response);
+                }
+            });
+        };
+        update_time();
+    </script>
 </body>
     </html>

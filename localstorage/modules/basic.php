@@ -16,6 +16,7 @@ function head()
             <meta name=\"theme-color\" content=\"#000000\" />
             <link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">
             <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">
+            <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>
           </head>\n";
 }
 
@@ -24,13 +25,30 @@ function footer()
     global $max_window;
     global $min_window;
     echo "<div class=\"w3-bottom w3-light-gray\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
-            <div class=\"w3-bar w3-center\">".date("h").":".date("i")." ".date("a")." ".date("l").", ".date("d")." ".date("M")." ".date("Y")."</div>
+            <div id=\"clock\" class=\"w3-bar w3-center\">empty</div>
               <div class=\"w3-bar w3-center\">
                 <h4><span class=\"w3-text-gray\">Eagle</span><span class=\"w3-text-orange\">MON</span></h4>
               </div>
               <div class=\"w3-bar w3-center\">Sesion started: ".isset($_SESSION['started'])." Timeout: ".isset($_SESSION['timeout'])." User: ".isset($_SESSION['user'])." page: ".isset($_SESSION['page'])."</div>
          </div>\n";
+
+         echo "<script>
+         var refInterval = window.setInterval('update_time()', 500); // 1 seconds
+         var update_time = function() {
+             $.ajax({
+                url: '/localstorage/modules/get_time.php',
+                success: function (response) {
+                 $('#clock').html(response);
+                }
+            });
+         };
+         update_time();
+         </script>\n";
 }
+
+
+
+
 function start_line()
 {
     global $max_window;
