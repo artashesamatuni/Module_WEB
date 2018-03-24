@@ -24,7 +24,9 @@ function footer()
 {
     global $max_window;
     global $min_window;
-    echo "<div class=\"w3-bottom w3-light-gray\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
+
+    echo "<div class=\"w3-bottom w3-light-gray w3-card\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">
+            <div id=\"links\" class=\"w3-bar w3-center\"><i class=\"fa fa-amazon\"></i></div>
             <div id=\"clock\" class=\"w3-bar w3-center\">empty</div>
               <div class=\"w3-bar w3-center\">
                 <h4><span class=\"w3-text-gray\">Eagle</span><span class=\"w3-text-orange\">MON</span></h4>

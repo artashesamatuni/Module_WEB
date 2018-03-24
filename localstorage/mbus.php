@@ -8,7 +8,7 @@ head();
 start_line();
 $cur = 'Modbus Settings';
 show_menu($cur);
-echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
+echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:50px;margin-bottom:64px;\">\n";
 $t_names = array("Configuration", "Nods");
 if (isset($_COOKIE['c_tab']))
 {

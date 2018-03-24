@@ -10,7 +10,7 @@ start_line();
 
 $cur = 'Settings';
 show_menu($cur);
-echo "<div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>";
+echo "<div class='w3-main' style='height: 100%; margin-top:50px;margin-bottom:64px;'>";
 $t_names = array("Timezone", "Network", "Status");
 if (isset($_COOKIE['c_tab']))
 {

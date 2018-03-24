@@ -1,33 +1,20 @@
 <?php
-require_once "localstorage/modules/connection.php";
-$conn    = Connect();
+require_once 'localstorage/modules/basic.php';
 echo "<div class='w3-panel w3-border'>
         <h4>Modbus Nods</h4>
-        <table class=\"w3-table w3-border 3w-card-4\">
-    <tr class=\"w3-light-gray\">
-      <th>Name</th>
-      <th>Value</th>
-    </tr>\n";
-$sql = "SELECT mbus_nods.name, mbus_nods.unit, mbus_nods_values.value
-FROM mbus_nods
-INNER JOIN mbus_nods_values
-ON mbus_nods.id=mbus_nods_values.id";
-
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    echo "<tbody>\n";
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>
-                <td>".$row["name"]."</td>
-                <td>".$row["value"]." ".$row["unit"]."</td>
-             </tr>\n";
-    }
-    echo "</tbody>\n";
-} else {
-    echo "No data";
-}
-echo "</table>
-  <br/>
-</div>\n";
-$conn->close();
+        <div id=\"mbus-container\"></div>
+        <br/>
+    </div>\n";
+    echo "<script>
+    var refInterval = window.setInterval('update_mbus()', 1000); // 1 seconds
+    var update_mbus = function() {
+        $.ajax({
+           url: 'localstorage/modules/dashboard/dashboard_mbus_update.php',
+           success: function (response) {
+            $('#mbus-container').html(response);
+           }
+       });
+    };
+    update_mbus();
+    </script>\n";
  ?>

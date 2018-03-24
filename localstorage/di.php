@@ -7,7 +7,7 @@ head();
 start_line();
 $cur = 'Digital Inputs';
 show_menu($cur);
-echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
+echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:50px;margin-bottom:64px;\">\n";
 $t_names = array("Channel 0", "Channel 1","Channel 2","Channel 3");
 if (isset($_COOKIE['c_tab']))
 {

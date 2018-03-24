@@ -7,7 +7,7 @@ head();
 start_line();
 $cur = 'Digital Outputs';
 show_menu($cur);
-echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:48px;margin-bottom:64px;\">\n";
+echo "<div class=\"w3-main\" style=\"height: 100%; margin-top:50px;margin-bottom:64px;\">\n";
 $t_names = array("Relay 0", "Relay 1","Relay 2","Relay 3");
 if (isset($_COOKIE['c_tab']))
 {

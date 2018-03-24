@@ -5,7 +5,7 @@ head();
 start_line();
 $cur = 'Dashboard';
 show_menu($cur);
-echo "<div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>
+echo "<div class=\"w3-main w3-card\" style=\"height: 100%; margin-top:50px;margin-bottom:80px;\">
 <div class='w3-row'>
 <div class='w3-col w3-container m6 s12'>";
 require 'localstorage/modules/dashboard/dashboard_relay.php';
