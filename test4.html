@@ -1,44 +1,220 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .chip {
-            display: inline-block;
-            padding: 0 25px;
-            height: 50px;
-            font-size: 16px;
-            line-height: 50px;
-            border-radius: 25px;
-            background-color: #f1f1f1;
-        }
 
-        .chip img {
-            float: left;
-            margin: 0 10px 0 -25px;
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-        }
-
-        .chip box {
-            float: left;
-            padding: 0 25px;
-            height: 50px;
-            font-size: 16px;
-            line-height: 50px;
-            border-radius: 25px;
-            background-color: #f10000;
-        }
-    </style>
+<!doctype html>
+        <html lang="en">
+          <head>
+    <meta charset="utf-8">
+    <title>EM-1044</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/localstorage/favicon.ico" type="image/x-icon">
+    <meta name="description" content="EM-1044">
+    <meta name="author" content="EagleMON">
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body>
-
-    <div class="chip">
-        <box>a</box>
-        John Doe
+<body class='w3-content' style='max-width:800px;min-width:300px'>
+    <div class="w3-top w3-light-gray w3-bar" style="max-width:800px;min-width:300px">
+        <div class="w3-bar w3-card-4 w3-left-align">
+            <a href="http://www.eaglemon.com" target="_blank" class="w3-bar-item w3-button">
+                <image alt="logo" src="/localstorage/images/logo_s.png" height="18" />
+            </a><a href="#" class="w3-bar-item w3-button"><img src="/localstorage/images/img_avatar1.png" class="w3-circle w3-border" alt="Admin" width="18" height="18"/></a><a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="small_drop()"><i class="fa fa-bars"></i></a><a class="w3-bar-item w3-button w3-hide-small w3-right" href="javascript:void(0);" onclick="big_drop()">Configuration<i class="fa fa-bars"></i></a><a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-right w3-hover-white"><i class="fa fa-question-circle-o"></i></a></div>
+        <div id="small_nav" class="w3-bar-block w3-border w3-light-gray w3-hide w3-hide-large w3-hide-medium"><a href="/localstorage/ai.php" class="w3-bar-item w3-button w3-padding-large">Analog Inputs</a>
+            <a href="/localstorage/di.php" class="w3-bar-item w3-button w3-padding-large">Digital Inputs</a>
+            <a href="/localstorage/do.php" class="w3-bar-item w3-button w3-padding-large">Digital Outputs</a>
+            <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button w3-padding-large">MQTT Settings</a>
+            <a href="/localstorage/mbus.php" class="w3-bar-item w3-button w3-padding-large">Modbus Settings</a>
+            <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button w3-padding-large">Access control</a>
+            <a href="/localstorage/config.php" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+        </div>
+        <div id="big_nav" class="w3-bar-block w3-border w3-light-gray w3-hide w3-hide-small"><a href="/localstorage/ai.php" class="w3-bar-item w3-button w3-padding-large">Analog Inputs</a>
+            <a href="/localstorage/di.php" class="w3-bar-item w3-button w3-padding-large">Digital Inputs</a>
+            <a href="/localstorage/do.php" class="w3-bar-item w3-button w3-padding-large">Digital Outputs</a>
+            <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button w3-padding-large">MQTT Settings</a>
+            <a href="/localstorage/mbus.php" class="w3-bar-item w3-button w3-padding-large">Modbus Settings</a>
+            <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button w3-padding-large">Access control</a>
+            <a href="/localstorage/config.php" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+        </div>
     </div>
+    <script>
+        function small_drop() {
+            var x = document.getElementById("small_nav");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
 
+        function big_drop() {
+            var x = document.getElementById("big_nav");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+    <div class='w3-main' style='height: 100%; margin-top:48px;margin-bottom:64px;'>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m6 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Relay Outputs</h4>
+                    <form method="post">
+                        <div id="relay-container">empty</div>
+                    </form>
+                </div>
+                <script>
+                    var refInterval = window.setInterval('update_do()', 1000); // 1 seconds
+                    var update_do = function() {
+                        $.ajax({
+                            url: 'localstorage/modules/dashboard/dashboard_relay_update.php',
+                            success: function(response) {
+                                $('#relay-container').html(response);
+                            }
+                        });
+                    };
+                    update_do();
+                </script>
+            </div>
+            <div class='w3-col w3-container m6 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Digital Input</h4>
+                    <form>
+                        <div id="digital-container">empty</div>
+                    </form>
+                </div>
+                <script>
+                    var refInterval = window.setInterval('update_di()', 1000); // 1 seconds
+                    var update_di = function() {
+                        $.ajax({
+                            url: 'localstorage/modules/dashboard/dashboard_digital_update.php',
+                            success: function(response) {
+                                $('#digital-container').html(response);
+                            }
+                        });
+                    };
+                    update_di();
+                </script>
+            </div>
+        </div>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m12 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Analog Inputs</h4>
+                    <div id="analog-container">empty</div>
+                    <br/>
+                </div>
+                <script>
+                    var refInterval = window.setInterval('update_ai()', 1000); // 1 seconds
+                    var update_ai = function() {
+                        $.ajax({
+                            url: 'localstorage/modules/dashboard/dashboard_analog_update.php',
+                            success: function(response) {
+                                $('#analog-container').html(response);
+                            }
+                        });
+                    };
+                    update_ai();
+                </script>
+            </div>
+        </div>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m12 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Modbus Nods</h4>
+                    <table class="w3-table w3-border 3w-card-4">
+                        <tr class="w3-light-gray">
+                            <th>Name</th>
+                            <th>Value</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>Voltage A</td>
+                                <td>215.098999 Volt</td>
+                            </tr>
+                            <tr>
+                                <td>Voltage B</td>
+                                <td>215.151978 Volt</td>
+                            </tr>
+                            <tr>
+                                <td>Voltage C</td>
+                                <td>214.977417 Volt</td>
+                            </tr>
+                            <tr>
+                                <td>Current A</td>
+                                <td>31.413626 Amper</td>
+                            </tr>
+                            <tr>
+                                <td>Current B</td>
+                                <td>31.35253 Amper</td>
+                            </tr>
+                            <tr>
+                                <td>Current C</td>
+                                <td>31.118328 Amper</td>
+                            </tr>
+                            <tr>
+                                <td>Voltage A -2</td>
+                                <td>214.806519 Volt</td>
+                            </tr>
+                            <tr>
+                                <td>Voltage B -2</td>
+                                <td>215.040771 Volt</td>
+                            </tr>
+                            <tr>
+                                <td>Voltage C -2</td>
+                                <td>214.904724 Volt</td>
+                            </tr>
+                            <tr>
+                                <td>Current A -2</td>
+                                <td>0.031326 Amper</td>
+                            </tr>
+                            <tr>
+                                <td>Current B -2</td>
+                                <td>0.031456 Amper</td>
+                            </tr>
+                            <tr>
+                                <td>Current C -2</td>
+                                <td>0.031258 Amper</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w3-bottom w3-light-gray" style="max-width:800px;min-width:300px">
+        <div id="clock" class="w3-bar w3-center">empty</div>
+        <div class="w3-bar w3-center">
+            <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
+        </div>
+        <div class="w3-bar w3-center">Sesion started: Timeout: User: page: </div>
+    </div>
+    <script>
+        var refInterval = window.setInterval('update_time()', 10000); // 10 seconds
+        var update_time = function() {
+            $.ajax({
+                url: '/localstorage/modules/get_time.php',
+                success: function(response) {
+                    $('#clock').html(response);
+                }
+            });
+        };
+        update_time();
+    </script>
+    <div id="help" class="w3-modal">
+        <div class="w3-modal-content">
+            <span onclick="document.getElementById('help').style.display='none'" class="w3-button w3-light-gray w3-text-red w3-display-topright"><i class="fa fa-close"></i></span>
+            <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+
+                <h4>Test Help</h4>
+                <div>
+                    <h1>Test</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+    </html>
