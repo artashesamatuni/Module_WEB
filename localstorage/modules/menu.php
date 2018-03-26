@@ -53,9 +53,9 @@ function show_menu($cur)
     $user = 2;
     # Navbar
     echo "<!-------------------------------------------------------------------------------------------------------------------------------------------------->
-          <div class=\"w3-top w3-light-gray w3-card\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">\n";
+          <div class=\"w3-top w3-light-gray\" style=\"max-width:".$max_window."px;min-width:".$min_window."px\">\n";
     # Big
-    echo "<div class=\"w3-bar w3-card-4 w3-left-align\">\n";
+    echo "<div class=\"w3-bar w3-left-align\">\n";
     echo "<a href=\"http://www.eaglemon.com\" target=\"_blank\" class=\"w3-bar-item w3-button\"><image alt=\"logo\" src=\"/localstorage/images/logo_s.png\" height=\"18\"/></a>\n";
     gen_user('admin');
     echo "<a class=\"w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right\" href=\"javascript:void(0);\" onclick=\"small_drop()\"><i class=\"fa fa-bars\"></i></a>\n";

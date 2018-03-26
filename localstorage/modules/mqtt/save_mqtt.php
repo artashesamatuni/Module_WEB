@@ -45,8 +45,18 @@ VALUES ('".$enabled."','".$srv_addr."','".$srv_port."','".$base_topic."','".$crt
 if ($conn->query($sql) != TRUE) {
     echo "ERR: " . $sql . "<br>" . $conn->error;
 } else {
+    $conn->close();
+    $fp = fsockopen("127.0.0.1", 4927, $errno, $errstr, 30);
+    if (!$fp) {
+        echo "$errstr ($errno)<br />\n";
+    } else {
+        $str = "mqtt_save";
+        fwrite($fp, $str);
+        fclose($fp);
+    }
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
-$conn->close();
+
+
 ?>
