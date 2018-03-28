@@ -11,13 +11,15 @@
             <tr class=\"w3-light-gray\">
               <td>Node</td>
               <td>Value</td>
+              <td>Unit</td>
             </tr>\n";
     if ($result->num_rows > 0) {
         echo "<tbody>\n";
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
                     <td>".$row["name"]."</td>
-                    <td>".$row["value"]." ".$row["unit"]."</td>
+                    <td>".$row["value"]."</td>
+                    <td>".$row["unit"]."</td>
                  </tr>\n";
         }
         echo "</tbody>\n";

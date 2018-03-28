@@ -27,8 +27,9 @@ function read_config($cur_tab)
 {
     echo "<div class=\"w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray\">\n";
     $conn    = Connect();
-    $sql = "SELECT id, name, enabled, polarity FROM rl_configs";
+    $sql = "SELECT id, name, enabled, polarity, mode FROM rl_configs";
     $result = $conn->query($sql);
+    $conn->close();
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             if ($cur_tab==$row["id"]) {
@@ -59,12 +60,26 @@ function read_config($cur_tab)
                             echo "<input type=\"checkbox\" class=\"w3-check\" name=\"polarity\" value=\"0\" />";
                         }
                 echo "</div>\n";
-                    echo "<div class=\"w3-col m8 s8\">
+                    echo "<div class=\"w3-col m5 s5\">
                             <label>Name</label>
                             <input name=\"name\" class=\"w3-input w3-border\" type=\"text\" placeholder=\"e.g. Room temperature\" value=\"".$row["name"]."\" />
-                          </div>
+                          </div>\n";
+                    echo "<div class=\"w3-col m3 s3\">";
+                            require_once 'modules/do/do_modes.php';
+                    echo "</div>
                     </div>
                     <br/>\n";
+                    echo "<div class=\"w3-row-padding\">
+                            <div class=\"w3-col m6 s6\">";
+                                    require_once 'modules/do/do_operators.php';
+                    echo "</div>
+                            <div class=\"w3-col m6 s6\">";
+                            require_once 'modules/do/do_sources.php';
+                            echo "</div>
+                        </div>
+                        <br/>";
+
+
                     echo "<div class=\"w3-row-padding\">
                             <div class=\"w3-col m12 s12\">
                                     <input type=\"submit\" name=\"insert".$row["id"]."\" class=\"w3-button w3-block w3-green\" value=\"Save\" />
@@ -75,7 +90,6 @@ function read_config($cur_tab)
                     </div>\n";
         }
     }
-    $conn->close();
     echo "</div>\n";
 }
 

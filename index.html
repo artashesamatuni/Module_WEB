@@ -15,44 +15,37 @@
 </head>
 
 <body class='w3-content' style='max-width:800px;min-width:300px'>
-    <div class="w3-top w3-light-gray w3-bar" style="max-width:800px;min-width:300px">
-        <div id="small_menu" class="w3-top w3-bar-block w3-white w3-border w3-hide w3-hide-large w3-hide-medium">
-            <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="smallMenu()"><i class="fa fa-window-close-o"></i></a><a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
-            <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
-            <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
-            <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
-            <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
-            <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
-            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button">Help</a>
-        </div>
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large w3-hide-medium" onclick="smallMenu()"><i class="fa fa-navicon"></i></a>
-        <div class="w3-right">
-            <a href="/index.php" class="w3-bar-item w3-button">Dashboard</a>
-            <div class="w3-dropdown-click w3-hide-small">
-                <button class="w3-button" onclick="dropdown()">Configuration&nbsp;<i class="fa fa-caret-down"></i></button>
-                <div id="config_menu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:10">
-                    <a href="/localstorage/modules/di/di_main.php" class="w3-bar-item w3-button">Digital Inputs</a>
-                    <a href="/localstorage/modules/do/do_main.php" class="w3-bar-item w3-button">Digital Outputs</a>
-                    <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button">MQTT Settings</a>
-                    <a href="/localstorage/modules/mbus/mbus_main.php" class="w3-bar-item w3-button">Modbus Settings</a>
-                    <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button">Access control</a>
-                    <a href="/localstorage/modules/config/config_main.php" class="w3-bar-item w3-button">Settings</a>
-                </div>
-            </div>
-            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-question-circle-o"></i></a>
-            <a href="http://www.eaglemon.com" target="_blank" class="w3-bar-item w3-right">
-                <image alt="logo" src="/localstorage/images/logo_s.png" style="height: 24px" />
+    <!-------------------------------------------------------------------------------------------------------------------------------------------------->
+    <div class="w3-top w3-light-gray" style="max-width:800px;min-width:300px">
+        <div class="w3-bar w3-left-align">
+            <a href="http://www.eaglemon.com" target="_blank" class="w3-bar-item w3-button">
+                <image alt="logo" src="/localstorage/images/logo_s.png" height="18" />
             </a>
+            <a href="#" class="w3-bar-item w3-button"><img src="/localstorage/images/img_avatar1.png" class="w3-circle w3-border" alt="Admin" width="18" height="18"/></a><a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="small_drop()"><i class="fa fa-bars"></i></a>
+            <a class="w3-bar-item w3-button w3-hide-small w3-right" href="javascript:void(0);" onclick="big_drop()">Configuration&nbsp;<i class="fa fa-toggle-down"></i></a>
+            <a href="/index.php" class="w3-bar-item w3-button">Dashboard</a>
+            <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-right w3-hover-white"><i class="fa fa-question-circle-o"></i></a>
         </div>
-        <div class="w3-left">
-            <div class="w3-bar-item">
-            </div>
-            <a href="" class="w3-bar-item"><i class="fa fa-sign-out"></i></a></div>
+        <div id="small_nav" class="w3-bar-block w3-border w3-light-gray w3-hide w3-hide-large w3-hide-medium">
+            <a href="/localstorage/ai.php" class="w3-bar-item w3-button w3-padding-large">Analog Inputs</a>
+            <a href="/localstorage/di.php" class="w3-bar-item w3-button w3-padding-large">Digital Inputs</a>
+            <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button w3-padding-large">MQTT Settings</a>
+            <a href="/localstorage/mbus.php" class="w3-bar-item w3-button w3-padding-large">Modbus Settings</a>
+            <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button w3-padding-large">Access control</a>
+            <a href="/localstorage/config.php" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+        </div>
+        <div id="big_nav" class="w3-bar-block w3-border w3-light-gray w3-hide w3-hide-small">
+            <a href="/localstorage/ai.php" class="w3-bar-item w3-button w3-padding-large">Analog Inputs</a>
+            <a href="/localstorage/di.php" class="w3-bar-item w3-button w3-padding-large">Digital Inputs</a>
+            <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button w3-padding-large">MQTT Settings</a>
+            <a href="/localstorage/mbus.php" class="w3-bar-item w3-button w3-padding-large">Modbus Settings</a>
+            <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button w3-padding-large">Access control</a>
+            <a href="/localstorage/config.php" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+        </div>
     </div>
-
-    <script type='text/javascript'>
-        function dropdown() {
-            var x = document.getElementById("config_menu");
+    <script>
+        function small_drop() {
+            var x = document.getElementById("small_nav");
             if (x.className.indexOf("w3-show") == -1) {
                 x.className += " w3-show";
             } else {
@@ -60,8 +53,8 @@
             }
         }
 
-        function smallMenu() {
-            var x = document.getElementById("small_menu");
+        function big_drop() {
+            var x = document.getElementById("big_nav");
             if (x.className.indexOf("w3-show") == -1) {
                 x.className += " w3-show";
             } else {
@@ -69,19 +62,20 @@
             }
         }
     </script>
-    <div class="w3-main" style="height: 100%; margin-top:48px;margin-bottom:64px;">
+    <!-------------------------------------------------------------------------------------------------------------------------------------------------->
+    <div class="w3-main" style="height: 100%; margin-top:50px;margin-bottom:64px;">
         <div class='w3-row w3-light-gray'>
             <div class='w3-col  m3 s3'>
-                <button onclick="fn_1()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn1'>Channel 0</button>
+                <button onclick="fn_1()" class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn1'>Relay 0</button>
             </div>
             <div class='w3-col  m3 s3'>
-                <button onclick="fn_2()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn2'>Channel 1</button>
+                <button onclick="fn_2()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn2'>Relay 1</button>
             </div>
             <div class='w3-col  m3 s3'>
-                <button onclick="fn_3()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn3'>Channel 2</button>
+                <button onclick="fn_3()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn3'>Relay 2</button>
             </div>
             <div class='w3-col  m3 s3'>
-                <button onclick="fn_4()" class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn4'>Channel 3</button>
+                <button onclick="fn_4()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn4'>Relay 3</button>
             </div>
         </div>
 
@@ -149,144 +143,37 @@
                 }
                 document.cookie = "c_tab=4";
             }
-            fn_4();
+            fn_1();
         </script>
         <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
-            <div id="tab1" class="w3-container w3-hide">
+            <div id="tab1" class="w3-container w3-show">
                 <br/>
-                <form method="post">
+                <form method="post" action="modules/do/do_save.php">
+                    <input name="id" type="hidden" value="1">
+                    <input name="id" type="hidden" value="1" />
                     <div class="w3-row-padding">
                         <div class="w3-col m2 s2">
                             <label>Enable</label>
                             <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
+                        <div class="w3-col m2 s2">
+                            <label>Polarity</label>
+                            <br/><input type="checkbox" class="w3-check" name="polarity" value="0" /></div>
+                        <div class="w3-col m5 s5">
                             <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Pump" />
+                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Gate" />
                         </div>
-                    </div>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="L/min" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
+                        <div class="w3-col m3 s3"><label>Modes</label>
+                            <select name="mode" class="w3-select" value="1"><option value="1">Manual</option>
+<option value="2">Input Based</option>
+<option value="3">Time based</option>
+<option value="4">Schedule based</option>
+</select>
                         </div>
                     </div>
                     <br/>
                     <div class="w3-row-padding">
                         <div class="w3-col m12 s12">
-                            <input type="submit" name="insert1" class="w3-button w3-block w3-green" value="Save" />
-                        </div>
-                    </div>
-                </form>
-                <br/>
-            </div>
-            <div id="tab2" class="w3-container w3-hide">
-                <br/>
-                <form method="post">
-                    <div class="w3-row-padding">
-                        <div class="w3-col m2 s2">
-                            <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Temperature" />
-                        </div>
-                    </div>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="C" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m12 s12">
-                            <input type="submit" name="insert2" class="w3-button w3-block w3-green" value="Save" />
-                        </div>
-                    </div>
-                </form>
-                <br/>
-            </div>
-            <div id="tab3" class="w3-container w3-hide">
-                <br/>
-                <form method="post">
-                    <div class="w3-row-padding">
-                        <div class="w3-col m2 s2">
-                            <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Tank" />
-                        </div>
-                    </div>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="L" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m12 s12">
-                            <input type="submit" name="insert3" class="w3-button w3-block w3-green" value="Save" />
-                        </div>
-                    </div>
-                </form>
-                <br/>
-            </div>
-            <div id="tab4" class="w3-container w3-show">
-                <br/>
-                <form method="post">
-                    <div class="w3-row-padding">
-                        <div class="w3-col m2 s2">
-                            <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m10 s10">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Level" />
-                        </div>
-                    </div>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m4 s4">
-                            <label>Unit</label>
-                            <input name="unit" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="m" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Min</label>
-                            <input name="min" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="0" />
-                        </div>
-                        <div class="w3-col m4 s4">
-                            <label>Max</label>
-                            <input name="max" class="w3-input w3-border" type="number" step="any" placeholder="e.g. 0" value="10000" />
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m12 s12">
-                            <input type="submit" name="insert4" class="w3-button w3-block w3-green" value="Save" />
+                            <input type="submit" name="insert" class="w3-button w3-block w3-green" value="Save" />
                         </div>
                     </div>
                 </form>
@@ -299,10 +186,9 @@
         <div class="w3-bar w3-center">
             <h4><span class="w3-text-gray">Eagle</span><span class="w3-text-orange">MON</span></h4>
         </div>
-        <div class="w3-bar w3-center">Sesion started: Timeout: User: page: </div>
     </div>
     <script>
-        var refInterval = window.setInterval('update_time()', 500); // 1 seconds
+        var refInterval = window.setInterval('update_time()', 10000); // 10 seconds
         var update_time = function() {
             $.ajax({
                 url: '/localstorage/modules/get_time.php',
