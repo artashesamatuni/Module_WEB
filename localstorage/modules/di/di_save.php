@@ -19,7 +19,7 @@ $sql = "UPDATE di_configs SET name = '".$name."', polarity=".$polarity.", enable
 if ($conn->query($sql)!=true) {
     echo "ERR: " . $sql . "<br>" . $conn->error;
 } else {
-    $msg = "դi_".$id;
+    $msg = "di_update";
     send($msg);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

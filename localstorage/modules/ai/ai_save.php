@@ -17,7 +17,7 @@ $sql = "UPDATE ai_configs SET name = '".$name."', unit='".$unit."', min=".$min."
 if ($conn->query($sql)!=true) {
     echo "ERR: " . $sql . "<br>" . $conn->error;
 } else {
-    $msg = "ai_".$id;
+    $msg = "ai_update";
     send($msg);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

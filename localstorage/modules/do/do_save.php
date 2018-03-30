@@ -21,7 +21,7 @@ echo $sql;
 if ($conn->query($sql)!=true) {
     echo "ERR: " . $sql . "<br>" . $conn->error;
 } else {
-    $msg = "դօ_".$id;
+    $msg = "do_update";
     send($msg);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
