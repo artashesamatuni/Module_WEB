@@ -9,16 +9,16 @@
     $conn->close();
     echo "<table class=\"w3-table\">
             <tr class=\"w3-light-gray\">
-              <td>Node</td>
-              <td>Value</td>
-              <td>Unit</td>
+              <td style=\"width:70%\">Node</td>
+              <td style=\"width:15%\">Value</td>
+              <td style=\"width:15%\">Unit</td>
             </tr>\n";
     if ($result->num_rows > 0) {
         echo "<tbody>\n";
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
                     <td>".$row["name"]."</td>
-                    <td>".$row["value"]."</td>
+                    <td>".round($row["value"],2)."</td>
                     <td>".$row["unit"]."</td>
                  </tr>\n";
         }

@@ -1,7 +1,7 @@
-
 <!doctype html>
-        <html lang="en">
-          <head>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
     <title>EM-1044</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,12 +23,12 @@
             </a>
             <a href="#" class="w3-bar-item w3-button"><img src="/localstorage/images/img_avatar1.png" class="w3-circle w3-border" alt="Admin" width="18" height="18"/></a><a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="small_drop()"><i class="fa fa-bars"></i></a>
             <a class="w3-bar-item w3-button w3-hide-small w3-right" href="javascript:void(0);" onclick="big_drop()">Configuration&nbsp;<i class="fa fa-toggle-down"></i></a>
-            <a href="/index.php" class="w3-bar-item w3-button">Dashboard</a>
             <a onclick="document.getElementById('help').style.display='block'" class="w3-bar-item w3-button w3-right w3-hover-white"><i class="fa fa-question-circle-o"></i></a>
         </div>
         <div id="small_nav" class="w3-bar-block w3-border w3-light-gray w3-hide w3-hide-large w3-hide-medium">
             <a href="/localstorage/ai.php" class="w3-bar-item w3-button w3-padding-large">Analog Inputs</a>
             <a href="/localstorage/di.php" class="w3-bar-item w3-button w3-padding-large">Digital Inputs</a>
+            <a href="/localstorage/do.php" class="w3-bar-item w3-button w3-padding-large">Digital Outputs</a>
             <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button w3-padding-large">MQTT Settings</a>
             <a href="/localstorage/mbus.php" class="w3-bar-item w3-button w3-padding-large">Modbus Settings</a>
             <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button w3-padding-large">Access control</a>
@@ -37,6 +37,7 @@
         <div id="big_nav" class="w3-bar-block w3-border w3-light-gray w3-hide w3-hide-small">
             <a href="/localstorage/ai.php" class="w3-bar-item w3-button w3-padding-large">Analog Inputs</a>
             <a href="/localstorage/di.php" class="w3-bar-item w3-button w3-padding-large">Digital Inputs</a>
+            <a href="/localstorage/do.php" class="w3-bar-item w3-button w3-padding-large">Digital Outputs</a>
             <a href="/localstorage/modules/mqtt/mqtt_main.php" class="w3-bar-item w3-button w3-padding-large">MQTT Settings</a>
             <a href="/localstorage/mbus.php" class="w3-bar-item w3-button w3-padding-large">Modbus Settings</a>
             <a href="/localstorage/modules/access/login_main.php" class="w3-bar-item w3-button w3-padding-large">Access control</a>
@@ -61,123 +62,96 @@
                 x.className = x.className.replace(" w3-show", "");
             }
         }
+
     </script>
     <!-------------------------------------------------------------------------------------------------------------------------------------------------->
-    <div class="w3-main" style="height: 100%; margin-top:50px;margin-bottom:64px;">
-        <div class='w3-row w3-light-gray'>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_1()" class='w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top' id='btn1'>Relay 0</button>
+    <div class="w3-main w3-border" style="height: 100%; margin-top:50px;margin-bottom:80px;">
+        <div class='w3-row'>
+            <div class='w3-col w3-container m6 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Relay Outputs</h4>
+                    <form method="post">
+                        <div id="relay-container">empty</div>
+                    </form>
+                </div>
+                <script>
+                    var refInterval = window.setInterval('update_do()', 1000); // 1 seconds
+                    var update_do = function() {
+                        $.ajax({
+                            url: 'localstorage/modules/dashboard/dashboard_relay_update.php',
+                            success: function(response) {
+                                $('#relay-container').html(response);
+                            }
+                        });
+                    };
+                    update_do();
+
+                </script>
             </div>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_2()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn2'>Relay 1</button>
-            </div>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_3()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn3'>Relay 2</button>
-            </div>
-            <div class='w3-col  m3 s3'>
-                <button onclick="fn_4()" class='w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top' id='btn4'>Relay 3</button>
+            <div class='w3-col w3-container m6 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Digital Input</h4>
+                    <form>
+                        <div id="digital-container">empty</div>
+                    </form>
+                </div>
+                <script>
+                    var refInterval = window.setInterval('update_di()', 1000); // 1 seconds
+                    var update_di = function() {
+                        $.ajax({
+                            url: 'localstorage/modules/dashboard/dashboard_digital_update.php',
+                            success: function(response) {
+                                $('#digital-container').html(response);
+                            }
+                        });
+                    };
+                    update_di();
+
+                </script>
             </div>
         </div>
-
-        <script type='text/javascript'>
-            function fn_1() {
-                var x = document.getElementById("tab1");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className = "w3-container w3-show";
-                    document.getElementById("btn1").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab1").className = "w3-container w3-show";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-hide";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-hide";
-                    document.getElementById("btn4").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab4").className = "w3-container w3-hide";
-                }
-                document.cookie = "c_tab=1";
-            }
-
-            function fn_2() {
-                var x = document.getElementById("tab2");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className = "w3-container w3-show";
-                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab1").className = "w3-container w3-hide";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-show";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-hide";
-                    document.getElementById("btn4").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab4").className = "w3-container w3-hide";
-                }
-                document.cookie = "c_tab=2";
-            }
-
-            function fn_3() {
-                var x = document.getElementById("tab3");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className = "w3-container w3-show";
-                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab1").className = "w3-container w3-hide";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-hide";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-show";
-                    document.getElementById("btn4").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab4").className = "w3-container w3-hide";
-                }
-                document.cookie = "c_tab=3";
-            }
-
-            function fn_4() {
-                var x = document.getElementById("tab4");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className = "w3-container w3-show";
-                    document.getElementById("btn1").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab1").className = "w3-container w3-hide";
-                    document.getElementById("btn2").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab2").className = "w3-container w3-hide";
-                    document.getElementById("btn3").className = "w3-button w3-block w3-gray w3-text-white w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab3").className = "w3-container w3-hide";
-                    document.getElementById("btn4").className = "w3-button w3-block w3-light-gray w3-border-right w3-border-left w3-border-top";
-                    document.getElementById("tab4").className = "w3-container w3-show";
-                }
-                document.cookie = "c_tab=4";
-            }
-            fn_1();
-        </script>
-        <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
-            <div id="tab1" class="w3-container w3-show">
-                <br/>
-                <form method="post" action="modules/do/do_save.php">
-                    <input name="id" type="hidden" value="1">
-                    <input name="id" type="hidden" value="1" />
-                    <div class="w3-row-padding">
-                        <div class="w3-col m2 s2">
-                            <label>Enable</label>
-                            <br/><input type="checkbox" class="w3-check" name="enabled" value="1" checked="checked" /></div>
-                        <div class="w3-col m2 s2">
-                            <label>Polarity</label>
-                            <br/><input type="checkbox" class="w3-check" name="polarity" value="0" /></div>
-                        <div class="w3-col m5 s5">
-                            <label>Name</label>
-                            <input name="name" class="w3-input w3-border" type="text" placeholder="e.g. Room temperature" value="Gate" />
-                        </div>
-                        <div class="w3-col m3 s3"><label>Modes</label>
-                            <select name="mode" class="w3-select" value="1"><option value="1">Manual</option>
-<option value="2">Input Based</option>
-<option value="3">Time based</option>
-<option value="4">Schedule based</option>
-</select>
-                        </div>
-                    </div>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m12 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Analog Inputs</h4>
+                    <div id="analog-container"><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></div>
                     <br/>
-                    <div class="w3-row-padding">
-                        <div class="w3-col m12 s12">
-                            <input type="submit" name="insert" class="w3-button w3-block w3-green" value="Save" />
-                        </div>
-                    </div>
-                </form>
-                <br/>
+                </div>
+                <script>
+                    var refInterval = window.setInterval('update_ai()', 1000); // 1 seconds
+                    var update_ai = function() {
+                        $.ajax({
+                            url: 'localstorage/modules/dashboard/dashboard_analog_update.php',
+                            success: function(response) {
+                                $('#analog-container').html(response);
+                            }
+                        });
+                    };
+                    update_ai();
+
+                </script>
+            </div>
+        </div>
+        <div class='w3-row'>
+            <div class='w3-col w3-container m12 s12'>
+                <div class='w3-panel w3-border'>
+                    <h4>Modbus Nods</h4>
+                    <div id="mbus-container"></div>
+                    <br/>
+                </div>
+                <script>
+                    var refInterval = window.setInterval('update_mbus()', 1000); // 1 seconds
+                    var update_mbus = function() {
+                        $.ajax({
+                            url: 'localstorage/modules/dashboard/dashboard_mbus_update.php',
+                            success: function(response) {
+                                $('#mbus-container').html(response);
+                            }
+                        });
+                    };
+                    update_mbus();
+
+                </script>
             </div>
         </div>
     </div>
@@ -198,6 +172,20 @@
             });
         };
         update_time();
+
     </script>
+    <div id="help" class="w3-modal">
+        <div class="w3-modal-content">
+            <span onclick="document.getElementById('help').style.display='none'" class="w3-button w3-light-gray w3-text-red w3-display-topright"><i class="fa fa-close"></i></span>
+            <div class="w3-container w3-border-right w3-border-left w3-border-bottom w3-light-gray">
+
+                <h4>Test Help</h4>
+                <div>
+                    <h1>Test</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-    </html>
+
+</html>

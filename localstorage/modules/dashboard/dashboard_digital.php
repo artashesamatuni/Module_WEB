@@ -3,7 +3,7 @@ require_once 'localstorage/modules/basic.php';
 echo "<div class='w3-panel w3-border'>
         <h4>Digital Input</h4>
         <form>
-        <div id=\"digital-container\">empty</div>
+        <div id=\"digital-container\"><div class=\"w3-center\"><i class=\"fa fa-spinner w3-spin\" style=\"font-size:64px\"></i></div></div>
         </form>
     </div>\n";
 echo "<script>

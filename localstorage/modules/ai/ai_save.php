@@ -1,5 +1,6 @@
 <?php
 require_once '../connection.php';
+require_once '../soc.php';
 if (isset($_POST['enabled'])) {
     $enabled=1;
 } else {
@@ -16,6 +17,8 @@ $sql = "UPDATE ai_configs SET name = '".$name."', unit='".$unit."', min=".$min."
 if ($conn->query($sql)!=true) {
     echo "ERR: " . $sql . "<br>" . $conn->error;
 } else {
+    $msg = "ai_".$id;
+    send($msg);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 $conn->close();
