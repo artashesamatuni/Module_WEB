@@ -15,13 +15,11 @@
               <td style=\"width:15%\">Unit</td>
             </tr>\n";
     if ($result->num_rows > 0) {
-        $msg = "get_mbus_".$row['id'];
-        $val = get($msg);
         echo "<tbody>\n";
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
                     <td>".$row["name"]."</td>
-                    <td>".round($val,2)."</td>
+                    <td>".round($row['value'],2)."</td>
                     <td>".$row["unit"]."</td>
                  </tr>\n";
         }

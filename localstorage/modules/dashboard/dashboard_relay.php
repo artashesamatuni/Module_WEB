@@ -41,5 +41,4 @@ function save($id)
     send($msg);
 }
 
-    //    <form method=\"post\" action=\"localstorage/modules/dashboard/button.php\">
 ?>

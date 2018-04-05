@@ -10,12 +10,10 @@
   $conn->close();
   if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
-          $msg = "get_di_".$row['id'];
-          $val = get($msg);
           echo "<div class=\"w3-row-padding\">
                     <div class=\"w3-col m2 s2\">\n";
                     echo "<input class=\"w3-radio\" type=\"radio\"";
-                    if ($val) {
+                    if ($row['state']) {
                         echo " checked/>";
                     } else {
                         echo "/>";
@@ -23,7 +21,7 @@
           echo "</div>";
           echo "<div class=\"w3-col m10 s10\">\n";
           echo "<div name=\"di".$row["id"]."\" class=\"w3-panel w3-round-large w3-border\"><p>".$row["name"];
-          if ($val) {
+          if ($row['state']) {
               echo " ON";
           } else {
               echo " OFF";

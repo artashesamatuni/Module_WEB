@@ -1,6 +1,5 @@
 <?php
     require_once "../connection.php";
-    require_once "../soc.php";
     $conn    = Connect();
     $sql = "SELECT ai_status.id, ai_status.state, ai_configs.enabled, ai_configs.name, ai_configs.unit, ai_configs.min, ai_configs.max
             FROM ai_status
@@ -8,6 +7,7 @@
             ON ai_status.id=ai_configs.id";
     $result = $conn->query($sql);
     $conn->close();
+
     if ($result->num_rows > 0) {
         echo "<style>
         #meter_item
@@ -32,15 +32,13 @@
         </style>";
         while ($row = $result->fetch_assoc()) {
           if ($row['enabled']){
-            echo  "<div class=\"w3-border\">\n";
-            $msg = "get_ai_".$row['id'];
-            $val = get($msg);
-            echo "<header class=\"w3-container\">
+            echo  "<div class=\"w3-border\">
+                        <header class=\"w3-container\">
                             <div class=\"w3-left\">".$row['name']."</div>
-                            <div class=\"w3-right\">".round($val,2)." ".$row['unit']."</div>
+                            <div class=\"w3-right\">".round($row['state'],2)." ".$row['unit']."</div>
                         </header>
                         <div class=\"w3-container\">";
-                  echo "<meter id=\"meter_item\" min=\"".$row['min']."\" value=\"".$val."\" max=\"".$row['max']."\"></meter>";
+                  echo "<meter id=\"meter_item\" min=\"".$row['min']."\" value=\"".$row['state']."\" max=\"".$row['max']."\"></meter>";
                  $scale = $row['max']-$row['min'];
                   echo "<ul id=\"scale\">
                             <li style=\"width: 5%\"><span></span></li>
