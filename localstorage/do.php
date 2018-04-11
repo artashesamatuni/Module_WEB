@@ -77,25 +77,25 @@ function read_config($cur_tab)
                 if ($result->num_rows > 0) {
                     while ($row1 = $result->fetch_assoc()) {
                         echo "<div class=\"w3-row-padding\">
-                                <div class=\"w3-col m2 s3\">\n";
+                                <div class=\"w3-col m4 s4\">\n";
                         do_sources($row1["source"]);
                         echo "</div>
-                                <div class=\"w3-col m2 s3\">\n";
+                                <div class=\"w3-col m4 s4\">\n";
                         do_node($row1["source"], $row1["channel"]);
                         echo "</div>
-                                <div class=\"w3-col m2 s3\">\n";
+                                <div class=\"w3-col m4 s4\">\n";
                         do_operators($row1["operator"]);
                         echo "</div>
-                              <div class=\"w3-col m2 s3\">
+                              <div class=\"w3-col m4 s4\">
                                 <label>Value</label>
                                 <input name=\"value\" class=\"w3-input w3-border\" type=\"number\" step=\"any\" value=\"".$row1["value"]."\" />
                               </div>
-                              <div class=\"w3-col m2 s3\">\n";
-                        do_operators($row1["operator"]);
-                        echo "</div>
-                              <div class=\"w3-col m2 s3\">\n";
-                        do_operators($row1["operator"]);
-                        echo "</div>
+                              <div class=\"w3-col m4 s4\">
+                              <label>On delay(sec.)</label>
+                              <input name=\"on_delay\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row1["on_delay"]."\" /></div>
+                              <div class=\"w3-col m4 s4\">
+                              <label>Off delay(sec.)</label>
+                              <input name=\"off_delay\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row1["off_delay"]."\" /></div>
                             </div>
                             <br/>";
                     }
@@ -134,22 +134,20 @@ function do_modes($mode)
     $sql = "SELECT name FROM rl_modes WHERE id=".$mode."";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $sel = $row["name"];
-        }
+        $row = $result->fetch_assoc();
+        $sel = $row["name"];
     }
-
     echo "<label>Modes</label>
-  <select name=\"mode\" class=\"w3-select\">\n";
+          <select name=\"mode\" class=\"w3-select\">\n";
     $sql = "SELECT id,name FROM rl_modes";
     $result = $conn->query($sql);
     $conn->close();
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            if ($row["name"] == $sel) {
-                echo "<option value=\"".$row["id"]."\" selected>".$row["name"]."</option>\n";
+        while ($row_mod = $result->fetch_assoc()) {
+            if ($row_mod["name"] == $sel) {
+                echo "<option value=\"".$row_mod["id"]."\" selected>".$row_mod["name"]."</option>\n";
             } else {
-                echo "<option value=\"".$row["id"]."\">".$row["name"]."</option>\n";
+                echo "<option value=\"".$row_mod["id"]."\">".$row_mod["name"]."</option>\n";
             }
         }
     }
@@ -231,15 +229,16 @@ function do_timer($id, $fn)
     $result = $conn->query($sql);
     $conn->close();
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
+        while ($row_tm = $result->fetch_assoc()) {
             if ($fn == "on") {
                 echo "<label>On duration</label>
-                  <input name=\"on\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row["on_duration"]."\">\n";
+                  <input name=\"on\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row_tm["on_duration"]."\">\n";
             }
             if ($fn == "off") {
                 echo "<label>Off duration</label>
-                  <input name=\"off\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row["off_duration"]."\">\n";
+                      <input name=\"off\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row_tm["off_duration"]."\">\n";
             }
         }
     }
 }
+?>

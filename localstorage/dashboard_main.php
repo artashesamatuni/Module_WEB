@@ -3,6 +3,23 @@ require_once 'localstorage/modules/basic.php';
 require_once 'localstorage/modules/menu.php';
 head();
 echo "<style>
+        .but {
+            border: none;
+            display: inline-block;
+            outline: 0;
+            padding: 0 20px;
+            height: 40px;
+            width: 100%;
+            font-size: 16px;
+            line-height: 40px;
+            border-radius: 20px;
+            vertical-align: middle;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            text-align: left;
+            cursor: pointer;
+            white-space: nowrap
+        }
         .label {
             display: inline-block;
             padding: 0 20px;
