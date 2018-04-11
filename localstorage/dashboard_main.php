@@ -2,6 +2,51 @@
 require_once 'localstorage/modules/basic.php';
 require_once 'localstorage/modules/menu.php';
 head();
+echo "<style>
+        .label {
+            display: inline-block;
+            padding: 0 20px;
+            height: 40px;
+            width: 100%;
+            font-size: 16px;
+            line-height: 40px;
+            border-radius: 20px;
+            background-color: #f1f1f1;
+        }
+
+        .dot {
+            float: left;
+            margin: 3px 17px 0 -17px;
+            height: 34px;
+            width: 34px;
+            background-color: #9e9e9e;
+            line-height: 34px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .reddot {
+            float: left;
+            margin: 2px 0px 0 2px;
+            height: 30px;
+            width: 30px;
+            background-color: #f44336;
+            line-height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .greendot {
+            float: left;
+            margin: 2px 0px 0 2px;
+            height: 30px;
+            width: 30px;
+            background-color: #4CAF50;
+            line-height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>";
 start_line();
 $cur = 'Dashboard';
 show_menu($cur);

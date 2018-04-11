@@ -69,17 +69,50 @@ function read_config($cur_tab)
             echo "</div>
                     </div>
                     <br/>\n";
-            if($row["mode"]==2) {
-            echo "<div class=\"w3-row-padding\">
-                            <div class=\"w3-col m6 s6\">";
-            do_operators();
-            echo "</div>
-                            <div class=\"w3-col m6 s6\">";
-            do_sources();
-            echo "</div>
-                        </div>
-                        <br/>";
-                      }
+            if ($row["mode"] == 2) {
+                $conn = Connect();
+                //rl_input_settings id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, source TEXT, channel TINYINT, operator TEXT, value REAL, on_delay INT, off_delay INT
+                $sql = "SELECT source, channel, operator, value, on_delay, off_delay FROM rl_input_settings WHERE id=".$row["id"]."";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while ($row1 = $result->fetch_assoc()) {
+                        echo "<div class=\"w3-row-padding\">
+                                <div class=\"w3-col m2 s3\">\n";
+                        do_sources($row1["source"]);
+                        echo "</div>
+                                <div class=\"w3-col m2 s3\">\n";
+                        do_node($row1["source"], $row1["channel"]);
+                        echo "</div>
+                                <div class=\"w3-col m2 s3\">\n";
+                        do_operators($row1["operator"]);
+                        echo "</div>
+                              <div class=\"w3-col m2 s3\">
+                                <label>Value</label>
+                                <input name=\"value\" class=\"w3-input w3-border\" type=\"number\" step=\"any\" value=\"".$row1["value"]."\" />
+                              </div>
+                              <div class=\"w3-col m2 s3\">\n";
+                        do_operators($row1["operator"]);
+                        echo "</div>
+                              <div class=\"w3-col m2 s3\">\n";
+                        do_operators($row1["operator"]);
+                        echo "</div>
+                            </div>
+                            <br/>";
+                    }
+                }
+                $conn->close();
+            }
+            if ($row["mode"] == 3) {
+                echo "<div class=\"w3-row-padding\">
+                        <div class=\"w3-col m6 s6\">\n";
+                do_timer($row["id"], "on");
+                echo "</div>
+                        <div class=\"w3-col m6 s6\">\n";
+                do_timer($row["id"], "off");
+                echo "</div>
+                    </div>
+                    <br/>";
+            }
 
 
             echo "<div class=\"w3-row-padding\">
@@ -94,80 +127,119 @@ function read_config($cur_tab)
     }
     echo "</div>\n";
 }
-/*
-if (isset($_POST['insert0'])) {
-    save(0);
-}
-if (isset($_POST['insert1'])) {
-    save(1);
-}
-if (isset($_POST['insert2'])) {
-    save(2);
-}
-if (isset($_POST['insert3'])) {
-    save(3);
-}
 
-*/
 function do_modes($mode)
 {
-
     $conn = Connect();
     $sql = "SELECT name FROM rl_modes WHERE id=".$mode."";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $sel = $row["name"];
-  }
-}
+        }
+    }
 
-echo "<label>Modes</label>
+    echo "<label>Modes</label>
   <select name=\"mode\" class=\"w3-select\">\n";
     $sql = "SELECT id,name FROM rl_modes";
     $result = $conn->query($sql);
     $conn->close();
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            if ($row["name"]==$sel) {
-            echo "<option value=\"".$row["id"]."\" selected>".$row["name"]."</option>\n";
-        }
-        else {
-            echo "<option value=\"".$row["id"]."\">".$row["name"]."</option>\n";
-        }
+            if ($row["name"] == $sel) {
+                echo "<option value=\"".$row["id"]."\" selected>".$row["name"]."</option>\n";
+            } else {
+                echo "<option value=\"".$row["id"]."\">".$row["name"]."</option>\n";
+            }
         }
     }
     echo "</select>\n";
 }
 
-function do_operators()
+function do_operators($src)
 {
     echo "<label>Function</label>
           <select name=\"operator\" class=\"w3-select\">\n";
-    $conn    = Connect();
+    $conn = Connect();
     $sql = "SELECT id,name FROM rl_operators";
     $result = $conn->query($sql);
     $conn->close();
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<option value=\"".$row["id"]."\">".$row["name"]."</option>\n";
+        while ($row_op = $result->fetch_assoc()) {
+            if ($row_op["id"] == $src) {
+                echo "<option value=\"".$row_op["id"]."\" selected>".$row_op["name"]."</option>\n";
+            } else {
+                echo "<option value=\"".$row_op["id"]."\">".$row_op["name"]."</option>\n";
+            }
         }
     }
     echo "</select>\n";
 }
 
-function do_sources()
+function do_sources($src)
 {
     echo "<label>Sources</label>
           <select name=\"source\" class=\"w3-select\">\n";
-    $conn    = Connect();
+    $conn = Connect();
     $sql = "SELECT id,name FROM rl_sources";
     $result = $conn->query($sql);
     $conn->close();
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<option value=\"".$row["id"]."\">".$row["name"]."</option>\n";
+        while ($row_src = $result->fetch_assoc()) {
+            if ($row_src["id"] == $src) {
+                echo "<option value=\"".$row_src["id"]."\" selected>".$row_src["name"]."</option>\n";
+            } else {
+                echo "<option value=\"".$row_src["id"]."\">".$row_src["name"]."</option>\n";
+            }
         }
     }
     echo "</select>\n";
 }
-?>
+function do_node($type, $src)
+{
+    echo "<label>Channel</label>
+          <select name=\"channel\" class=\"w3-select\">\n";
+    $conn = Connect();
+    if ($type == 1) {
+        $sql = "SELECT id,name FROM ai_configs";
+    }
+    if ($type == 2) {
+        $sql = "SELECT id,name FROM di_configs";
+    }
+    if ($type == 3) {
+        $sql = "SELECT id,name FROM mbus_nods";
+    }
+    $result = $conn->query($sql);
+    $conn->close();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            if ($row["id"] == $src) {
+                echo "<option value=\"".$row["id"]."\" selected>".$row["name"]."</option>\n";
+            } else {
+                echo "<option value=\"".$row["id"]."\">".$row["name"]."</option>\n";
+            }
+        }
+    }
+    echo "</select>\n";
+}
+
+
+function do_timer($id, $fn)
+{
+    $conn = Connect();
+    $sql = "SELECT id,on_duration,off_duration FROM rl_time_settings WHERE id=".$id."";
+    $result = $conn->query($sql);
+    $conn->close();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            if ($fn == "on") {
+                echo "<label>On duration</label>
+                  <input name=\"on\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row["on_duration"]."\">\n";
+            }
+            if ($fn == "off") {
+                echo "<label>Off duration</label>
+                  <input name=\"off\" class=\"w3-input w3-border\" type=\"number\" value=\"".$row["off_duration"]."\">\n";
+            }
+        }
+    }
+}
