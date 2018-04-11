@@ -69,6 +69,7 @@ function read_config($cur_tab)
             echo "</div>
                     </div>
                     <br/>\n";
+            if($row["mode"]==2) {
             echo "<div class=\"w3-row-padding\">
                             <div class=\"w3-col m6 s6\">";
             do_operators();
@@ -78,6 +79,7 @@ function read_config($cur_tab)
             echo "</div>
                         </div>
                         <br/>";
+                      }
 
 
             echo "<div class=\"w3-row-padding\">
